@@ -2,3 +2,5 @@ title: Sushobhon Karmakar
 # theme: jekyll-theme-minimal
 # theme: minima
 theme: jekyll-theme-cayman
+plugins:
+ - jekyll-tabs
