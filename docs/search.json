@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sushobhon Karmakar",
+    "section": "",
+    "text": "Welcome to My Portfolio\nHello, myself Sushobhon."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About this site\n\n\\frac{df}{dx} = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{(x+h) - x}"
+  }
+]

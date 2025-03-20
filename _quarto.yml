@@ -1,0 +1,39 @@
+project:
+  type: website
+  output-dir: docs
+  preview: 
+    port: 4005
+    browser: true
+
+website:
+  title: "Sushobhon Karmakar"
+  site-url: "https://sushobhon.github.io/" # makes site links work on your remote site
+  # favicon: "resources/img/favicon.png"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+    right:
+      - text: "{{< fa envelope size=large >}}"
+        href: mailto:email@gmail.com
+      - text: "{{< fa brands linkedin-in size=large >}}"
+        href: https://linkedin.com/in/user/
+      - text: "{{< fa brands x-twitter size=large >}}"
+        href: https://x.com/xuser/
+      - text: "{{< fa brands github size=large >}}"
+        href: https://www.github.com/user/
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    html-math-method: katex
+    code-block-bg: true
+    code-block-border-left: true
+    highlight-style: atom-one
+    code-line-numbers: true
