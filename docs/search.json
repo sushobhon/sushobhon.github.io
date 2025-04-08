@@ -4,13 +4,76 @@
     "href": "index.html",
     "title": "Sushobhon Karmakar",
     "section": "",
-    "text": "Welcome to My Portfolio\nHello, myself Sushobhon."
+    "text": "Discover My Work\nHello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\n\n\nIntroduction\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\n\nGet in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "About this site\n\n\\frac{df}{dx} = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{(x+h) - x}"
+    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#career-history",
+    "href": "about.html#career-history",
+    "title": "About Me",
+    "section": " Career History",
+    "text": "Career History\n\nSenior Data Scientist at Tiger Analytics (Jan’25 - Present).\nData Scientist at Tiger Analytics (Jun’23 - Dec’24).\nSenior Analyst at Tiger Analytics (Jun’21 - May’23).\nAnalyst at Tiger Analytics (Jan’21 - May’21)"
+  },
+  {
+    "objectID": "about.html#current-responsibilities",
+    "href": "about.html#current-responsibilities",
+    "title": "About Me",
+    "section": " Current Responsibilities",
+    "text": "Current Responsibilities\n\nProject Management: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.\nSupporting: Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring quality deliverables on time.\nMentoring: Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.\nInovation and RnD: Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client."
+  },
+  {
+    "objectID": "about.html#things-i-love-to-do",
+    "href": "about.html#things-i-love-to-do",
+    "title": "About Me",
+    "section": " Things I Love To Do:",
+    "text": "Things I Love To Do:\n\nReading and Listening Bengali Books.\nCooking Indian Recipies.\nPlaying Football and Badminton."
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
+  },
+  {
+    "objectID": "skills.html",
+    "href": "skills.html",
+    "title": "Skills",
+    "section": "",
+    "text": "Clustering of Patients\n\n Methods\n\nPolytomous Variable Latent Class Analysis\nDecision Tree Classification\n\n Tools\n\npoLCA package in R for Clustering\nopenxlsx for generating excel Report\nrpart for Building Decision Tree."
+  },
+  {
+    "objectID": "skills.html#academics",
+    "href": "skills.html#academics",
+    "title": "Skills",
+    "section": " Academics",
+    "text": "Academics\n\nStatistical Simulation (Basyesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
+  },
+  {
+    "objectID": "skills.html#analyst-tiger-analytics-jan21---jun21",
+    "href": "skills.html#analyst-tiger-analytics-jan21---jun21",
+    "title": "Skills",
+    "section": " Analyst, Tiger Analytics (Jan’21 - Jun’21)",
+    "text": "Analyst, Tiger Analytics (Jan’21 - Jun’21)\n\nStatistical Test of Significance\n\n Methods\n\nStatistical t-Test, z-Test and proportion Test\n\n Tools\n\ndplyr, tidyverse, base packages in R Programming"
+  },
+  {
+    "objectID": "skills.html#senior-analyst-tiger-analytics-jul21---jul23",
+    "href": "skills.html#senior-analyst-tiger-analytics-jul21---jul23",
+    "title": "Skills",
+    "section": "",
+    "text": "Clustering of Patients\n\n Methods\n\nPolytomous Variable Latent Class Analysis\nDecision Tree Classification\n\n Tools\n\npoLCA package in R for Clustering\nopenxlsx for generating excel Report\nrpart for Building Decision Tree."
   }
 ]

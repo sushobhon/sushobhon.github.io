@@ -1,0 +1,16 @@
+---
+title: "Projects"
+from: markdown+emoji
+resources:
+  - .nojekyll
+---
+
+Here is the list of my personal and academic projects:
+
+- **Water Quality Prediction:** Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. [Github](https://github.com/sushobhon/Projects/tree/main/WaterQuality_Prediction)
+
+- **Potato Disease Classification:** Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. [Github](https://github.com/sushobhon/Potato_Disease_Classification)
+
+- **2048:** Replicated well-known 2048 game using python.[Github](https://github.com/sushobhon/2048_game)
+
+- **Breast Cancer Risk Prediction:** Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. [Drive](https://drive.google.com/drive/folders/1zNRMZbtpUvegSvtm86sVH_JCVTAGqANX)

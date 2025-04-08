@@ -1,0 +1,34 @@
+---
+title: "Skills"
+from: markdown+emoji
+resources:
+  - .nojekyll
+---
+
+## {{< fa briefcase >}} Senior Analyst, Tiger Analytics (Jul'21 - Jul'23)
+- Clustering of Patients
+    - {{< fa chalkboard >}} Methods
+        - Polytomous Variable Latent Class Analysis
+        - Decision Tree Classification
+    - {{< fa screwdriver-wrench >}} Tools
+        - `poLCA` package in R for Clustering
+        - `openxlsx` for generating excel Report
+        - `rpart` for Building Decision Tree.
+
+
+## {{< fa briefcase >}} Analyst, Tiger Analytics (Jan'21 - Jun'21)
+- Statistical Test of Significance
+    -   {{< fa chalkboard >}} Methods
+        - Statistical t-Test, z-Test and proportion Test
+    - {{< fa screwdriver-wrench >}} Tools
+        - `dplyr`, `tidyverse`, `base` packages in R Programming
+
+## {{< fa building-columns >}} Academics
+- Statistical Simulation (Basyesian Estimation, MCMC)
+    - {{< fa screwdriver-wrench >}} Tools
+        - R Programming
+        - $\LaTeX$ for report generation
+- Computation of Descriptive Statistics for Practical
+    - {{< fa screwdriver-wrench >}} Tools
+        - C Programming, Excel
+        - R Markdown for Report Generation.

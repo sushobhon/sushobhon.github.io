@@ -2,10 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sushobhon.github.io/index.html</loc>
-    <lastmod>2025-03-20T11:49:03.129Z</lastmod>
+    <lastmod>2025-03-24T17:18:40.696Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/about.html</loc>
-    <lastmod>2025-03-20T11:47:13.299Z</lastmod>
+    <lastmod>2025-03-20T18:16:37.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/project.html</loc>
+    <lastmod>2025-04-08T04:53:52.106Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/skills.html</loc>
+    <lastmod>2025-04-08T05:05:30.436Z</lastmod>
   </url>
 </urlset>

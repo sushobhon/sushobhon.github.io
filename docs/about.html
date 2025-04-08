@@ -71,49 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -143,22 +100,26 @@ window.Quarto = {
     <a class="nav-link active" href="./about.html" aria-current="page"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./project.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="mailto:koushik.khan.ds@gmail.com"> 
+    <a class="nav-link" href="mailto:email@gmail.com"> 
 <span class="menu-text"><i class="fa-solid fa-envelope fa-large" aria-label="envelope"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://linkedin.com/in/koushikkhan/"> 
+    <a class="nav-link" href="https://linkedin.com/in/user/"> 
 <span class="menu-text"><i class="fa-brands fa-linkedin-in fa-large" aria-label="linkedin-in"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://x.com/koushikkhan92/"> 
+    <a class="nav-link" href="https://x.com/xuser/"> 
 <span class="menu-text"><i class="fa-brands fa-x-twitter fa-large" aria-label="x-twitter"></i></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://www.github.com/koushikkhan/"> 
+    <a class="nav-link" href="https://www.github.com/user/"> 
 <span class="menu-text"><i class="fa-brands fa-github fa-large" aria-label="github"></i></span></a>
   </li>  
 </ul>
@@ -173,8 +134,17 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#education" id="toc-education" class="nav-link active" data-scroll-target="#education"><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Education</a></li>
+  <li><a href="#career-history" id="toc-career-history" class="nav-link" data-scroll-target="#career-history"><i class="fa-solid fa-user-tie" aria-label="user-tie"></i> Career History</a></li>
+  <li><a href="#current-responsibilities" id="toc-current-responsibilities" class="nav-link" data-scroll-target="#current-responsibilities"><i class="fa-solid fa-laptop" aria-label="laptop"></i> Current Responsibilities</a></li>
+  <li><a href="#things-i-love-to-do" id="toc-things-i-love-to-do" class="nav-link" data-scroll-target="#things-i-love-to-do"><i class="fa-solid fa-umbrella-beach" aria-label="umbrella-beach"></i> Things I Love To Do:</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -182,6 +152,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">About Me</h1>
+<p class="subtitle lead">Educational, Professional and Personal Background</p>
 </div>
 
 
@@ -198,12 +169,41 @@ window.Quarto = {
 </header>
 
 
-<p>About this site</p>
-<p><span class="math display">
-\frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{(x+h) - x}
-</span></p>
+<section id="education" class="level2">
+<h2 class="anchored" data-anchor-id="education"><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Education</h2>
+<ul>
+<li>M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.</li>
+<li>B. Sc. in Statistics (2017), Visva-Bharati, WB, India.</li>
+</ul>
+</section>
+<section id="career-history" class="level2">
+<h2 class="anchored" data-anchor-id="career-history"><i class="fa-solid fa-user-tie" aria-label="user-tie"></i> Career History</h2>
+<ul>
+<li>Senior Data Scientist at Tiger Analytics (Jan’25 - Present).</li>
+<li>Data Scientist at Tiger Analytics (Jun’23 - Dec’24).</li>
+<li>Senior Analyst at Tiger Analytics (Jun’21 - May’23).</li>
+<li>Analyst at Tiger Analytics (Jan’21 - May’21)</li>
+</ul>
+</section>
+<section id="current-responsibilities" class="level2">
+<h2 class="anchored" data-anchor-id="current-responsibilities"><i class="fa-solid fa-laptop" aria-label="laptop"></i> Current Responsibilities</h2>
+<ul>
+<li><strong>Project Management</strong>: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.</li>
+<li><strong>Supporting:</strong> Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring quality deliverables on time.</li>
+<li><strong>Mentoring:</strong> Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.</li>
+<li><strong>Inovation and RnD:</strong> Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client.</li>
+</ul>
+</section>
+<section id="things-i-love-to-do" class="level2">
+<h2 class="anchored" data-anchor-id="things-i-love-to-do"><i class="fa-solid fa-umbrella-beach" aria-label="umbrella-beach"></i> Things I Love To Do:</h2>
+<ul>
+<li>Reading and Listening Bengali Books.</li>
+<li>Cooking Indian Recipies.</li>
+<li>Playing Football and Badminton.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
