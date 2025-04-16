@@ -1,6 +1,6 @@
 ---
 title: "Sushobhon Karmakar"
-description: "A data scientist by profession, an avid learner and a techie by heart."
+description: "Data Scientist | Learner | Tech Enthusiast"
 from: markdown+emoji
 toc: false
 image: "resources/img/Boki-avatar.jpg"
@@ -12,6 +12,17 @@ resources:
   - .nojekyll
 ---
 
-# Welcome to My Portfolio
+# Discover My Work
 
-Hello, myself Sushobhon.
+Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as **Senior Data Scientist** at [Tiger Analytics](https://www.tigeranalytics.com/).  
+
+# Introduction
+
+Hi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at [Tiger Analytics](https://www.tigeranalytics.com/) in Bangalore, India.  
+
+I’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.  
+
+Thanks for stopping by! I hope you enjoy discovering more about my work.  
+
+# Get in Touch
+I’d love to hear from you! Feel free to reach out to me via email at [sushobhonkarmakar@gmail.com](mailto: sushobhonkarmakar@gmail.com)

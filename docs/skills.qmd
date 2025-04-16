@@ -1,6 +1,0 @@
----
-title: "Skills"
-from: markdown+emoji
-resources:
-  - .nojekyll
----

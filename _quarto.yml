@@ -13,18 +13,19 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - project.qmd
+      - skills.qmd      
       - about.qmd
 
     right:
       - text: "{{< fa envelope size=large >}}"
-        href: mailto:email@gmail.com
+        href: mailto:sushobhonkarmakar@gmail.com
       - text: "{{< fa brands linkedin-in size=large >}}"
-        href: https://linkedin.com/in/user/
+        href: https://www.linkedin.com/in/sushobhon-karmakar-579403160/
       - text: "{{< fa brands x-twitter size=large >}}"
-        href: https://x.com/xuser/
+        href: https://x.com/sushobhon96
       - text: "{{< fa brands github size=large >}}"
-        href: https://www.github.com/user/
-
+        href: https://github.com/sushobhon
 format:
   html:
     theme:

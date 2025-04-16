@@ -1,9 +1,29 @@
 ---
 title: "About Me"
+subtitle: "Educational, Professional and Personal Background"
+from: markdown+emoji
+resources:
+  - .nojekyll
 ---
 
-About this site
+## {{< fa graduation-cap >}} Education
+- M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.
+- B. Sc. in Statistics (2017), Visva-Bharati, WB, India.
 
-$$
-\frac{df}{dx} = \lim_{h \to 0} \frac{f(x+h) - f(x)}{(x+h) - x}
-$$
+## {{< fa user-tie >}} Career History
+- Senior Data Scientist at Tiger Analytics (Jan'25 - Present).
+- Data Scientist at Tiger Analytics (Jun'23 - Dec'24).
+- Senior Analyst at Tiger Analytics (Jun'21 - May'23).
+- Analyst at Tiger Analytics (Jan'21 - May'21)
+
+## {{< fa laptop >}} Current Responsibilities
+- **Project Management**: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.
+- **Supporting:** Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring  quality deliverables on time.
+- **Mentoring:** Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.
+- **Inovation and RnD:** Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client.
+
+## {{< fa umbrella-beach >}} Things I Love To Do:
+
+- Reading and Listening Bengali Books.
+- Cooking Indian Recipies.
+- Playing Football and Badminton.
