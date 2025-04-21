@@ -4,7 +4,21 @@
     "href": "skills.html",
     "title": "Skills",
     "section": "",
-    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython: (pandas, numpy, statsmpdels)"
+    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython (pandas, numpy, statsmpdels)"
+  },
+  {
+    "objectID": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
+    "href": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
+    "title": "Skills",
+    "section": "",
+    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython (pandas, numpy, statsmpdels)"
+  },
+  {
+    "objectID": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
+    "href": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
+    "title": "Skills",
+    "section": " Data Scientist, Tiger Analytics (Aug’23 - Dec’24)",
+    "text": "Data Scientist, Tiger Analytics (Aug’23 - Dec’24)\n\nPrice Optimization through Market Analysis\n\n Methods\n\nAnalyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score\nForecasted Future KPI’s using Time Series Models\n\n Tools\n\nPython (pandas, numpy) for comprehensive data analysis and manipulation\nExcel Solver for optimization of weighting factors\n\n\nRepresentative Property Identification for Market\n\n Methods\n\nPerformed KMeans clustering analysis on property and location attributes to group similar properties\nApplied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster\nCalculated cluster centroids and used cosine similarity to identify representative properties for each market\n\n Tools\n\nR (data.table, Rlof) for data analysis\nR (leaflet, mapview) for interactive geospatial visualization and map generation\n\n\nFinding Optimal Leases for Discussion\n\n Methods\n\nEmployed Federov’s Exchange Algorithm to generate optimal hypothetical lease scenarios\nUtilized cosine similarity to select the most representative and relevant optimal leases\n\n Tools\n\nR: AlgDesign package for implementing the Federov’s Exchange Algorithm\nExcel: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results"
   },
   {
     "objectID": "skills.html#senior-analyst-tiger-analytics-jul21---jul23",
@@ -75,19 +89,5 @@
     "title": "Sushobhon Karmakar",
     "section": "",
     "text": "Discover My Work\nHello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\n\n\nIntroduction\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\n\nGet in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
-  },
-  {
-    "objectID": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
-    "href": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
-    "title": "Skills",
-    "section": " Data Scientist, Tiger Analytics (Aug’23 - Dec’24)",
-    "text": "Data Scientist, Tiger Analytics (Aug’23 - Dec’24)\n\nPrice Optimization through Market Analysis\n\n Methods\n\nAnalyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score\nForecasted Future KPI’s using Time Series Models\n\n Tools\n\nPython (pandas, numpy) for comprehensive data analysis and manipulation\nExcel Solver for optimization of weighting factors\n\n\nRepresentative Property Identification for Market\n\n Methods\n\nPerformed KMeans clustering analysis on property and location attributes to group similar properties\nApplied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster\nCalculated cluster centroids and used cosine similarity to identify representative properties for each market\n\n Tools\n\nR (data.table, Rlof) for data analysis\nR (leaflet, mapview) for interactive geospatial visualization and map generation\n\n\nFinding Optimal Leases for Discussion\n\n Methods\n\nEmployed Federov’s Exchange Algorithm to generate optimal hypothetical lease scenarios\nUtilized cosine similarity to select the most representative and relevant optimal leases\n\n Tools\n\nR: AlgDesign package for implementing the Federov’s Exchange Algorithm\nExcel: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results"
-  },
-  {
-    "objectID": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
-    "href": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
-    "title": "Skills",
-    "section": "",
-    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython: (pandas, numpy, statsmpdels)"
   }
 ]
