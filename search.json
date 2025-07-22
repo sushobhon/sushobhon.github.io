@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "blogs.html",
+    "href": "blogs.html",
+    "title": "Blogs",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nThe Art of AI Text: How LLMs Choose Every Word using Greedy, Beam, and Sampling\n\n\n\n\n\n\nGen AI\n\n\nLLM\n\n\n\nMethods LLM models used to select next token based on some given information\n\n\n\n\n\nJan 7, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#career-history",
+    "href": "about.html#career-history",
+    "title": "About Me",
+    "section": " Career History",
+    "text": "Career History\n\nSenior Data Scientist at Tiger Analytics (Jan’25 - Present).\nData Scientist at Tiger Analytics (Jun’23 - Dec’24).\nSenior Analyst at Tiger Analytics (Jun’21 - May’23).\nAnalyst at Tiger Analytics (Jan’21 - May’21)"
+  },
+  {
+    "objectID": "about.html#current-responsibilities",
+    "href": "about.html#current-responsibilities",
+    "title": "About Me",
+    "section": " Current Responsibilities",
+    "text": "Current Responsibilities\n\nProject Management: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.\nSupporting: Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring quality deliverables on time.\nMentoring: Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.\nInovation and RnD: Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client."
+  },
+  {
+    "objectID": "about.html#things-i-love-to-do",
+    "href": "about.html#things-i-love-to-do",
+    "title": "About Me",
+    "section": " Things I Love To Do:",
+    "text": "Things I Love To Do:\n\nReading and Listening Bengali Books.\nCooking Indian Recipies.\nPlaying Football and Badminton."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sushobhon Karmakar",
+    "section": "",
+    "text": "Discover My Work\nHello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\n\n\nIntroduction\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\n\nGet in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
+  },
+  {
+    "objectID": "skills.html",
+    "href": "skills.html",
+    "title": "Skills",
+    "section": "",
+    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython (pandas, numpy, statsmpdels)"
+  },
+  {
+    "objectID": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
+    "href": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
+    "title": "Skills",
+    "section": "",
+    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython (pandas, numpy, statsmpdels)"
+  },
+  {
+    "objectID": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
+    "href": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
+    "title": "Skills",
+    "section": " Data Scientist, Tiger Analytics (Aug’23 - Dec’24)",
+    "text": "Data Scientist, Tiger Analytics (Aug’23 - Dec’24)\n\nPrice Optimization through Market Analysis\n\n Methods\n\nAnalyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score\nForecasted Future KPI’s using Time Series Models\n\n Tools\n\nPython (pandas, numpy) for comprehensive data analysis and manipulation\nExcel Solver for optimization of weighting factors\n\n\nRepresentative Property Identification for Market\n\n Methods\n\nPerformed KMeans clustering analysis on property and location attributes to group similar properties\nApplied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster\nCalculated cluster centroids and used cosine similarity to identify representative properties for each market\n\n Tools\n\nR (data.table, Rlof) for data analysis\nR (leaflet, mapview) for interactive geospatial visualization and map generation\n\n\nFinding Optimal Leases for Discussion\n\n Methods\n\nEmployed Federov’s Exchange Algorithm to generate optimal hypothetical lease scenarios\nUtilized cosine similarity to select the most representative and relevant optimal leases\n\n Tools\n\nR: AlgDesign package for implementing the Federov’s Exchange Algorithm\nExcel: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results"
+  },
+  {
+    "objectID": "skills.html#senior-analyst-tiger-analytics-jul21---jul23",
+    "href": "skills.html#senior-analyst-tiger-analytics-jul21---jul23",
+    "title": "Skills",
+    "section": " Senior Analyst, Tiger Analytics (Jul’21 - Jul’23)",
+    "text": "Senior Analyst, Tiger Analytics (Jul’21 - Jul’23)\n\nClustering of Patients\n\n Methods\n\nPolytomous Variable Latent Class Analysis (poLCA) for patient group identification.\nDecision Tree Classification (rpart) for new patient classification.\n\n Tools\n\nR (poLCA, rpart, openxlsx)\nExcel Dashboard for user-friendly results visualization.\n\n\nWarehouse Rent Prediction for different Win Probability\n\n Methods\n\nLinear Regression, Gradient Boosting Machines (GBM), XGBoost for predicting Rent.\nLogistic Regression (for win probability)\n\n Tools\n\nR (dplyr, gbm, xgboost, ggplot2)\nDataiku"
+  },
+  {
+    "objectID": "skills.html#analyst-tiger-analytics-jan21---jun21",
+    "href": "skills.html#analyst-tiger-analytics-jan21---jun21",
+    "title": "Skills",
+    "section": " Analyst, Tiger Analytics (Jan’21 - Jun’21)",
+    "text": "Analyst, Tiger Analytics (Jan’21 - Jun’21)\n\nStatistical Test of Significance\n\n Methods\n\nStatistical t-Test, z-Test and proportion Test\n\n Tools\n\ndplyr, tidyverse, spss packages in R Programming"
+  },
+  {
+    "objectID": "skills.html#academics",
+    "href": "skills.html#academics",
+    "title": "Skills",
+    "section": " Academics",
+    "text": "Academics\n\nStatistical Simulation (Basyesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
+  }
+]
