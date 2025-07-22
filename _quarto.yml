@@ -13,9 +13,14 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - project.qmd
-      - skills.qmd      
-      - about.qmd
+      - href: project.qmd
+        text: Project
+      - href: skills.qmd
+        text: Skills
+      - href: blogs.qmd
+        text: Blogs      
+      - href: about.qmd
+        text: About Me
 
     right:
       - text: "{{< fa envelope size=large >}}"

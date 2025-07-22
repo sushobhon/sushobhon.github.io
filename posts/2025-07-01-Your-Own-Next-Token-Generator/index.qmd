@@ -1,0 +1,11 @@
+---
+title: "The Art of AI Text: How LLMs Choose Every Word using Greedy, Beam, and Sampling"
+from: markdown+emoji
+description: "Methods LLM models used to select next token based on some given information"
+author:
+  - name: Sushobhon Karmakar 
+date: 01-07-2025
+categories: [Gen AI, LLM]
+image: rijksmuseum_avercamp_1608.jpg
+draft: false
+---

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sushobhon.github.io/skills.html</loc>
-    <lastmod>2025-04-21T18:07:57.545Z</lastmod>
+    <loc>https://sushobhon.github.io/blogs.html</loc>
+    <lastmod>2025-07-22T04:00:02.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/posts/2025-07-01-Your-Own-Next-Token-Generator/index.html</loc>
+    <lastmod>2025-07-22T04:12:48.084Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/project.html</loc>
@@ -14,6 +18,10 @@
   </url>
   <url>
     <loc>https://sushobhon.github.io/index.html</loc>
+    <lastmod>2025-04-21T18:07:57.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/skills.html</loc>
     <lastmod>2025-04-21T18:07:57.545Z</lastmod>
   </url>
 </urlset>
