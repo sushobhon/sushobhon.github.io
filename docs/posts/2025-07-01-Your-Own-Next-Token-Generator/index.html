@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sushobhon Karmakar">
-<meta name="dcterms.date" content="2025-01-07">
+<meta name="dcterms.date" content="2025-07-01">
 <meta name="description" content="Methods LLM models used to select next token based on some given information">
 
-<title>The Art of AI Text: How LLMs Choose Every Word using Greedy, Beam, and Sampling – Sushobhon Karmakar</title>
+<title>The Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,6 +108,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -145,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">The Art of AI Text: How LLMs Choose Every Word using Greedy, Beam, and Sampling</h1>
+      <h1 class="title">The Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling</h1>
                   <div>
         <div class="description">
           Methods LLM models used to select next token based on some given information
@@ -171,7 +248,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 7, 2025</p>
+        <p class="date">July 1, 2025</p>
       </div>
     </div>
     
@@ -182,8 +259,21 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#intorduction" id="toc-intorduction" class="nav-link active" data-scroll-target="#intorduction">Intorduction</a>
+  <ul class="collapse">
+  <li><a href="#greedy-search" id="toc-greedy-search" class="nav-link" data-scroll-target="#greedy-search">Greedy Search</a></li>
+  <li><a href="#beam-search" id="toc-beam-search" class="nav-link" data-scroll-target="#beam-search">Beam Search</a></li>
+  <li><a href="#top-k-search" id="toc-top-k-search" class="nav-link" data-scroll-target="#top-k-search">Top-k Search</a></li>
+  <li><a href="#top-p-search" id="toc-top-p-search" class="nav-link" data-scroll-target="#top-p-search">Top-p Search</a></li>
+  <li><a href="#temperature" id="toc-temperature" class="nav-link" data-scroll-target="#temperature">Temperature</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -192,8 +282,542 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="intorduction" class="level1">
+<h1>Intorduction</h1>
+<p>Have you ever wondered how your phone magically suggests the next word as you type? Or how chatbots string together coherent sentences? The secret lies in something called next token generation.</p>
+<p>Think of it this way: imagine telling a story one word at a time. After saying “The big,” what might come next? Perhaps “dog,” “house,” or “tree.” Next token generation teaches computers to do exactly this — predict the most likely word (or sometimes a piece of a word, called a “token”) that should follow the current sequence.</p>
+<p>For instance, if you type “Thank you for your,” a next token generation model might suggest “help” as the most likely next word. It’s like having a super-smart autocomplete feature!</p>
+<p>In this blog, we’ll pull back the curtain to explore the fascinating techniques behind this technology. We’ll dive into some code to see how it works and compare our results with the leading transformer libraries.</p>
+<p>Get ready to explore the world of language prediction, where we’ll examine five popular methods that make next token generation possible: Greedy Search, Beam Search, Top-k Sampling, Top-p (Nucleus) Sampling, and Temperature Control. By the end, you’ll understand how machines learn to speak our language!</p>
+<p><em>In this blog, we’ll use the <code>gpt2-medium</code> model to predict token probabilities, though you’re welcome to experiment with other models.</em></p>
+<section id="greedy-search" class="level2">
+<h2 class="anchored" data-anchor-id="greedy-search">Greedy Search</h2>
+<p>When we pass text to a language model and ask it to predict the next word, it calculates the probability of each possible token given the input. The most natural and intuitive approach is to choose the token with the highest probability. This method of choosing the next token is called Greedy Search.</p>
+<p>In probabilistic terms, the <code>t</code> th token, given the tokens from <code>1</code> to <code>t-1</code>, will be <span class="math display">
+P\big(W_t|W_{1:t-1}\big) = \argmax_{i} \bigg[P\big(W_i|W_{1:t-1}\big)\bigg]
+</span> Let’s see how to implement this. First install <code>torch</code>, <code>transformers</code>, and <code>hf_xet</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>!pip install torch transformers hf_xet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, let’s import the required libraries, set up our device, and download the model.</p>
+<p>Now let’s define a custom function that predicts the next token using <em>greedy search</em>. In this function, we first predict the <code>logits</code> score for each token, then convert those to probabilities using the <code>softmax</code> function.</p>
+<div id="f88cef92" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Defining a function to finf the next word using greedy search</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">def</span> greedy_search(input_text, input_ids, time_steps):</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="co">"""</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">    Predict next word using Greedy Search.</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">    Args:</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">        input_text (str): Input text Sequence.</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">        input_ids (torch.Tensor): Input Tensor containing tensorized text sequence</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">        time_steps (int): Number of next steps to predict</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">    </span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">    """</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a>    iterations <span class="op">=</span> []</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(time_steps):</span>
+<span id="cb2-17"><a href="#cb2-17"></a>            iteration <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb2-18"><a href="#cb2-18"></a>            iteration[<span class="st">'input'</span>] <span class="op">=</span> tokenizer.decode(input_ids[<span class="dv">0</span>])</span>
+<span id="cb2-19"><a href="#cb2-19"></a>            </span>
+<span id="cb2-20"><a href="#cb2-20"></a>            <span class="co"># Predicting using model</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>            output <span class="op">=</span> model(input_ids <span class="op">=</span> input_ids)</span>
+<span id="cb2-22"><a href="#cb2-22"></a>            next_token_logits <span class="op">=</span> output.logits[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,:]</span>
+<span id="cb2-23"><a href="#cb2-23"></a>            next_token_probability <span class="op">=</span> torch.softmax(next_token_logits, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb2-24"><a href="#cb2-24"></a></span>
+<span id="cb2-25"><a href="#cb2-25"></a>            sorted_index_of_next_probability <span class="op">=</span> torch.argsort(next_token_probability, descending<span class="op">=</span><span class="va">True</span>, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb2-26"><a href="#cb2-26"></a>            </span>
+<span id="cb2-27"><a href="#cb2-27"></a>            <span class="co"># Appending predicted next token to input</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a>            input_ids <span class="op">=</span> torch.cat([input_ids, sorted_index_of_next_probability[<span class="va">None</span>, <span class="dv">0</span>, <span class="va">None</span>]], dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb2-29"><a href="#cb2-29"></a></span>
+<span id="cb2-30"><a href="#cb2-30"></a>        <span class="co"># Returning iterations as df</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a>        <span class="cf">return</span> tokenizer.decode(input_ids[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let us pass <code>i love</code> and predict next few word using our custom function and compare the result with <code>transformers</code> library.</p>
+<div id="7a824b15" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>input_ids <span class="op">=</span> tokenizer.encode(input_text, return_tensors<span class="op">=</span><span class="st">'pt'</span>).to(device)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>generated_text <span class="op">=</span> greedy_search(input_text<span class="op">=</span>input_text,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>                              input_ids<span class="op">=</span>input_ids,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>                              time_steps<span class="op">=</span><span class="dv">20</span>     <span class="co"># Generating Next 20 tokens</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>                              )</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="bu">print</span>(generated_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The output of our custom <code>greedy_search()</code> is</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>i love the idea of a "new" version of the game, but I'm not sure if it's</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s predicted tokens using <code>transformers</code> library.</p>
+<div id="d20ebd60" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Input Tokens</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>input_tokens <span class="op">=</span> tokenizer(input_text, return_tensors<span class="op">=</span> <span class="st">'pt'</span>).to(device)</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Generating data from model using Hugging face library</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>output <span class="op">=</span> model.generate(<span class="op">**</span>input_tokens, max_new_tokens<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="bu">print</span>(tokenizer.decode(output[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span> <span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output of <code>transformer</code> library is</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>i love the idea of a "new" version of the game, but I'm not sure if it's</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Generated words are exactly same hah!!</p>
+<p>Since this is an deterministic approach predicted words are exactly same.</p>
+<p>If you want to find out what are the other probable tokens and what is there probability you can try this code.</p>
+<div id="7a51e4fc" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Defining a function to finf the next word using greedy search</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">def</span> greedy_search(input_text, input_ids, time_steps, choices_per_step):</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="co">"""</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">    Predict next word using greedy Search.</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">    Args:</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">        input_text (str): Input text Sequence.</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">        input_ids (torch.Tensor): Input Tensor containing tensorized text sequence</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">        time_steps (int): Number of next steps to predict</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">        choices_per_step (int): Number of choice at each step.</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">    </span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">    """</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a>    iterations <span class="op">=</span> []</span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb7-17"><a href="#cb7-17"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(time_steps):</span>
+<span id="cb7-18"><a href="#cb7-18"></a>            iteration <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb7-19"><a href="#cb7-19"></a>            iteration[<span class="st">'input'</span>] <span class="op">=</span> tokenizer.decode(input_ids[<span class="dv">0</span>])</span>
+<span id="cb7-20"><a href="#cb7-20"></a>            </span>
+<span id="cb7-21"><a href="#cb7-21"></a>            <span class="co"># Predicting using model</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a>            output <span class="op">=</span> model(input_ids <span class="op">=</span> input_ids)</span>
+<span id="cb7-23"><a href="#cb7-23"></a>            next_token_logits <span class="op">=</span> output.logits[<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,:]</span>
+<span id="cb7-24"><a href="#cb7-24"></a>            next_token_probability <span class="op">=</span> torch.softmax(next_token_logits, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a>            sorted_index_of_next_probability <span class="op">=</span> torch.argsort(next_token_probability, descending<span class="op">=</span><span class="va">True</span>, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb7-27"><a href="#cb7-27"></a></span>
+<span id="cb7-28"><a href="#cb7-28"></a>            <span class="co"># Top few highest tokens</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a>            <span class="cf">for</span> choics_idx <span class="kw">in</span> <span class="bu">range</span>(choices_per_step):</span>
+<span id="cb7-30"><a href="#cb7-30"></a>                token_index_sorted <span class="op">=</span> sorted_index_of_next_probability[choics_idx]</span>
+<span id="cb7-31"><a href="#cb7-31"></a>                token_prob <span class="op">=</span> next_token_probability[token_index_sorted].cpu().numpy()</span>
+<span id="cb7-32"><a href="#cb7-32"></a>                token_choice <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(token_index_sorted)<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>token_prob<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a>                iteration[<span class="ss">f'Choice </span><span class="sc">{</span>choics_idx<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> token_choice</span>
+<span id="cb7-34"><a href="#cb7-34"></a>            </span>
+<span id="cb7-35"><a href="#cb7-35"></a>            <span class="co"># Appending predicted next token to input</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a>            input_ids <span class="op">=</span> torch.cat([input_ids, sorted_index_of_next_probability[<span class="va">None</span>, <span class="dv">0</span>, <span class="va">None</span>]], dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb7-37"><a href="#cb7-37"></a>            iterations.append(iteration)</span>
+<span id="cb7-38"><a href="#cb7-38"></a></span>
+<span id="cb7-39"><a href="#cb7-39"></a>        <span class="co"># Returning iterations as df</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a>        <span class="cf">return</span> pd.DataFrame(iterations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="beam-search" class="level2">
+<h2 class="anchored" data-anchor-id="beam-search">Beam Search</h2>
+<p>One of the main disadvantage of Greedy Search is, it fails to find out high probable words hidden behind low probability word. To fix this, there’s a smarter method called Beam Search. Beam Search doesn’t just pick one word at a time—it keeps track of a few possible paths and explores them to find the best combination of words.</p>
+<p>Let’s see how it works with an easy example:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Screenshot 2025-04-19 231147.png" class="img-fluid figure-img"></p>
+<figcaption>fig-1: Beam Search Example</figcaption>
+</figure>
+</div>
+<p>In the preceding example, we’ve considered the initial tokens <code>i</code> and <code>love</code> The model predicts five potential next tokens, with the exhibiting <code>the</code> highest probability. Consequently, a Greedy search strategy would select <code>the</code> as the subsequent token, followed by the token with the highest probability given <code>the</code>, which in this case is <code>idea</code>.</p>
+<p>But in Beam search for <code>2</code> beams we will be calculating conditional probability of next 2 tokens. The conditional probabilities are:</p>
+<span class="math display">
+P('the','way'|'i','love') = 0.25 \times 0.03 = 0.0075
+</span> <span class="math display">
+P('the','idea'|'i','love')=0.25\times 0.45 = 0.1125
+</span> <span class="math display">
+P('the','look'|'i','love')=0.25\times0.25=0.0625
+</span> <span class="math display">...</span>
+<p style="color: orange;">
+<span class="math display">
+P('it','.'|'i','love')=0.23\times0.6=0.138
+</span>
+</p>
+<p><span class="math display">
+P('it','mom'|'i','love')=0.23\times0.4=0.092
+</span> We can observe, the conditional probability of the sequence <code>it</code> and <code>.</code> is the highest among the considered pairs. Therefore, in Beam Search with a beam width of 2, <code>it</code> will be selected as the first subsequent token, rather than <code>the</code>, despite <code>the</code> having the highest individual probability in the previous step.</p>
+<p>Let’s try to write a function for beam search</p>
+<div id="c5e962bc" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Beam search function</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">def</span> beam_search(input_text, max_length<span class="op">=</span><span class="dv">50</span>, num_beams<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    <span class="co">"""</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">    Predict next word using Beam Search.</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">    Args:</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">        input_text (str): Input text Sequence.</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">        max_length (int): Number of next token to predict.</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">        num_beams (int): Number of Beams to consider.</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">    """</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb8-12"><a href="#cb8-12"></a>    </span>
+<span id="cb8-13"><a href="#cb8-13"></a>    <span class="co"># Tokenize input and move to device</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>    input_ids <span class="op">=</span> tokenizer.encode(prompt, return_tensors<span class="op">=</span><span class="st">"pt"</span>).to(device)</span>
+<span id="cb8-15"><a href="#cb8-15"></a>    </span>
+<span id="cb8-16"><a href="#cb8-16"></a>    <span class="co"># Initialize beams: Each beam starts with the same initial input</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>    beams <span class="op">=</span> [(input_ids, <span class="dv">0</span>)]  <span class="co"># Tuple of (tokens, score)</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>    </span>
+<span id="cb8-19"><a href="#cb8-19"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_length):</span>
+<span id="cb8-20"><a href="#cb8-20"></a>        new_beams <span class="op">=</span> []</span>
+<span id="cb8-21"><a href="#cb8-21"></a>        </span>
+<span id="cb8-22"><a href="#cb8-22"></a>        <span class="cf">for</span> tokens, score <span class="kw">in</span> beams:</span>
+<span id="cb8-23"><a href="#cb8-23"></a>            <span class="co"># Get model predictions</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>            <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb8-25"><a href="#cb8-25"></a>                outputs <span class="op">=</span> model(tokens)</span>
+<span id="cb8-26"><a href="#cb8-26"></a>            </span>
+<span id="cb8-27"><a href="#cb8-27"></a>            <span class="co"># Extract logits for the last token and apply softmax</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a>            logits <span class="op">=</span> outputs.logits[:, <span class="op">-</span><span class="dv">1</span>, :]</span>
+<span id="cb8-29"><a href="#cb8-29"></a>            probs <span class="op">=</span> torch.softmax(logits, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb8-30"><a href="#cb8-30"></a>            </span>
+<span id="cb8-31"><a href="#cb8-31"></a>            <span class="co"># Get top beam candidates</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a>            top_probs, top_indices <span class="op">=</span> probs.topk(num_beams)</span>
+<span id="cb8-33"><a href="#cb8-33"></a>            </span>
+<span id="cb8-34"><a href="#cb8-34"></a>            <span class="co"># Create new beams</span></span>
+<span id="cb8-35"><a href="#cb8-35"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_beams):</span>
+<span id="cb8-36"><a href="#cb8-36"></a>                new_token <span class="op">=</span> top_indices[:, i].unsqueeze(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb8-37"><a href="#cb8-37"></a>                new_score <span class="op">=</span> score <span class="op">+</span> torch.log(top_probs[:, i])  <span class="co"># Update score</span></span>
+<span id="cb8-38"><a href="#cb8-38"></a>                </span>
+<span id="cb8-39"><a href="#cb8-39"></a>                new_beam <span class="op">=</span> (torch.cat([tokens, new_token], dim<span class="op">=-</span><span class="dv">1</span>), new_score)</span>
+<span id="cb8-40"><a href="#cb8-40"></a>                new_beams.append(new_beam)</span>
+<span id="cb8-41"><a href="#cb8-41"></a>        </span>
+<span id="cb8-42"><a href="#cb8-42"></a>        <span class="co"># Sort beams by score and keep the best ones</span></span>
+<span id="cb8-43"><a href="#cb8-43"></a>        new_beams.sort(key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-44"><a href="#cb8-44"></a>        beams <span class="op">=</span> new_beams[:num_beams]</span>
+<span id="cb8-45"><a href="#cb8-45"></a>    </span>
+<span id="cb8-46"><a href="#cb8-46"></a>    <span class="co"># Select the best final beam</span></span>
+<span id="cb8-47"><a href="#cb8-47"></a>    best_tokens <span class="op">=</span> beams[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb8-48"><a href="#cb8-48"></a>    <span class="cf">return</span> tokenizer.decode(best_tokens[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s Try with the same input <code>i love</code> and then try to generate next 2 tokens using <code>beam_search()</code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Example usage</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>generated_text <span class="op">=</span> beam_search(input_text, max_length<span class="op">=</span><span class="dv">10</span>, num_beams<span class="op">=</span><span class="dv">2</span>)  <span class="co"># num_beams = 1 is same as greedy search</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="bu">print</span>(generated_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a>i love it. I love it. I love it.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>One thing to note, Beam Search with one beam is same as greedy search.(Verify!)</em></p>
+<p>Now Let’s us compare the result form our function and output from <code>transformers</code> library.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co"># Input Tokens</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>input_tokens <span class="op">=</span> tokenizer(input_text, return_tensors<span class="op">=</span> <span class="st">'pt'</span>).to(device)</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co"># Generating data from model using Hugging face library</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>output <span class="op">=</span> model.generate(<span class="op">**</span>input_tokens, max_new_tokens<span class="op">=</span><span class="dv">10</span>, num_beams <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="bu">print</span>(tokenizer.decode(output[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span> <span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a>i love it. I love it. I love it.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Interestingly, the outputs in both scenarios end up being identical. However, a noticeable issue is the repetitiveness of the generated text. This tendency towards repetition is a common drawback of deterministic decoding strategies. To mitigate this, we can introduce an element of randomness into the token selection process.</p>
+</section>
+<section id="top-k-search" class="level2">
+<h2 class="anchored" data-anchor-id="top-k-search">Top-k Search</h2>
+<p>To introduce randomness into the token selection process, one effective method is to randomly choose a token from the top <em>k</em> most probable predictions. This technique is known as <strong>Top-k Sampling</strong> or <strong>Top-k Search</strong>. The process involves the following steps:</p>
+<ol type="1">
+<li><strong>Predict Probabilities:</strong> First, the model predicts the probability distribution over all possible tokens.</li>
+<li><strong>Select Top-k:</strong> We then identify and select the <em>k</em> tokens with the highest probabilities.</li>
+<li><strong>Normalize Probabilities:</strong> The probabilities of these <em>k</em> selected tokens are re-normalized to create a new probability distribution.</li>
+<li><strong>Random Selection:</strong> Finally, a token is randomly chosen from this renormalized distribution.</li>
+</ol>
+<p>Let’s illustrate this with a Python function:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> top_k_search(input_text, max_length<span class="op">=</span><span class="dv">50</span>, k<span class="op">=</span><span class="dv">5</span>, show_option<span class="op">=</span> <span class="va">False</span>):</span>
+<span id="cb13-2"><a href="#cb13-2"></a>        <span class="co">"""</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co">    Predict next word using top k Search.</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">    Args:</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">        input_text (str): Input text Sequence.</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co">        max_length (int): Number of next token to predict.</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co">        k (int): Number of high probability token to consider.</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">        show_option (bool): If true shows top k tokens at each step.</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">    """</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb13-12"><a href="#cb13-12"></a>    </span>
+<span id="cb13-13"><a href="#cb13-13"></a>    <span class="co"># Tokenize input and move to device</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a>    input_ids <span class="op">=</span> tokenizer.encode(input_text, return_tensors<span class="op">=</span><span class="st">"pt"</span>).to(device)</span>
+<span id="cb13-15"><a href="#cb13-15"></a></span>
+<span id="cb13-16"><a href="#cb13-16"></a>    <span class="co"># output_tokens</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a>    output_tokens <span class="op">=</span> input_ids</span>
+<span id="cb13-18"><a href="#cb13-18"></a></span>
+<span id="cb13-19"><a href="#cb13-19"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_length):</span>
+<span id="cb13-20"><a href="#cb13-20"></a>      <span class="cf">if</span> show_option:</span>
+<span id="cb13-21"><a href="#cb13-21"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">For </span><span class="sc">{</span>_<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> Token:"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22"></a>        <span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">100</span>)</span>
+<span id="cb13-23"><a href="#cb13-23"></a></span>
+<span id="cb13-24"><a href="#cb13-24"></a>      <span class="co"># Get model predictions</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a>      <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb13-26"><a href="#cb13-26"></a>          outputs <span class="op">=</span> model(output_tokens)</span>
+<span id="cb13-27"><a href="#cb13-27"></a>      </span>
+<span id="cb13-28"><a href="#cb13-28"></a>      <span class="co"># Extract logits for the last token and apply softmax</span></span>
+<span id="cb13-29"><a href="#cb13-29"></a>      logits <span class="op">=</span> outputs.logits[:, <span class="op">-</span><span class="dv">1</span>, :]</span>
+<span id="cb13-30"><a href="#cb13-30"></a>      probs <span class="op">=</span> torch.softmax(logits, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb13-31"><a href="#cb13-31"></a>      </span>
+<span id="cb13-32"><a href="#cb13-32"></a>      <span class="co"># Get top beam candidates</span></span>
+<span id="cb13-33"><a href="#cb13-33"></a>      top_probs, top_indices <span class="op">=</span> probs.topk(k)</span>
+<span id="cb13-34"><a href="#cb13-34"></a></span>
+<span id="cb13-35"><a href="#cb13-35"></a>      <span class="co"># Normalizing top K probabilities</span></span>
+<span id="cb13-36"><a href="#cb13-36"></a>      top_probs_norm <span class="op">=</span> top_probs<span class="op">/</span>torch.<span class="bu">sum</span>(top_probs)</span>
+<span id="cb13-37"><a href="#cb13-37"></a>      <span class="co"># Choosing an element randomly based on normalized probability of top k tokens</span></span>
+<span id="cb13-38"><a href="#cb13-38"></a>      selected_token_id <span class="op">=</span> torch.multinomial(top_probs_norm[<span class="dv">0</span>], num_samples<span class="op">=</span><span class="dv">1</span>, replacement<span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb13-39"><a href="#cb13-39"></a>      selected_token <span class="op">=</span> top_indices[<span class="dv">0</span>][selected_token_id.item()]</span>
+<span id="cb13-40"><a href="#cb13-40"></a>      </span>
+<span id="cb13-41"><a href="#cb13-41"></a>      <span class="co"># Reshape selected_token to have shape (1, 1)</span></span>
+<span id="cb13-42"><a href="#cb13-42"></a>      selected_token <span class="op">=</span> selected_token.unsqueeze(<span class="dv">0</span>).unsqueeze(<span class="dv">0</span>) <span class="co"># This will reshape selected token to (1,1) and will solve the error.</span></span>
+<span id="cb13-43"><a href="#cb13-43"></a></span>
+<span id="cb13-44"><a href="#cb13-44"></a>      <span class="co"># Appending selected  token with input token</span></span>
+<span id="cb13-45"><a href="#cb13-45"></a>      output_tokens <span class="op">=</span> torch.cat((output_tokens, selected_token), dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-46"><a href="#cb13-46"></a>      </span>
+<span id="cb13-47"><a href="#cb13-47"></a>      <span class="cf">if</span> show_option:</span>
+<span id="cb13-48"><a href="#cb13-48"></a>        <span class="co"># Printing Top K tokens</span></span>
+<span id="cb13-49"><a href="#cb13-49"></a>        <span class="bu">print</span>(<span class="ss">f"Selected Token: </span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(selected_token.item())<span class="sc">}</span><span class="ch">\n</span><span class="ss">Top K tokens are:</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb13-50"><a href="#cb13-50"></a>        <span class="cf">for</span> index, probability <span class="kw">in</span> <span class="bu">zip</span>(top_indices.squeeze(<span class="dv">0</span>), top_probs_norm.squeeze(<span class="dv">0</span>)):</span>
+<span id="cb13-51"><a href="#cb13-51"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(index.item())<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">round</span>(probability.item() <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">%)"</span>)</span>
+<span id="cb13-52"><a href="#cb13-52"></a>      </span>
+<span id="cb13-53"><a href="#cb13-53"></a>    <span class="cf">return</span> tokenizer.decode(output_tokens[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span><span class="va">True</span>) <span class="co"># decode function works on 1D array only.</span></span>
+<span id="cb13-54"><a href="#cb13-54"></a></span>
+<span id="cb13-55"><a href="#cb13-55"></a><span class="co"># Example usage</span></span>
+<span id="cb13-56"><a href="#cb13-56"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb13-57"><a href="#cb13-57"></a>generated_text <span class="op">=</span> top_k_search(input_text, max_length<span class="op">=</span><span class="dv">1</span>, k<span class="op">=</span><span class="dv">5</span>, show_option <span class="op">=</span> <span class="va">True</span>)  <span class="co"># num_beams = 1 is same as gready search</span></span>
+<span id="cb13-58"><a href="#cb13-58"></a><span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">20</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Final generated Text is:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> generated_text <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"-"</span><span class="op">*</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Top 5 most probable tokens are:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>For 1 Token:</span>
+<span id="cb14-2"><a href="#cb14-2"></a>----------------------------------------------------------------------------------------------------</span>
+<span id="cb14-3"><a href="#cb14-3"></a>Selected Token:  the</span>
+<span id="cb14-4"><a href="#cb14-4"></a>Top K tokens are:</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a> the (22.54%)</span>
+<span id="cb14-7"><a href="#cb14-7"></a> it (22.47%)</span>
+<span id="cb14-8"><a href="#cb14-8"></a> you (21.72%)</span>
+<span id="cb14-9"><a href="#cb14-9"></a> to (19.86%)</span>
+<span id="cb14-10"><a href="#cb14-10"></a> this (13.4%)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The next selected token is <code>the</code>. At this step, the five most probable predicted tokens are <code>the</code>, <code>it</code>, <code>you</code>, <code>to</code>, and <code>this</code>. From these five, one token will be randomly selected based on their respective probabilities.</p>
+<p>The subsequent words were generated using the <code>transformers</code> library.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># set seed to reproduce results. Feel free to change the seed though to get different results</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="im">from</span> transformers <span class="im">import</span> set_seed</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co"># Input Tokens</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>input_tokens <span class="op">=</span> tokenizer(input_text, return_tensors<span class="op">=</span> <span class="st">'pt'</span>).to(device)</span>
+<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co"># set top_k to 50</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>sample_output <span class="op">=</span> model.generate(</span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="op">**</span>input_tokens,</span>
+<span id="cb15-12"><a href="#cb15-12"></a>    max_new_tokens<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb15-13"><a href="#cb15-13"></a>    do_sample<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb15-14"><a href="#cb15-14"></a>    top_k<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>)</span>
+<span id="cb15-16"><a href="#cb15-16"></a></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="bu">print</span>(<span class="st">"Output:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="dv">100</span> <span class="op">*</span> <span class="st">'-'</span>)</span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="bu">print</span>(tokenizer.decode(sample_output[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span><span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb16-1"><a href="#cb16-1"></a>i love the </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this instance, the predicted token is also <code>the</code>, although this is purely coincidental. Rerunning the code might yield a different token, but it’s important to note that the subsequent selected token will invariably be one of the five most probable tokens from the preceding output (<em>as you can verify!</em>).</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>generated_text <span class="op">=</span> top_k_search(input_text, max_length<span class="op">=</span><span class="dv">10</span>, k<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">20</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Final generated Text is:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> generated_text <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"-"</span><span class="op">*</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb18-1"><a href="#cb18-1"></a>--------------------</span>
+<span id="cb18-2"><a href="#cb18-2"></a>Final generated Text is:</span>
+<span id="cb18-3"><a href="#cb18-3"></a>i love the way he's doing this, but I'm</span>
+<span id="cb18-4"><a href="#cb18-4"></a>--------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If we predict next 10 tokens we can see there is not any repetition to tokens like previous case.</p>
+</section>
+<section id="top-p-search" class="level2">
+<h2 class="anchored" data-anchor-id="top-p-search">Top-p Search</h2>
+<p>Another effective method involves considering a dynamic set of the most probable tokens whose cumulative probability exceeds a predefined threshold, <em>p</em>. This technique is known as <strong>Top-p Sampling</strong> or <strong>Nucleus Sampling</strong>.</p>
+<p>The process unfolds as follows:</p>
+<ol type="1">
+<li><strong>Predict Probabilities:</strong> Initially, the model predicts the probability distribution over all possible tokens.</li>
+<li><strong>Identify the Nucleus:</strong> We then identify the smallest set of most probable tokens such that the sum of their probabilities is greater than or equal to the probability threshold <em>p</em>.</li>
+<li><strong>Normalize Probabilities:</strong> The probabilities of the tokens within this selected set (the “nucleus”) are renormalized to create a new probability distribution.</li>
+<li><strong>Random Selection:</strong> Finally, a token is randomly chosen from this renormalized distribution.</li>
+</ol>
+<p>Let’s illustrate this with a Python function:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> top_p_search(input_text, max_length<span class="op">=</span><span class="dv">50</span>, p<span class="op">=</span><span class="dv">1</span>, show_option<span class="op">=</span> <span class="va">False</span>):</span>
+<span id="cb19-2"><a href="#cb19-2"></a>        <span class="co">"""</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">    Predict next word using top p Search.</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co">    Args:</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co">        input_text (str): Input text Sequence.</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="co">        max_length (int): Number of next token to predict.</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co">        p (float): Probability Threshold.</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">        show_option (bool): If true shows top k tokens at each step.</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="co">    """</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb19-12"><a href="#cb19-12"></a>    </span>
+<span id="cb19-13"><a href="#cb19-13"></a>    <span class="co"># Tokenize input and move to device</span></span>
+<span id="cb19-14"><a href="#cb19-14"></a>    input_ids <span class="op">=</span> tokenizer.encode(input_text, return_tensors<span class="op">=</span><span class="st">"pt"</span>).to(device)</span>
+<span id="cb19-15"><a href="#cb19-15"></a></span>
+<span id="cb19-16"><a href="#cb19-16"></a>    <span class="co"># output_tokens</span></span>
+<span id="cb19-17"><a href="#cb19-17"></a>    output_tokens <span class="op">=</span> input_ids</span>
+<span id="cb19-18"><a href="#cb19-18"></a></span>
+<span id="cb19-19"><a href="#cb19-19"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_length):</span>
+<span id="cb19-20"><a href="#cb19-20"></a>      <span class="cf">if</span> show_option:</span>
+<span id="cb19-21"><a href="#cb19-21"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">For </span><span class="sc">{</span>_<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> Token:"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22"></a>        <span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">100</span>)</span>
+<span id="cb19-23"><a href="#cb19-23"></a></span>
+<span id="cb19-24"><a href="#cb19-24"></a>      <span class="co"># Get model predictions</span></span>
+<span id="cb19-25"><a href="#cb19-25"></a>      <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb19-26"><a href="#cb19-26"></a>          outputs <span class="op">=</span> model(output_tokens)</span>
+<span id="cb19-27"><a href="#cb19-27"></a>      </span>
+<span id="cb19-28"><a href="#cb19-28"></a>      <span class="co"># Extract logits for the last token and apply softmax</span></span>
+<span id="cb19-29"><a href="#cb19-29"></a>      logits <span class="op">=</span> outputs.logits[:, <span class="op">-</span><span class="dv">1</span>, :]</span>
+<span id="cb19-30"><a href="#cb19-30"></a>      probs <span class="op">=</span> torch.softmax(logits, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb19-31"><a href="#cb19-31"></a>      </span>
+<span id="cb19-32"><a href="#cb19-32"></a>      <span class="co"># Get top beam candidates</span></span>
+<span id="cb19-33"><a href="#cb19-33"></a>      probs, indices <span class="op">=</span> torch.sort(probs, dim <span class="op">=</span> <span class="dv">1</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb19-34"><a href="#cb19-34"></a>      cumulative_prob <span class="op">=</span> torch.cumsum(probs[<span class="dv">0</span>], dim <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb19-35"><a href="#cb19-35"></a>      top_probs <span class="op">=</span> probs[:,:torch.<span class="bu">sum</span>(cumulative_prob<span class="op">&lt;=</span>p).item() <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb19-36"><a href="#cb19-36"></a>      top_indices <span class="op">=</span> indices[:,:torch.<span class="bu">sum</span>(cumulative_prob<span class="op">&lt;=</span>p).item() <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb19-37"><a href="#cb19-37"></a></span>
+<span id="cb19-38"><a href="#cb19-38"></a>      <span class="co"># Normalizing top K probabilities</span></span>
+<span id="cb19-39"><a href="#cb19-39"></a>      top_probs_norm <span class="op">=</span> top_probs<span class="op">/</span>torch.<span class="bu">sum</span>(top_probs)</span>
+<span id="cb19-40"><a href="#cb19-40"></a>      <span class="co"># Choosing an element randomly based on normalized probability of top k tokens</span></span>
+<span id="cb19-41"><a href="#cb19-41"></a>      selected_token_id <span class="op">=</span> torch.multinomial(top_probs_norm[<span class="dv">0</span>], num_samples<span class="op">=</span><span class="dv">1</span>, replacement<span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb19-42"><a href="#cb19-42"></a>      selected_token <span class="op">=</span> top_indices[<span class="dv">0</span>][selected_token_id.item()]</span>
+<span id="cb19-43"><a href="#cb19-43"></a>      </span>
+<span id="cb19-44"><a href="#cb19-44"></a>      <span class="co"># Reshape selected_token to have shape (1, 1)</span></span>
+<span id="cb19-45"><a href="#cb19-45"></a>      selected_token <span class="op">=</span> selected_token.unsqueeze(<span class="dv">0</span>).unsqueeze(<span class="dv">0</span>) <span class="co"># This will reshape selected token to (1,1) and will solve the error.</span></span>
+<span id="cb19-46"><a href="#cb19-46"></a></span>
+<span id="cb19-47"><a href="#cb19-47"></a>      <span class="co"># Appending selected  token with input token</span></span>
+<span id="cb19-48"><a href="#cb19-48"></a>      output_tokens <span class="op">=</span> torch.cat((output_tokens, selected_token), dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-49"><a href="#cb19-49"></a>      </span>
+<span id="cb19-50"><a href="#cb19-50"></a>      <span class="cf">if</span> show_option:</span>
+<span id="cb19-51"><a href="#cb19-51"></a>        <span class="co"># Printing Top K tokens</span></span>
+<span id="cb19-52"><a href="#cb19-52"></a>        <span class="bu">print</span>(<span class="ss">f"Selected Token: </span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(selected_token.item())<span class="sc">}</span><span class="ch">\n</span><span class="ss">Top K tokens are:</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb19-53"><a href="#cb19-53"></a>        <span class="cf">for</span> index, probability <span class="kw">in</span> <span class="bu">zip</span>(top_indices.squeeze(<span class="dv">0</span>), top_probs_norm.squeeze(<span class="dv">0</span>)):</span>
+<span id="cb19-54"><a href="#cb19-54"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(index.item())<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">round</span>(probability.item() <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">%)"</span>)</span>
+<span id="cb19-55"><a href="#cb19-55"></a>      </span>
+<span id="cb19-56"><a href="#cb19-56"></a>    <span class="cf">return</span> tokenizer.decode(output_tokens[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span><span class="va">True</span>) <span class="co"># decode function works on 1D array only.</span></span>
+<span id="cb19-57"><a href="#cb19-57"></a></span>
+<span id="cb19-58"><a href="#cb19-58"></a><span class="co"># Example usage</span></span>
+<span id="cb19-59"><a href="#cb19-59"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb19-60"><a href="#cb19-60"></a>generated_text <span class="op">=</span> top_p_search(input_text, max_length<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span><span class="fl">0.5</span>, show_option<span class="op">=</span> <span class="va">True</span>)  </span>
+<span id="cb19-61"><a href="#cb19-61"></a><span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">20</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Final generated Text is:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> generated_text <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"-"</span><span class="op">*</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href="#cb20-1"></a>For 1 Token:</span>
+<span id="cb20-2"><a href="#cb20-2"></a>----------------------------------------------------------------------------------------------------</span>
+<span id="cb20-3"><a href="#cb20-3"></a>Selected Token:  the</span>
+<span id="cb20-4"><a href="#cb20-4"></a>Top K tokens are:</span>
+<span id="cb20-5"><a href="#cb20-5"></a></span>
+<span id="cb20-6"><a href="#cb20-6"></a> the (17.06%)</span>
+<span id="cb20-7"><a href="#cb20-7"></a> it (17.01%)</span>
+<span id="cb20-8"><a href="#cb20-8"></a> you (16.44%)</span>
+<span id="cb20-9"><a href="#cb20-9"></a> to (15.03%)</span>
+<span id="cb20-10"><a href="#cb20-10"></a> this (10.14%)</span>
+<span id="cb20-11"><a href="#cb20-11"></a> that (7.91%)</span>
+<span id="cb20-12"><a href="#cb20-12"></a> my (5.68%)</span>
+<span id="cb20-13"><a href="#cb20-13"></a> her (3.64%)</span>
+<span id="cb20-14"><a href="#cb20-14"></a> him (3.56%)</span>
+<span id="cb20-15"><a href="#cb20-15"></a> them (3.53%)</span>
+<span id="cb20-16"><a href="#cb20-16"></a>--------------------</span>
+<span id="cb20-17"><a href="#cb20-17"></a>Final generated Text is:</span>
+<span id="cb20-18"><a href="#cb20-18"></a>i love the</span>
+<span id="cb20-19"><a href="#cb20-19"></a>--------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>with <code>p=0.5</code> when we predict next token there are <code>10</code> possible tokens. Out of then token <code>the</code> has been selected. You can rerun the code and verify weather your predicted token is out of these <code>10</code> tokens or not.</p>
+</section>
+<section id="temperature" class="level2">
+<h2 class="anchored" data-anchor-id="temperature">Temperature</h2>
+<p>Introducing randomness alone isn’t always sufficient for generating desired text. When the goal is to extract and present information based on a specific document, prioritizing tokens with the highest probability is often preferred for accuracy and coherence. However, when crafting creative content like blog posts, encouraging the model to explore more diverse and unexpected word choices can lead to richer and more engaging outputs.</p>
+<p>This balance between predictability and creativity can be effectively controlled using a parameter called <strong>temperature</strong>. The temperature value adjusts the probability distribution of the predicted tokens. A <strong>low temperature</strong> makes the distribution sharper, increasing the likelihood of selecting high-probability tokens and thus resulting in more focused and deterministic output. Conversely, a <strong>high temperature</strong> flattens the probability distribution, giving lower-probability tokens a greater chance of being selected, thereby injecting more randomness and creativity into the generated text.</p>
+<p>Let’s define a custom <code>softmax</code> function that incorporates this <code>temperature</code> parameter:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="co"># Defining updated softmax for PyTorch tensors</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="kw">def</span> softmax_tensor(logits: torch.Tensor, temperature: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1.0</span>) <span class="op">-&gt;</span> torch.Tensor:</span>
+<span id="cb21-5"><a href="#cb21-5"></a>    <span class="co">"""</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="co">    Applies the softmax function to a PyTorch tensor along the last dimension,</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="co">    optionally with a temperature scaling factor.</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co">    Args:</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co">        logits: The input PyTorch tensor of logits.</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="co">        temperature: A scaling factor for the logits (default: 1.0).</span></span>
+<span id="cb21-12"><a href="#cb21-12"></a></span>
+<span id="cb21-13"><a href="#cb21-13"></a><span class="co">    Returns:</span></span>
+<span id="cb21-14"><a href="#cb21-14"></a><span class="co">        A PyTorch tensor of the same shape as the input, with probabilities</span></span>
+<span id="cb21-15"><a href="#cb21-15"></a><span class="co">        along the last dimension.</span></span>
+<span id="cb21-16"><a href="#cb21-16"></a><span class="co">    """</span></span>
+<span id="cb21-17"><a href="#cb21-17"></a>    <span class="cf">return</span> F.softmax(logits <span class="op">/</span> temperature, dim<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Updating Top-p Search function by including <code>temperature</code> parameter.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">def</span> top_p_search(prompt, max_length<span class="op">=</span><span class="dv">50</span>, p<span class="op">=</span><span class="dv">1</span>, temperature <span class="op">=</span> <span class="dv">1</span>, show_option <span class="op">=</span> <span class="va">False</span>):</span>
+<span id="cb22-2"><a href="#cb22-2"></a>    <span class="co">"""</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="co">    Predict next word using top p Search with temperature.</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="co">    Args:</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="co">        input_text (str): Input text Sequence.</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="co">        max_length (int): Number of next token to predict.</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="co">        p (float): Probability Threshold.</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="co">        temperature (float): A number of control randomness.</span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="co">        show_option (bool): If true shows top k tokens at each step.</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="co">    """</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb22-13"><a href="#cb22-13"></a>    </span>
+<span id="cb22-14"><a href="#cb22-14"></a>    <span class="co"># Tokenize input and move to device</span></span>
+<span id="cb22-15"><a href="#cb22-15"></a>    input_ids <span class="op">=</span> tokenizer.encode(prompt, return_tensors<span class="op">=</span><span class="st">"pt"</span>).to(device)</span>
+<span id="cb22-16"><a href="#cb22-16"></a></span>
+<span id="cb22-17"><a href="#cb22-17"></a>    <span class="co"># output_tokens</span></span>
+<span id="cb22-18"><a href="#cb22-18"></a>    output_tokens <span class="op">=</span> input_ids</span>
+<span id="cb22-19"><a href="#cb22-19"></a></span>
+<span id="cb22-20"><a href="#cb22-20"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_length):</span>
+<span id="cb22-21"><a href="#cb22-21"></a>      <span class="cf">if</span> show_option:</span>
+<span id="cb22-22"><a href="#cb22-22"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">For </span><span class="sc">{</span>_<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> Token:"</span>)</span>
+<span id="cb22-23"><a href="#cb22-23"></a>        <span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">100</span>)</span>
+<span id="cb22-24"><a href="#cb22-24"></a></span>
+<span id="cb22-25"><a href="#cb22-25"></a>      <span class="co"># Get model predictions</span></span>
+<span id="cb22-26"><a href="#cb22-26"></a>      <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb22-27"><a href="#cb22-27"></a>          outputs <span class="op">=</span> model(output_tokens)</span>
+<span id="cb22-28"><a href="#cb22-28"></a>      </span>
+<span id="cb22-29"><a href="#cb22-29"></a>      <span class="co"># Extract logits for the last token and apply softmax</span></span>
+<span id="cb22-30"><a href="#cb22-30"></a>      logits <span class="op">=</span> outputs.logits[:, <span class="op">-</span><span class="dv">1</span>, :]</span>
+<span id="cb22-31"><a href="#cb22-31"></a>      probs <span class="op">=</span> softmax_tensor(logits<span class="op">=</span> logits, temperature<span class="op">=</span> temperature <span class="op">+</span> <span class="fl">1e-6</span>)  <span class="co"># Added temperature while calculating probability</span></span>
+<span id="cb22-32"><a href="#cb22-32"></a>      </span>
+<span id="cb22-33"><a href="#cb22-33"></a>      <span class="co"># Get top beam candidates</span></span>
+<span id="cb22-34"><a href="#cb22-34"></a>      probs, indices <span class="op">=</span> torch.sort(probs, dim <span class="op">=</span> <span class="dv">1</span>, descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-35"><a href="#cb22-35"></a>      cumulative_prob <span class="op">=</span> torch.cumsum(probs[<span class="dv">0</span>], dim <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb22-36"><a href="#cb22-36"></a>      top_probs <span class="op">=</span> probs[:,:torch.<span class="bu">sum</span>(cumulative_prob<span class="op">&lt;=</span>p).item() <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb22-37"><a href="#cb22-37"></a>      top_indices <span class="op">=</span> indices[:,:torch.<span class="bu">sum</span>(cumulative_prob<span class="op">&lt;=</span>p).item() <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb22-38"><a href="#cb22-38"></a></span>
+<span id="cb22-39"><a href="#cb22-39"></a>      <span class="co"># Normalizing top K probabilities</span></span>
+<span id="cb22-40"><a href="#cb22-40"></a>      top_probs_norm <span class="op">=</span> top_probs<span class="op">/</span>torch.<span class="bu">sum</span>(top_probs)</span>
+<span id="cb22-41"><a href="#cb22-41"></a></span>
+<span id="cb22-42"><a href="#cb22-42"></a>      <span class="co"># Choosing an element randomly based on normalized probability of top k tokens</span></span>
+<span id="cb22-43"><a href="#cb22-43"></a>      selected_token_id <span class="op">=</span> torch.multinomial(top_probs_norm[<span class="dv">0</span>], num_samples<span class="op">=</span><span class="dv">1</span>, replacement<span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb22-44"><a href="#cb22-44"></a>      selected_token <span class="op">=</span> top_indices[<span class="dv">0</span>][selected_token_id.item()]</span>
+<span id="cb22-45"><a href="#cb22-45"></a>      </span>
+<span id="cb22-46"><a href="#cb22-46"></a>      <span class="co"># Reshape selected_token to have shape (1, 1)</span></span>
+<span id="cb22-47"><a href="#cb22-47"></a>      selected_token <span class="op">=</span> selected_token.unsqueeze(<span class="dv">0</span>).unsqueeze(<span class="dv">0</span>) </span>
+<span id="cb22-48"><a href="#cb22-48"></a></span>
+<span id="cb22-49"><a href="#cb22-49"></a>      <span class="co"># Appending selected  token with input token</span></span>
+<span id="cb22-50"><a href="#cb22-50"></a>      output_tokens <span class="op">=</span> torch.cat((output_tokens, selected_token), dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-51"><a href="#cb22-51"></a>      </span>
+<span id="cb22-52"><a href="#cb22-52"></a>      <span class="cf">if</span> show_option:</span>
+<span id="cb22-53"><a href="#cb22-53"></a>        <span class="co"># Printing Top K tokens</span></span>
+<span id="cb22-54"><a href="#cb22-54"></a>        <span class="bu">print</span>(<span class="ss">f"Selected Token: </span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(selected_token.item())<span class="sc">}</span><span class="ch">\n</span><span class="ss">Top K tokens are:</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb22-55"><a href="#cb22-55"></a>        <span class="cf">for</span> index, probability <span class="kw">in</span> <span class="bu">zip</span>(top_indices.squeeze(<span class="dv">0</span>), top_probs_norm.squeeze(<span class="dv">0</span>)):</span>
+<span id="cb22-56"><a href="#cb22-56"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>tokenizer<span class="sc">.</span>decode(index.item())<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">round</span>(probability.item() <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">%)"</span>)</span>
+<span id="cb22-57"><a href="#cb22-57"></a>      </span>
+<span id="cb22-58"><a href="#cb22-58"></a>    <span class="cf">return</span> tokenizer.decode(output_tokens[<span class="dv">0</span>], skip_special_tokens<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb22-59"><a href="#cb22-59"></a></span>
+<span id="cb22-60"><a href="#cb22-60"></a><span class="co"># Example usage with very low temperature</span></span>
+<span id="cb22-61"><a href="#cb22-61"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb22-62"><a href="#cb22-62"></a>generated_text <span class="op">=</span> top_p_search(input_text, max_length<span class="op">=</span><span class="dv">10</span>, p<span class="op">=</span><span class="fl">0.7</span>, temperature<span class="op">=</span><span class="fl">0.1</span>)  </span>
+<span id="cb22-63"><a href="#cb22-63"></a><span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">20</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Final generated Text is:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> generated_text <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"-"</span><span class="op">*</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tokens generated with very low <code>temperature</code> of the model:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb23-1"><a href="#cb23-1"></a>--------------------</span>
+<span id="cb23-2"><a href="#cb23-2"></a>Final generated Text is:</span>
+<span id="cb23-3"><a href="#cb23-3"></a>i love the idea of a "super-hero" who</span>
+<span id="cb23-4"><a href="#cb23-4"></a>--------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Consequently, as you can observe, the initial few tokens closely mirror the results obtained with our earlier deterministic approach. Let’s now explore the effect of increasing the <code>temperature</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>generated_text <span class="op">=</span> top_p_search(input_text, max_length<span class="op">=</span><span class="dv">10</span>, p<span class="op">=</span><span class="fl">0.7</span>, temperature<span class="op">=</span><span class="dv">1</span>)  </span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">20</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Final generated Text is:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> generated_text <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"-"</span><span class="op">*</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb25-1"><a href="#cb25-1"></a>--------------------</span>
+<span id="cb25-2"><a href="#cb25-2"></a>Final generated Text is:</span>
+<span id="cb25-3"><a href="#cb25-3"></a>i love you no matter what," Trump wrote in a January</span>
+<span id="cb25-4"><a href="#cb25-4"></a>--------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Upon increasing the <code>temperature</code> to <code>1</code>, we observe that the model begins to select more varied and less predictable words. However, it’s important to note that employing excessively high <code>temperature</code> values can lead to generated text that lacks coherence and meaning. A generally recommended and effective range for the temperature parameter is between <code>0</code> and <code>1</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>generated_text <span class="op">=</span> top_p_search(input_text, max_length<span class="op">=</span><span class="dv">10</span>, p<span class="op">=</span><span class="fl">0.7</span>, temperature<span class="op">=</span><span class="fl">0.7</span>)  </span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">20</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Final generated Text is:</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> generated_text <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"-"</span><span class="op">*</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb27-1"><a href="#cb27-1"></a>--------------------</span>
+<span id="cb27-2"><a href="#cb27-2"></a>Final generated Text is:</span>
+<span id="cb27-3"><a href="#cb27-3"></a>i love you so much.</span>
+<span id="cb27-4"><a href="#cb27-4"></a></span>
+<span id="cb27-5"><a href="#cb27-5"></a>MORGAN:</span>
+<span id="cb27-6"><a href="#cb27-6"></a>--------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Text generated with <code>temperature</code> 0.7 feel more natural. (<em>Try playing with different <code>temperature</code> value</em>)</p>
+<p>You can also see the list of all possible words by changing <code>show_option</code> parameter to <code>True</code> at different <code>temperature</code> value. ( Try playing with that as well, and see if you observe any pattern among the number of words and <code>temperature</code> value.)</p>
+<p>A special thank you to <a href="https://www.youtube.com/@RohanPaul-AI">Rohan-Paul-AI</a> for the inspiration behind this post, and thanks also to <a href="https://koushikkhan.github.io/">Koushik Khan</a> for encouraging me to write it!</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
