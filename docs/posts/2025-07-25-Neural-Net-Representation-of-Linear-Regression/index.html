@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Sushobhon Karmakar">
+<meta name="dcterms.date" content="2025-07-25">
+<meta name="description" content="How one or multiple linear regression can be represented in Neural Net">
 
-<title>Blogs – Sushobhon Karmakar</title>
+<title>Linear Regression Representated in Neural Net – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +26,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7e11434eac148b84e24ebc123ea223a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-caa6200b5fd6ae1557848632e0b2b910.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-7e11434eac148b84e24ebc123ea223a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-caa6200b5fd6ae1557848632e0b2b910.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,41 +73,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<style>
-
-      .quarto-title-block .quarto-title-banner {
-        background: flase;
-      }
-</style>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -152,7 +118,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -162,7 +128,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Sushobhon Karmakar</span>
     </a>
   </div>
@@ -173,23 +139,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./project.html"> 
+    <a class="nav-link" href="../../project.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills.html"> 
+    <a class="nav-link" href="../../skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./blogs.html" aria-current="page"> 
+    <a class="nav-link" href="../../blogs.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
 </ul>
@@ -221,141 +187,102 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Blogs</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Linear Regression Representated in Neural Net</h1>
+                  <div>
+        <div class="description">
+          How one or multiple linear regression can be represented in Neural Net
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Deep Learning</div>
+                <div class="quarto-category">Neural Network</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Sushobhon Karmakar </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 25, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RGVlcCUyMExlYXJuaW5n">Deep Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R2VuJTIwQUk=">Gen AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TExN">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TmV1cmFsJTIwTmV0d29yaw==">Neural Network <span class="quarto-category-count">(1)</span></div></div></div>
-<!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
-
-
-
-
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#a-basic-linear-regression-representated-as-neural-network" id="toc-a-basic-linear-regression-representated-as-neural-network" class="nav-link" data-scroll-target="#a-basic-linear-regression-representated-as-neural-network">A Basic Linear Regression Representated as Neural Network</a></li>
+  <li><a href="#neural-network-with-multiple-node-and-one-layer" id="toc-neural-network-with-multiple-node-and-one-layer" class="nav-link" data-scroll-target="#neural-network-with-multiple-node-and-one-layer">Neural Network with Multiple Node and One Layer</a></li>
+  </ul>
+</nav>
     </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?</p>
+<p>At first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.</p>
+<p>In this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize.</p>
+</section>
+<section id="a-basic-linear-regression-representated-as-neural-network" class="level2">
+<h2 class="anchored" data-anchor-id="a-basic-linear-regression-representated-as-neural-network">A Basic Linear Regression Representated as Neural Network</h2>
+<p>Take a basic Linear Regression Model with <span class="math inline">p</span> Independent variable and one Dependent Variable. We can represent it as <span class="math display">
+y_i = b_0 + b_1 \times x_{1,i} + b_2 \times x_{2,i} + ... + b_p \times x_{p,i} + \epsilon_i
+</span></p>
+<p>for <span class="math inline">i = 1, 2, ... , n</span></p>
+<p>In metrix notation we can write <span class="math display">
+y = X^T B + \epsilon
+</span></p>
+<p>where, dimention of <span class="math inline">y</span> is <span class="math inline">1 \times n</span>, dimention of <span class="math inline">B</span> is <span class="math inline">1 \times p</span> and dimention of <span class="math inline">X</span> is <span class="math inline">n \times p</span></p>
+<p>Now, Let us consider a simple Neural Network with <span class="math inline">p</span> input and one hidden layer with one node. Like below image</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simple-neural-network.png" class="img-fluid figure-img"></p>
+<figcaption>fig-1: Simple Neural Network</figcaption>
+</figure>
 </div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="RGVlcCUyMExlYXJuaW5nJTJDTmV1cmFsJTIwTmV0d29yaw==" data-listing-date-sort="1753381800000" data-listing-file-modified-sort="1753418201511" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="318">
-<div class="thumbnail">
-<p><a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external"></a></p><a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/neural-network.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">Linear Regression Representated in Neural Net</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('RGVlcCUyMExlYXJuaW5n'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TmV1cmFsJTIwTmV0d29yaw=='); return false;">
-Neural Network
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">How one or multiple linear regression can be represented in Neural Net</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">
-<div class="listing-date">
-Jul 25, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="R2VuJTIwQUklMkNMTE0=" data-listing-date-sort="1751308200000" data-listing-file-modified-sort="1753413958565" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24" data-listing-word-count-sort="4771">
-<div class="thumbnail">
-<p><a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external"></a></p><a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-07-01-Your-Own-Next-Token-Generator/Best-Free-AI-Image-Generator-738622791.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">The Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuJTIwQUk='); return false;">
-Gen AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TExN'); return false;">
-LLM
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">Methods LLM models used to select next token based on some given information</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<p>If we consider weights are <span class="math inline">b_1, b_2, ... ,b_p</span>, Bias of the Node is <span class="math inline">b_0</span> and the activation function for this Node as</p>
+<p><span class="math display">
+f(a_1, a_2, \dots, a_p) = \sum_{i=1}^p a_i
+</span></p>
+<p>Then the output of the neural network will be</p>
+<p><span class="math display">
+y = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p
+</span></p>
+<p>Which is same as Multiple Linear Regression.</p>
+</section>
+<section id="neural-network-with-multiple-node-and-one-layer" class="level2">
+<h2 class="anchored" data-anchor-id="neural-network-with-multiple-node-and-one-layer">Neural Network with Multiple Node and One Layer</h2>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

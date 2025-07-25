@@ -299,7 +299,7 @@ P\big(W_t|W_{1:t-1}\big) = \argmax_{i} \bigg[P\big(W_i|W_{1:t-1}\big)\bigg]
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>!pip install torch transformers hf_xet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Next, let’s import the required libraries, set up our device, and download the model.</p>
 <p>Now let’s define a custom function that predicts the next token using <em>greedy search</em>. In this function, we first predict the <code>logits</code> score for each token, then convert those to probabilities using the <code>softmax</code> function.</p>
-<div id="f88cef92" class="cell" data-execution_count="2">
+<div id="2c63e092" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Defining a function to finf the next word using greedy search</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw">def</span> greedy_search(input_text, input_ids, time_steps):</span>
 <span id="cb2-3"><a href="#cb2-3"></a>    <span class="co">"""</span></span>
@@ -333,7 +333,7 @@ P\big(W_t|W_{1:t-1}\big) = \argmax_{i} \bigg[P\big(W_i|W_{1:t-1}\big)\bigg]
 <span id="cb2-31"><a href="#cb2-31"></a>        <span class="cf">return</span> tokenizer.decode(input_ids[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us pass <code>i love</code> and predict next few word using our custom function and compare the result with <code>transformers</code> library.</p>
-<div id="7a824b15" class="cell" data-execution_count="3">
+<div id="7fcd7751" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>input_text <span class="op">=</span> <span class="st">"i love"</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>input_ids <span class="op">=</span> tokenizer.encode(input_text, return_tensors<span class="op">=</span><span class="st">'pt'</span>).to(device)</span>
 <span id="cb3-3"><a href="#cb3-3"></a></span>
@@ -346,7 +346,7 @@ P\big(W_t|W_{1:t-1}\big) = \argmax_{i} \bigg[P\big(W_i|W_{1:t-1}\big)\bigg]
 <p>The output of our custom <code>greedy_search()</code> is</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {plain text} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>i love the idea of a "new" version of the game, but I'm not sure if it's</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s predicted tokens using <code>transformers</code> library.</p>
-<div id="d20ebd60" class="cell" data-execution_count="4">
+<div id="1088c25a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Input Tokens</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>input_tokens <span class="op">=</span> tokenizer(input_text, return_tensors<span class="op">=</span> <span class="st">'pt'</span>).to(device)</span>
 <span id="cb5-3"><a href="#cb5-3"></a></span>
@@ -359,7 +359,7 @@ P\big(W_t|W_{1:t-1}\big) = \argmax_{i} \bigg[P\big(W_i|W_{1:t-1}\big)\bigg]
 <p>Generated words are exactly same hah!!</p>
 <p>Since this is an deterministic approach predicted words are exactly same.</p>
 <p>If you want to find out what are the other probable tokens and what is there probability you can try this code.</p>
-<div id="7a51e4fc" class="cell" data-execution_count="5">
+<div id="6e988e47" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Defining a function to finf the next word using greedy search</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="kw">def</span> greedy_search(input_text, input_ids, time_steps, choices_per_step):</span>
 <span id="cb7-3"><a href="#cb7-3"></a>    <span class="co">"""</span></span>
@@ -430,7 +430,7 @@ P('it','.'|'i','love')=0.23\times0.6=0.138
 P('it','mom'|'i','love')=0.23\times0.4=0.092
 </span> We can observe, the conditional probability of the sequence <code>it</code> and <code>.</code> is the highest among the considered pairs. Therefore, in Beam Search with a beam width of 2, <code>it</code> will be selected as the first subsequent token, rather than <code>the</code>, despite <code>the</code> having the highest individual probability in the previous step.</p>
 <p>Let’s try to write a function for beam search</p>
-<div id="c5e962bc" class="cell" data-execution_count="6">
+<div id="812d6945" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Beam search function</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="kw">def</span> beam_search(input_text, max_length<span class="op">=</span><span class="dv">50</span>, num_beams<span class="op">=</span><span class="dv">5</span>):</span>
 <span id="cb8-3"><a href="#cb8-3"></a>    <span class="co">"""</span></span>

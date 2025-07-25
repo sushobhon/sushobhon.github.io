@@ -1,0 +1,56 @@
+---
+title: "Linear Regression Representated in Neural Net"
+from: markdown+emoji
+description: "How one or multiple linear regression can be represented in Neural Net"
+author:
+  - name: Sushobhon Karmakar 
+date: 07-25-2025
+categories: [Deep Learning, Neural Network]
+image: neural-network.png
+draft: False
+execute:
+  eval: false  # This is the key line
+  echo: true   # This ensures the code blocks are still displayed
+---
+
+## Introduction
+Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?
+
+At first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.
+
+In this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize.
+
+## A Basic Linear Regression Representated as Neural Network
+Take a basic Linear Regression Model with $p$ Independent variable and one Dependent Variable. We can represent it as
+$$
+y_i = b_0 + b_1 \times x_{1,i} + b_2 \times x_{2,i} + ... + b_p \times x_{p,i} + \epsilon_i 
+$$
+
+for $i = 1, 2, ... , n$
+
+In metrix notation we can write
+$$
+y = X^T B + \epsilon
+$$
+
+where, dimention of $y$ is $1 \times n$, dimention of $B$ is $1 \times p$ and dimention of $X$ is $n \times p$
+
+Now, Let us consider a simple Neural Network with $p$ input and one hidden layer with one node. Like below image
+
+![fig-1: Simple Neural Network](simple-neural-network.png)
+
+If we consider weights are $b_1, b_2, ... ,b_p$, Bias of the Node is $b_0$ and the activation function for this Node as
+
+$$
+f(a_1, a_2, \dots, a_p) = \sum_{i=1}^p a_i
+$$
+
+Then the output of the neural network will be 
+
+$$
+y = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p
+$$
+
+Which is same as Multiple Linear Regression.
+
+## Neural Network with Multiple Node and One Layer

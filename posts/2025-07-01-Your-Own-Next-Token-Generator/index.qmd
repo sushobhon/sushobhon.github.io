@@ -6,7 +6,7 @@ author:
   - name: Sushobhon Karmakar 
 date: 07-01-2025
 categories: [Gen AI, LLM]
-image: rijksmuseum_avercamp_1608.jpg
+image: Best-Free-AI-Image-Generator-738622791.jpg
 draft: False
 execute:
   eval: false  # This is the key line
