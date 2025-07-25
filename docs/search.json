@@ -98,6 +98,34 @@
     "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
   },
   {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "",
+    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "",
+    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "A Basic Linear Regression Representated as Neural Network",
+    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn metrix notation we can write \ny = X^T B + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of B is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "Neural Network with Multiple Node and One Layer",
+    "text": "Neural Network with Multiple Node and One Layer"
+  },
+  {
     "objectID": "skills.html",
     "href": "skills.html",
     "title": "Skills",
@@ -138,33 +166,5 @@
     "title": "Skills",
     "section": " Academics",
     "text": "Academics\n\nStatistical Simulation (Basyesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "",
-    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "",
-    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "A Basic Linear Regression Representated as Neural Network",
-    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn metrix notation we can write \ny = X^T B + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of B is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "Neural Network with Multiple Node and One Layer",
-    "text": "Neural Network with Multiple Node and One Layer"
   }
 ]

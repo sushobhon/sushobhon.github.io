@@ -3,10 +3,10 @@ title: "Sushobhon Karmakar"
 description: "Data Scientist | Learner | Tech Enthusiast"
 from: markdown+emoji
 toc: false
-image: "resources/img/Boki-avatar.jpg"
+image: "resources/img/IMG-20250725-WA0004.jpg"
 about:
-  template: solana
-  image-shape: rounded
+  template: trestles  # solana jolla trestles
+  image-shape: round
   image-width: 15em
 resources:
   - .nojekyll
