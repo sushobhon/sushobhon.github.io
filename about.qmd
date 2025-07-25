@@ -7,7 +7,7 @@ resources:
 ---
 
 ## {{< fa graduation-cap >}} Education
-- M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.
+- M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.
 - B. Sc. in Statistics (2017), Visva-Bharati, WB, India.
 
 ## {{< fa user-tie >}} Career History
@@ -17,13 +17,17 @@ resources:
 - Analyst at Tiger Analytics (Jan'21 - May'21)
 
 ## {{< fa laptop >}} Current Responsibilities
-- **Project Management**: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.
-- **Supporting:** Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring  quality deliverables on time.
-- **Mentoring:** Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.
-- **Inovation and RnD:** Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client.
+- **Project Management**: Led a cross-functional initiative to enhance business performance visibility. Collaborated closely with stakeholders and ground users, partnering with the Tableau team to develop an intuitive dashboard for actionable segment performance analysis.
 
-## {{< fa umbrella-beach >}} Things I Love To Do:
+- **Supporting:** Provided hands-on guidance to a Data Scientists and a Scenior Analyst in model development and client engagement, consistently driving the timely delivery of high-quality solutions.
 
-- Reading and Listening Bengali Books.
+- **Mentoring:** Guided a data scientist's development, ensuring a balanced approach to learning and work while cultivating the advanced skills crucial for senior data scientist advancement.
+
+- **Inovation and RnD:** Continuously research and integrate cutting-edge data science advancements to enhance existing models. I develop innovative, data-driven solutions and streamline implementation for the Model Refreshing Team, ensuring clients receive timely, optimized outcomes.
+
+## {{< fa umbrella-beach >}} Things I Love To Do
+
+- Reading and listening to Bengali literatures.
+- Exploring new Technologies.
 - Cooking Indian Recipies.
 - Playing Football and Badminton.

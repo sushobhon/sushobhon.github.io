@@ -255,15 +255,15 @@ window.Quarto = {
 y_i = b_0 + b_1 \times x_{1,i} + b_2 \times x_{2,i} + ... + b_p \times x_{p,i} + \epsilon_i
 </span></p>
 <p>for <span class="math inline">i = 1, 2, ... , n</span></p>
-<p>In metrix notation we can write <span class="math display">
-y = X^T B + \epsilon
+<p>In matrix notation we can write <span class="math display">
+y = X^T b + \epsilon
 </span></p>
-<p>where, dimention of <span class="math inline">y</span> is <span class="math inline">1 \times n</span>, dimention of <span class="math inline">B</span> is <span class="math inline">1 \times p</span> and dimention of <span class="math inline">X</span> is <span class="math inline">n \times p</span></p>
+<p>where, dimention of <span class="math inline">y</span> is <span class="math inline">1 \times n</span>, dimention of <span class="math inline">b</span> is <span class="math inline">1 \times p</span> and dimention of <span class="math inline">X</span> is <span class="math inline">n \times p</span></p>
 <p>Now, Let us consider a simple Neural Network with <span class="math inline">p</span> input and one hidden layer with one node. Like below image</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="simple-neural-network.png" class="img-fluid figure-img"></p>
-<figcaption>fig-1: Simple Neural Network</figcaption>
+<figcaption>fig-1: Simple Neural Network with One Node</figcaption>
 </figure>
 </div>
 <p>If we consider weights are <span class="math inline">b_1, b_2, ... ,b_p</span>, Bias of the Node is <span class="math inline">b_0</span> and the activation function for this Node as</p>
@@ -278,6 +278,35 @@ y = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p
 </section>
 <section id="neural-network-with-multiple-node-and-one-layer" class="level2">
 <h2 class="anchored" data-anchor-id="neural-network-with-multiple-node-and-one-layer">Neural Network with Multiple Node and One Layer</h2>
+<p>Let’s consider a Neural Network with <span class="math inline">3</span> Nodes and One Layer (Since this is Regression we need a single output Node to combine all the outputs from the first Layer).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="multiple-neural-network.png" class="img-fluid figure-img"></p>
+<figcaption>fig-1: Simple Neural Network with Multiple Node</figcaption>
+</figure>
+</div>
+<p>We have <span class="math inline">p</span> Independent variables and one Dependent variable (Same as above). We have an Activation Function for all Nodes the same as before. Weight for the first Node is defined as <span class="math inline">b_{1,i}</span> for <span class="math inline">i=1,2,\dots,p</span>. Similarly for second Node <span class="math inline">b_{2,i}</span>.</p>
+<p>We have already seen output of first Node <span class="math inline">y_1</span> can be expressed as a Linear Regression <span class="math inline">y_1=x^T.b_1</span>. Similarly <span class="math inline">y_2=x^T.b_2</span> and <span class="math inline">y_3=x^T.b_3</span>. Which are 3 different Linear Regressions.</p>
+<p>In Matrix form we can write: <span class="math display">
+\begin{bmatrix}y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} b_{1,0} &amp; b_{1,1} &amp; b_{1,2} &amp; \dots &amp; b_{1,p}\\
+                                                                b_{2,0} &amp; b_{2,1} &amp; b_{2,2} &amp; \dots &amp; b_{2,p}\\
+                                                                b_{3,0} &amp; b_{3,1} &amp; b_{3,2} &amp; \dots &amp; b_{3,p}\\
+                                                                \vdots &amp; \vdots &amp; \vdots &amp; &amp; \vdots\\
+                                                                b_{p,0} &amp; b_{p,1} &amp; b_{p,2} &amp; \dots &amp; b_{p,p}
+                                                \end{bmatrix}
+                                                \begin{bmatrix} x_{1}\\ x_{2} \\ \vdots \\ x_{p} \end{bmatrix}
+\\
+                                                y^* = Wx^*
+</span></p>
+<p>Where, <span class="math inline">W</span> is the weight Matrix of the first Layer.</p>
+<p>In the Output Node we will combine all the output of the First Layer. If the weights of Output Node is <span class="math inline">c_1</span>,<span class="math inline">c_2</span> and <span class="math inline">c_3</span>, then by the same Matrix Notation we can write Final Output</p>
+<p><span class="math display">
+\hat{y} = c_0 + c_1y_1 + c_2y_2 + c_3y_3 = \begin{bmatrix} c_0 &amp; c_1 &amp; c_2 &amp; c_3 \end{bmatrix}
+                                            \begin{bmatrix} 1 \\ y_1 \\ y_2 \\ y_3 \end{bmatrix}\\
+                                            \hat{y} = c^Ty^{**}\\
+                                            \hat{y} = c^TWx\\
+                                            \hat{y} = W^*x\\
+</span> Pushing the similar idea we can represent any Neural Network with Linear Activation Function as combination of Multiple Linear Regressions.</p>
 
 
 </section>

@@ -53,21 +53,21 @@
     "href": "index.html",
     "title": "Sushobhon Karmakar",
     "section": "",
-    "text": "Discover My Work\nHello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\n\n\nIntroduction\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\n\nGet in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
+    "text": "Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+    "text": "M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
   },
   {
     "objectID": "about.html#education",
     "href": "about.html#education",
     "title": "About Me",
     "section": "",
-    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+    "text": "M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
   },
   {
     "objectID": "about.html#career-history",
@@ -81,14 +81,14 @@
     "href": "about.html#current-responsibilities",
     "title": "About Me",
     "section": " Current Responsibilities",
-    "text": "Current Responsibilities\n\nProject Management: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.\nSupporting: Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring quality deliverables on time.\nMentoring: Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.\nInovation and RnD: Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client."
+    "text": "Current Responsibilities\n\nProject Management: Led a cross-functional initiative to enhance business performance visibility. Collaborated closely with stakeholders and ground users, partnering with the Tableau team to develop an intuitive dashboard for actionable segment performance analysis.\nSupporting: Provided hands-on guidance to a Data Scientists and a Scenior Analyst in model development and client engagement, consistently driving the timely delivery of high-quality solutions.\nMentoring: Guided a data scientist’s development, ensuring a balanced approach to learning and work while cultivating the advanced skills crucial for senior data scientist advancement.\nInovation and RnD: Continuously research and integrate cutting-edge data science advancements to enhance existing models. I develop innovative, data-driven solutions and streamline implementation for the Model Refreshing Team, ensuring clients receive timely, optimized outcomes."
   },
   {
     "objectID": "about.html#things-i-love-to-do",
     "href": "about.html#things-i-love-to-do",
     "title": "About Me",
-    "section": " Things I Love To Do:",
-    "text": "Things I Love To Do:\n\nReading and Listening Bengali Books.\nCooking Indian Recipies.\nPlaying Football and Badminton."
+    "section": " Things I Love To Do",
+    "text": "Things I Love To Do\n\nReading and listening to Bengali literatures.\nExploring new Technologies.\nCooking Indian Recipies.\nPlaying Football and Badminton."
   },
   {
     "objectID": "project.html",
@@ -116,35 +116,35 @@
     "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
     "title": "Linear Regression Representated in Neural Net",
     "section": "A Basic Linear Regression Representated as Neural Network",
-    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn metrix notation we can write \ny = X^T B + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of B is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
+    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn matrix notation we can write \ny = X^T b + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of b is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network with One Node\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
   },
   {
     "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
     "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
     "title": "Linear Regression Representated in Neural Net",
     "section": "Neural Network with Multiple Node and One Layer",
-    "text": "Neural Network with Multiple Node and One Layer"
+    "text": "Neural Network with Multiple Node and One Layer\nLet’s consider a Neural Network with 3 Nodes and One Layer (Since this is Regression we need a single output Node to combine all the outputs from the first Layer).\n\n\n\nfig-1: Simple Neural Network with Multiple Node\n\n\nWe have p Independent variables and one Dependent variable (Same as above). We have an Activation Function for all Nodes the same as before. Weight for the first Node is defined as b_{1,i} for i=1,2,\\dots,p. Similarly for second Node b_{2,i}.\nWe have already seen output of first Node y_1 can be expressed as a Linear Regression y_1=x^T.b_1. Similarly y_2=x^T.b_2 and y_3=x^T.b_3. Which are 3 different Linear Regressions.\nIn Matrix form we can write: \n\\begin{bmatrix}y_1 \\\\ y_2 \\\\ y_3 \\end{bmatrix} = \\begin{bmatrix} b_{1,0} & b_{1,1} & b_{1,2} & \\dots & b_{1,p}\\\\\n                                                                b_{2,0} & b_{2,1} & b_{2,2} & \\dots & b_{2,p}\\\\\n                                                                b_{3,0} & b_{3,1} & b_{3,2} & \\dots & b_{3,p}\\\\\n                                                                \\vdots & \\vdots & \\vdots & & \\vdots\\\\\n                                                                b_{p,0} & b_{p,1} & b_{p,2} & \\dots & b_{p,p}\n                                                \\end{bmatrix}\n                                                \\begin{bmatrix} x_{1}\\\\ x_{2} \\\\ \\vdots \\\\ x_{p} \\end{bmatrix}\n\\\\\n                                                y^* = Wx^*\n\nWhere, W is the weight Matrix of the first Layer.\nIn the Output Node we will combine all the output of the First Layer. If the weights of Output Node is c_1,c_2 and c_3, then by the same Matrix Notation we can write Final Output\n\n\\hat{y} = c_0 + c_1y_1 + c_2y_2 + c_3y_3 = \\begin{bmatrix} c_0 & c_1 & c_2 & c_3 \\end{bmatrix}\n                                            \\begin{bmatrix} 1 \\\\ y_1 \\\\ y_2 \\\\ y_3 \\end{bmatrix}\\\\\n                                            \\hat{y} = c^Ty^{**}\\\\\n                                            \\hat{y} = c^TWx\\\\\n                                            \\hat{y} = W^*x\\\\\n Pushing the similar idea we can represent any Neural Network with Linear Activation Function as combination of Multiple Linear Regressions."
   },
   {
     "objectID": "skills.html",
     "href": "skills.html",
     "title": "Skills",
     "section": "",
-    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython (pandas, numpy, statsmpdels)"
+    "text": "Revenue Optimizer\n\n Methods\n\nOptimized revenue generation by applying the Method of Moving Asymptotes (MMA) to operate within defined constraints.\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization.\n\n\nForecasting Time Series variable\n\n Methods\n\nAutoRegressive (AR) and Vector AutoRegressive (VAR) Models.\n\n Tools\n\nPython (pandas, numpy, statsmodels)"
   },
   {
     "objectID": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
     "href": "skills.html#senior-data-scientist-tiger-analytics-jan25---present",
     "title": "Skills",
     "section": "",
-    "text": "Revenue Optimizer\n\n Methods\n\nApplied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization\n\n\nForecasting Time Series variable\n\n Methods\n\nAuto Regressive (AR) and Vector Auto Regressive (VAR) Model\n\n Tools\n\nPython (pandas, numpy, statsmpdels)"
+    "text": "Revenue Optimizer\n\n Methods\n\nOptimized revenue generation by applying the Method of Moving Asymptotes (MMA) to operate within defined constraints.\n\n Tools\n\nR: Utilized the nloptr package, a powerful tool for nonlinear optimization.\n\n\nForecasting Time Series variable\n\n Methods\n\nAutoRegressive (AR) and Vector AutoRegressive (VAR) Models.\n\n Tools\n\nPython (pandas, numpy, statsmodels)"
   },
   {
     "objectID": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
     "href": "skills.html#data-scientist-tiger-analytics-aug23---dec24",
     "title": "Skills",
     "section": " Data Scientist, Tiger Analytics (Aug’23 - Dec’24)",
-    "text": "Data Scientist, Tiger Analytics (Aug’23 - Dec’24)\n\nPrice Optimization through Market Analysis\n\n Methods\n\nAnalyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score\nForecasted Future KPI’s using Time Series Models\n\n Tools\n\nPython (pandas, numpy) for comprehensive data analysis and manipulation\nExcel Solver for optimization of weighting factors\n\n\nRepresentative Property Identification for Market\n\n Methods\n\nPerformed KMeans clustering analysis on property and location attributes to group similar properties\nApplied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster\nCalculated cluster centroids and used cosine similarity to identify representative properties for each market\n\n Tools\n\nR (data.table, Rlof) for data analysis\nR (leaflet, mapview) for interactive geospatial visualization and map generation\n\n\nFinding Optimal Leases for Discussion\n\n Methods\n\nEmployed Federov’s Exchange Algorithm to generate optimal hypothetical lease scenarios\nUtilized cosine similarity to select the most representative and relevant optimal leases\n\n Tools\n\nR: AlgDesign package for implementing the Federov’s Exchange Algorithm\nExcel: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results"
+    "text": "Data Scientist, Tiger Analytics (Aug’23 - Dec’24)\n\nPrice Optimization through Market Analysis\n\n Methods\n\nAnalyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score.\nForecasted future KPIs using Time Series Models.\n\n Tools\n\nPython (pandas, numpy) for comprehensive data analysis and manipulation.\nExcel Solver for optimization of weighting factors.\n\n\nRepresentative Property Identification for Market\n\n Methods\n\nPerformed K-Means clustering analysis on property and location attributes to group similar properties.\nApplied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster.\nCalculated cluster centroids and used cosine similarity to identify representative properties for each market.\n\n Tools\n\nR (data.table, Rlof) for data analysis.\nR (leaflet, mapview) for interactive geospatial visualization and map generation.\n\n\nFinding Optimal Leases for Discussion\n\n Methods\n\nEmployed Fedorev’s Exchange Algorithm to generate optimal hypothetical lease scenarios.\nUtilized cosine similarity to select the most representative and relevant optimal leases.\n\n Tools\n\nR: AlgDesign package for implementing the Federov’s Exchange Algorithm.\nExcel: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results."
   },
   {
     "objectID": "skills.html#senior-analyst-tiger-analytics-jul21---jul23",
@@ -158,13 +158,27 @@
     "href": "skills.html#analyst-tiger-analytics-jan21---jun21",
     "title": "Skills",
     "section": " Analyst, Tiger Analytics (Jan’21 - Jun’21)",
-    "text": "Analyst, Tiger Analytics (Jan’21 - Jun’21)\n\nStatistical Test of Significance\n\n Methods\n\nStatistical t-Test, z-Test and proportion Test\n\n Tools\n\ndplyr, tidyverse, spss packages in R Programming"
+    "text": "Analyst, Tiger Analytics (Jan’21 - Jun’21)\n\nStatistical Test of Significance\n\n Methods\n\nStatistical t-Test, z-Test, and proportion Test.\n\n Tools\n\ndplyr, tidyverse, spss packages in R."
   },
   {
     "objectID": "skills.html#academics",
     "href": "skills.html#academics",
     "title": "Skills",
     "section": " Academics",
-    "text": "Academics\n\nStatistical Simulation (Basyesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
+    "text": "Academics\n\nStatistical Simulation (Bayesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
+  },
+  {
+    "objectID": "index.html#welcome-to-my-portfolio",
+    "href": "index.html#welcome-to-my-portfolio",
+    "title": "Sushobhon Karmakar",
+    "section": "",
+    "text": "Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
+  },
+  {
+    "objectID": "index.html#get-in-touch",
+    "href": "index.html#get-in-touch",
+    "title": "Sushobhon Karmakar",
+    "section": "Get in Touch",
+    "text": "Get in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
   }
 ]
