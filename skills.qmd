@@ -8,41 +8,41 @@ resources:
 ## {{< fa briefcase >}} Senior Data Scientist, Tiger Analytics (Jan'25 - Present)
 - Revenue Optimizer
     - {{< fa briefcase >}} Methods
-        - Applied Method of Moving Asymptotes (MMA) to maximize revenue subjected to some given constrain
+        - Optimized revenue generation by applying the Method of Moving Asymptotes (MMA) to operate within defined constraints.
     - {{< fa screwdriver-wrench >}} Tools
-        - R: Utilized the `nloptr` package, a powerful tool for nonlinear optimization
+        - R: Utilized the `nloptr` package, a powerful tool for nonlinear optimization.
 
 - Forecasting Time Series variable
     - {{< fa briefcase >}} Methods
-        - Auto Regressive (AR) and Vector Auto Regressive (VAR) Model
+        - AutoRegressive (AR) and Vector AutoRegressive (VAR) Models.
     - {{< fa screwdriver-wrench >}} Tools
-        - Python (`pandas`, `numpy`, `statsmpdels`)
+        - Python (`pandas`, `numpy`, `statsmodels`)
 
 ## {{< fa briefcase >}} Data Scientist, Tiger Analytics (Aug'23 - Dec'24)
 - Price Optimization through Market Analysis
     - {{< fa chalkboard >}} Methods
-        - Analyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score
-        - Forecasted Future KPI's using Time Series Models
+        - Analyzed market performance using historical Key Performance Indicators (KPIs) to generate a composite score.
+        - Forecasted future KPIs using Time Series Models.
     - {{< fa screwdriver-wrench >}} Tools
-        - Python (`pandas`, `numpy`) for comprehensive data analysis and manipulation
-        - Excel Solver for optimization of weighting factors
+        - Python (`pandas`, `numpy`) for comprehensive data analysis and manipulation.
+        - Excel Solver for optimization of weighting factors.
 
 - Representative Property Identification for Market
     - {{< fa chalkboard >}} Methods
-        - Performed KMeans clustering analysis on property and location attributes to group similar properties
-        - Applied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster
-        - Calculated cluster centroids and used cosine similarity to identify representative properties for each market
+        - Performed K-Means clustering analysis on property and location attributes to group similar properties.
+        - Applied Local Outlier Factor (LOF) technique to identify and remove outliers within each cluster.
+        - Calculated cluster centroids and used cosine similarity to identify representative properties for each market.
     - {{< fa screwdriver-wrench >}} Tools
-        - R (`data.table`, `Rlof`) for data analysis
-        - R (`leaflet`, `mapview`) for interactive geospatial visualization and map generation
+        - R (`data.table`, `Rlof`) for data analysis.
+        - R (`leaflet`, `mapview`) for interactive geospatial visualization and map generation.
 
 - Finding Optimal Leases for Discussion
     - {{< fa chalkboard >}} Methods
-        - Employed Federov's Exchange Algorithm to generate optimal hypothetical lease scenarios
-        - Utilized cosine similarity to select the most representative and relevant optimal leases
+        - Employed Fedorev's Exchange Algorithm to generate optimal hypothetical lease scenarios.
+        - Utilized cosine similarity to select the most representative and relevant optimal leases.
     - {{< fa screwdriver-wrench >}} Tools
-        - **R**: `AlgDesign` package for implementing the Federov's Exchange Algorithm
-        - **Excel**: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results
+        - **R**: `AlgDesign` package for implementing the Federov's Exchange Algorithm.
+        - **Excel**: Developed a macro to automate the generation of an Excel dashboard from tabular data, facilitating clear and concise presentation of results.
 
 
 ## {{< fa briefcase >}} Senior Analyst, Tiger Analytics (Jul'21 - Jul'23)
@@ -66,12 +66,12 @@ resources:
 ## {{< fa briefcase >}} Analyst, Tiger Analytics (Jan'21 - Jun'21)
 - Statistical Test of Significance
     -   {{< fa chalkboard >}} Methods
-        - Statistical t-Test, z-Test and proportion Test
+        - Statistical t-Test, z-Test, and proportion Test.
     - {{< fa screwdriver-wrench >}} Tools
-        - `dplyr`, `tidyverse`, `spss` packages in R Programming
+        - `dplyr`, `tidyverse`, `spss` packages in R.
 
 ## {{< fa building-columns >}} Academics
-- Statistical Simulation (Basyesian Estimation, MCMC)
+- Statistical Simulation (Bayesian Estimation, MCMC)
     - {{< fa screwdriver-wrench >}} Tools
         - R Programming
         - $\LaTeX$ for report generation
