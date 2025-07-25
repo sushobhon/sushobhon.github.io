@@ -4,14 +4,77 @@
     "href": "blogs.html",
     "title": "Blogs",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nThe Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling\n\n\n\nGen AI\n\nLLM\n\n\n\nMethods LLM models used to select next token based on some given information\n\n\n\n\n\nJul 1, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nLinear Regression Representated in Neural Net\n\n\n\nDeep Learning\n\nNeural Network\n\n\n\nHow one or multiple linear regression can be represented in Neural Net\n\n\n\n\n\nJul 25, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\n\n\n\n\n\n\nThe Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling\n\n\n\nGen AI\n\nLLM\n\n\n\nMethods LLM models used to select next token based on some given information\n\n\n\n\n\nJul 1, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Projects",
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
+    "title": "Linear Regression Representated in Neural Net",
     "section": "",
-    "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
+    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "",
+    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "A Basic Linear Regression Representated as Neural Network",
+    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn metrix notation we can write \ny = X^T B + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of B is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "Neural Network with Multiple Node and One Layer",
+    "text": "Neural Network with Multiple Node and One Layer"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sushobhon Karmakar",
+    "section": "",
+    "text": "Discover My Work\nHello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\n\n\nIntroduction\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\n\nGet in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#career-history",
+    "href": "about.html#career-history",
+    "title": "About Me",
+    "section": " Career History",
+    "text": "Career History\n\nSenior Data Scientist at Tiger Analytics (Jan’25 - Present).\nData Scientist at Tiger Analytics (Jun’23 - Dec’24).\nSenior Analyst at Tiger Analytics (Jun’21 - May’23).\nAnalyst at Tiger Analytics (Jan’21 - May’21)"
+  },
+  {
+    "objectID": "about.html#current-responsibilities",
+    "href": "about.html#current-responsibilities",
+    "title": "About Me",
+    "section": " Current Responsibilities",
+    "text": "Current Responsibilities\n\nProject Management: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.\nSupporting: Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring quality deliverables on time.\nMentoring: Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.\nInovation and RnD: Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client."
+  },
+  {
+    "objectID": "about.html#things-i-love-to-do",
+    "href": "about.html#things-i-love-to-do",
+    "title": "About Me",
+    "section": " Things I Love To Do:",
+    "text": "Things I Love To Do:\n\nReading and Listening Bengali Books.\nCooking Indian Recipies.\nPlaying Football and Badminton."
   },
   {
     "objectID": "skills.html",
@@ -56,46 +119,11 @@
     "text": "Academics\n\nStatistical Simulation (Basyesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Projects",
     "section": "",
-    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About Me",
-    "section": "",
-    "text": "M. Sc. in Statistics (2020), Indian Institude of Statistics (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
-  },
-  {
-    "objectID": "about.html#career-history",
-    "href": "about.html#career-history",
-    "title": "About Me",
-    "section": " Career History",
-    "text": "Career History\n\nSenior Data Scientist at Tiger Analytics (Jan’25 - Present).\nData Scientist at Tiger Analytics (Jun’23 - Dec’24).\nSenior Analyst at Tiger Analytics (Jun’21 - May’23).\nAnalyst at Tiger Analytics (Jan’21 - May’21)"
-  },
-  {
-    "objectID": "about.html#current-responsibilities",
-    "href": "about.html#current-responsibilities",
-    "title": "About Me",
-    "section": " Current Responsibilities",
-    "text": "Current Responsibilities\n\nProject Management: Leading a Project to Monitor Business Performance. Identify which segment is Under-Performing / Over-Performing. Collaborated with Stakeholders, Ground Users and Tableau Team to Build a Dashboard for easy access.\nSupporting: Guiding a Data Scientist on Model Building, helping with next stapes, to interact with Client, and ensuring quality deliverables on time.\nMentoring: Mentoring a Data Scientist, ensuring his learning, work-life balance. Guiding him to aquire new skils required to become Senior Data Scientist.\nInovation and RnD: Stay up-to-date with the latest advancements in Data Science. Implementing new technologies and menthods to imporve the existing Models and Provinding easy to implement solutions to Model Refreshing Team. Cumming up Data Driven Solutions time to time for Client."
-  },
-  {
-    "objectID": "about.html#things-i-love-to-do",
-    "href": "about.html#things-i-love-to-do",
-    "title": "About Me",
-    "section": " Things I Love To Do:",
-    "text": "Things I Love To Do:\n\nReading and Listening Bengali Books.\nCooking Indian Recipies.\nPlaying Football and Badminton."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Sushobhon Karmakar",
-    "section": "",
-    "text": "Discover My Work\nHello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\n\n\nIntroduction\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\n\nGet in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
+    "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
   },
   {
     "objectID": "posts/2025-07-01-Your-Own-Next-Token-Generator/index.html",
