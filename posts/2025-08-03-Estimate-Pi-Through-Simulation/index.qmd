@@ -1,0 +1,48 @@
+---
+title: "Estimate Value of $π$"
+from: markdown+emoji
+description: "How to estimate value of $π$ through simulation"
+author:
+  - name: Sushobhon Karmakar 
+date: 07-25-2025
+categories: [Simulation]
+image: "pi-simbolo.png"
+draft: False
+execute:
+  eval: false  # This is the key line
+  echo: true   # This ensures the code blocks are still displayed
+---
+
+# Introduction
+The number $π$, representing the ratio of a circle’s circumference to its diameter, is one of the most famous and mysterious constants in mathematics. Its value—approximately $3.14159$—has fascinated mathematicians for thousands of years. Ancient civilizations like the Babylonians and Egyptians made some of the earliest approximations of $π$ using simple geometric techniques. Later, Greek mathematician Archimedes developed a more accurate method by inscribing and circumscribing polygons around a circle, laying the groundwork for more precise calculations.
+
+Over centuries, mathematicians continued to refine the value of $π$ using increasingly complex analytical techniques. But today, with the power of computers and a bit of creativity, we can estimate $π$ using probabilistic simulations—a method that's both intuitive and surprisingly effective.
+
+In this blog, we’ll explore how simulation, especially the Monte Carlo method, can be used to estimate $π$. Whether you're a math enthusiast or just curious about how randomness can reveal deep truths, this post will guide you through the concepts and code needed to approximate $π$ using simple experiments.
+
+# Estimating $π$ Through Simulation
+The animation below, made with [Shiny](https://shinylive.io/), will make easier to understand by giving geometrical sense. 
+
+<iframe src="https://shinylive.io/py/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6VBPMAaMAYwHsIAXOcpMAYgAIBJGVYgJzIEsIBzOgOTiE4AZ2FRW2OgBkOAI1biOIgDoQOzNmToKIAE2IxV6luzowoZVABtiZK3KzZrtulGF1rZIxtPnLNuwdUC0IACxFXd2CyMJUIVQAzVgM6YVCubAw4AA9UVhF3Y006LlQAVzI8bUpdOFYqso5VVXoAETgEri5eKDoEsohCTlI6MmI6EU4-OFHwj2TZKFkOezJJYgTXOgAmXQ9iLjJCwog6Qg5WQisZtjoIW1VazcIoK0Iyqws4AH084llvlA9N9uHAyL8DuRhAAKCCIErkACUiFUdDRdGUYEx2NO6IAKul3AAxAZDDgjF5vD5fdxkOZ-RbLVbrTa9Xb7Q59V72HgI4QcWpbc6Xa6o9FAvb5MhlVgQWn0yFHOigiB1L66KovCjcNgcABecD2skkAHdwnS6rM4JJxDMuPzBbdiBUHXAMM1cWjggoYCjPei0adoYdkXcyjBZJaNhyoaNxiQ5QK6h6A1KZXK-QGA9LrHB4b0c9czqQyFAujxM1mqwBaPo2Czwi0TYRTdXzf5LFYcNZ0aEkAZaAD0d0RYqrAdr9hb+boU600ZYhxOrqtZwuVxm0OA2Sq2AAuqP-eO6JOONOtnO6AvFe5nUck6vhRve9vdwexxisV+P-3yHQALx0AADB+i5Qt89oPoBwB7qBN7fHeK7QbB8T+gktwcAi2hAqCsLIh+Ab0AA4pQaoUDsdAAEoSikEDhpGrDuNkrh6HQkhJCkACq0JAXg2yHsezGATo+gwBgAwcOhrAwDxVT8QR6KSMJNFiRJUkybxOyHgpaL0AAwuEhAANYlJsTYiSkYFaGedAmt26SnE2T5Fk6LoPk566ike6KSb20LMbWACMiIAFQhdsdAANS9pIQWheFiJ0AAPIBgWVseaK-lokWpTpWZWcIEGJrUGBoKgNRbjubHvt5aJwFYwh5nlAYFQhbklWVFWvtV2n+mmsrFgOdDDhAVStZBtRjfBiFJh6HqNBgpQVN8wj2LUrDQpi8T4J+ADK9WCFoTZ0RGUabPyMDUsMpwFSiO2BVUgVAc9L2Pc9vWqAAAvkeh1FgATQq8ZCAZiACiLbqF8V6bAACgwmKHk8HgA-h-r6fkUNEQoqDpJSVFwHkIiUKW10fp03BVFAQnI2QGDCGUsjOEc0LBSm6JtAoJqrsIACOZS2r2sjOnoigRNGTYXVd5KnLaUACeivP8-kAEeCE4TCBglGHTh1zQrJwGInJRuzlwcB2bodL-g9Ey6KCJA2Kw-4AOSyJ8xlO1UCRQEI9tsM79yqk78tolTpW6Lovxq9Ciu2r1hF0K0nOrvahCsHIhpriKm5COQdQZxYvYPcFtn2dhugcGU7is-6zkzIB0SxBremeXAevW8Fj1VDyZsCpb1uGnbxAO87+S6B7XI+0PftOwHcBBx+odQOHkcxKEfYt3H6IMlNS5Fa6O-gTNgqAZS7yfBQvwLICwKguCBXBhA5S0xA0KIsHzathQEeoJh9cLHQIU6AABY2a6ToDDAIq4Cp8ncnMWuH5fLjWKk1WqdBsh7yTLuDBx86B6g4KgaEIUkGunfgGUOwgtQUA2ugiacAsG0M1FPR2TtuD5EoOPYQ-4ACsXclj1WdgwZBdBm5Z3nqheOECXBNmgUfGYHks4IM2K1WR6UszoNkVg2RKs8EEKIdNdqcBSHimyHTShdR-JtXvJNNilj97FmHi7KwZQ55VE4Tw2cfCrDOwAPIGOES3MRH56D7S0EzE2MBuzuAlJEcqQxsLDAXiYxq4Jsj2A0nJd+5CwTfGwGk-W8l-RZPBG4WJZBoROzgHzV448l4ACtK6lldnAZ2QtsiBLRnQEJHjIwNRYnsTgdg4CJLptk1JnjoQJCdjDTCiBAIgEmJDL+vwOAAF8xFkKSdkgZutJkAFk9J0HBp-aW0NwGYTsnSOgIAlrP1fismMRx1ns1cCY64KpdCv1AlYWmrCBTQjxKwZxXdTYtlyc0p21Zqw1KsDjKA-4gIYAAGzv08HTUIxATSfL6mCdMHowArL3EAA" width="800" height="600" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
+
+Consider a Square with side 2 unit and a circle inside the square with radius 1. Now, Area of the circle is $2 \times 2 = 4$ and the area of the circle inside is $\pi r^2 = \pi 1^2 = \pi$.
+
+Now, if we generate a random 2d points in $(0, 2) \times (0, 2)$ space from $Uniform(0,2)$ the the chance of the point falling inside the circle $P$ is 
+
+$$
+P = \frac{\text{Area of Circle}}{\text{Area of Square}}\\\\
+= \frac{\pi}{4}
+$$
+Hence,
+$$
+\pi = P \times 4
+$$
+
+Now we need to estimate $P$.
+
+We estimate $P$ through simulation. We will generate suppose $n$ random numbers pairs from $U(0, 2)$ and count how many random number pairs are falling inside the circle. The we count the number of pounts falling inside the circle, suppose $p$, out of total $n$. So,
+$$
+P = \frac{p}{n}
+$$
+
+As we increase the value of $n$ we can see the estimate of $\pi$ will move close to $3.14..$
