@@ -4,7 +4,98 @@
     "href": "blogs.html",
     "title": "Blogs",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nLinear Regression Representated in Neural Net\n\n\n\n\n\n\nDeep Learning\n\n\nNeural Network\n\n\n\nHow one or multiple linear regression can be represented in Neural Net\n\n\n\n\n\nJul 25, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\n\n\n\n\n\n\nThe Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling\n\n\n\n\n\n\nGen AI\n\n\nLLM\n\n\n\nMethods LLM models used to select next token based on some given information\n\n\n\n\n\nJul 1, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nLinear Regression Representated in Neural Net\n\n\n\n\n\n\nDeep Learning\n\n\nNeural Network\n\n\n\nHow one or multiple linear regression can be represented in Neural Net\n\n\n\n\n\nJul 25, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\n\n\n\n\n\n\nEstimate Value of π\n\n\n\n\n\n\nSimulation\n\n\n\nHow to estimate value of π through simulation\n\n\n\n\n\nJul 25, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\n\n\n\n\n\n\nThe Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling\n\n\n\n\n\n\nGen AI\n\n\nLLM\n\n\n\nMethods LLM models used to select next token based on some given information\n\n\n\n\n\nJul 1, 2025\n\n\nSushobhon Karmakar\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html",
+    "href": "posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html",
+    "title": "Estimate Value of π",
+    "section": "",
+    "text": "Introduction\nThe number π, representing the ratio of a circle’s circumference to its diameter, is one of the most famous and mysterious constants in mathematics. Its value—approximately 3.14159—has fascinated mathematicians for thousands of years. Ancient civilizations like the Babylonians and Egyptians made some of the earliest approximations of π using simple geometric techniques. Later, Greek mathematician Archimedes developed a more accurate method by inscribing and circumscribing polygons around a circle, laying the groundwork for more precise calculations.\nOver centuries, mathematicians continued to refine the value of π using increasingly complex analytical techniques. But today, with the power of computers and a bit of creativity, we can estimate π using probabilistic simulations—a method that’s both intuitive and surprisingly effective.\nIn this blog, we’ll explore how simulation, especially the Monte Carlo method, can be used to estimate π. Whether you’re a math enthusiast or just curious about how randomness can reveal deep truths, this post will guide you through the concepts and code needed to approximate π using simple experiments.\n\n\nEstimating π Through Simulation\nThe animation below, made with Shiny, will make easier to understand by giving geometrical sense.\n\n\nConsider a Square with side 2 unit and a circle inside the square with radius 1. Now, Area of the circle is 2 \\times 2 = 4 and the area of the circle inside is \\pi r^2 = \\pi 1^2 = \\pi.\nNow, if we generate a random 2d points in (0, 2) \\times (0, 2) space from Uniform(0,2) the the chance of the point falling inside the circle P is\n\nP = \\frac{\\text{Area of Circle}}{\\text{Area of Square}}\\\\\\\\\n= \\frac{\\pi}{4}\n Hence, \n\\pi = P \\times 4\n\nNow we need to estimate P.\nWe estimate P through simulation. We will generate suppose n random numbers pairs from U(0, 2) and count how many random number pairs are falling inside the circle. The we count the number of pounts falling inside the circle, suppose p, out of total n. So, \nP = \\frac{p}{n}\n\nAs we increase the value of n we can see the estimate of \\pi will move close to 3.14.."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "",
+    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "",
+    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "A Basic Linear Regression Representated as Neural Network",
+    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn matrix notation we can write \ny = X^T b + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of b is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network with One Node\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
+  },
+  {
+    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
+    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
+    "title": "Linear Regression Representated in Neural Net",
+    "section": "Neural Network with Multiple Node and One Layer",
+    "text": "Neural Network with Multiple Node and One Layer\nLet’s consider a Neural Network with 3 Nodes and One Layer (Since this is Regression we need a single output Node to combine all the outputs from the first Layer).\n\n\n\nfig-1: Simple Neural Network with Multiple Node\n\n\nWe have p Independent variables and one Dependent variable (Same as above). We have an Activation Function for all Nodes the same as before. Weight for the first Node is defined as b_{1,i} for i=1,2,\\dots,p. Similarly for second Node b_{2,i}.\nWe have already seen output of first Node y_1 can be expressed as a Linear Regression y_1=x^T.b_1. Similarly y_2=x^T.b_2 and y_3=x^T.b_3. Which are 3 different Linear Regressions.\nIn Matrix form we can write: \n\\begin{bmatrix}y_1 \\\\ y_2 \\\\ y_3 \\end{bmatrix} = \\begin{bmatrix} b_{1,0} & b_{1,1} & b_{1,2} & \\dots & b_{1,p}\\\\\n                                                                b_{2,0} & b_{2,1} & b_{2,2} & \\dots & b_{2,p}\\\\\n                                                                b_{3,0} & b_{3,1} & b_{3,2} & \\dots & b_{3,p}\\\\\n                                                                \\vdots & \\vdots & \\vdots & & \\vdots\\\\\n                                                                b_{p,0} & b_{p,1} & b_{p,2} & \\dots & b_{p,p}\n                                                \\end{bmatrix}\n                                                \\begin{bmatrix} x_{1}\\\\ x_{2} \\\\ \\vdots \\\\ x_{p} \\end{bmatrix}\n\\\\\n                                                y^* = Wx^*\n\nWhere, W is the weight Matrix of the first Layer.\nIn the Output Node we will combine all the output of the First Layer. If the weights of Output Node is c_1,c_2 and c_3, then by the same Matrix Notation we can write Final Output\n\n\\hat{y} = c_0 + c_1y_1 + c_2y_2 + c_3y_3 = \\begin{bmatrix} c_0 & c_1 & c_2 & c_3 \\end{bmatrix}\n                                            \\begin{bmatrix} 1 \\\\ y_1 \\\\ y_2 \\\\ y_3 \\end{bmatrix}\\\\\n                                            \\hat{y} = c^Ty^{**}\\\\\n                                            \\hat{y} = c^TWx\\\\\n                                            \\hat{y} = W^*x\\\\\n Pushing the similar idea we can represent any Neural Network with Linear Activation Function as combination of Multiple Linear Regressions."
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "",
+    "text": "M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
+  },
+  {
+    "objectID": "about.html#career-history",
+    "href": "about.html#career-history",
+    "title": "About Me",
+    "section": " Career History",
+    "text": "Career History\n\nSenior Data Scientist at Tiger Analytics (Jan’25 - Present).\nData Scientist at Tiger Analytics (Jun’23 - Dec’24).\nSenior Analyst at Tiger Analytics (Jun’21 - May’23).\nAnalyst at Tiger Analytics (Jan’21 - May’21)"
+  },
+  {
+    "objectID": "about.html#current-responsibilities",
+    "href": "about.html#current-responsibilities",
+    "title": "About Me",
+    "section": " Current Responsibilities",
+    "text": "Current Responsibilities\n\nProject Management: Led a cross-functional initiative to enhance business performance visibility. Collaborated closely with stakeholders and ground users, partnering with the Tableau team to develop an intuitive dashboard for actionable segment performance analysis.\nSupporting: Provided hands-on guidance to a Data Scientists and a Scenior Analyst in model development and client engagement, consistently driving the timely delivery of high-quality solutions.\nMentoring: Guided a data scientist’s development, ensuring a balanced approach to learning and work while cultivating the advanced skills crucial for senior data scientist advancement.\nInovation and RnD: Continuously research and integrate cutting-edge data science advancements to enhance existing models. I develop innovative, data-driven solutions and streamline implementation for the Model Refreshing Team, ensuring clients receive timely, optimized outcomes."
+  },
+  {
+    "objectID": "about.html#things-i-love-to-do",
+    "href": "about.html#things-i-love-to-do",
+    "title": "About Me",
+    "section": " Things I Love To Do",
+    "text": "Things I Love To Do\n\nReading and listening to Bengali literatures.\nExploring new Technologies.\nCooking Indian Recipies.\nPlaying Football and Badminton."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sushobhon Karmakar",
+    "section": "",
+    "text": "Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
+  },
+  {
+    "objectID": "index.html#welcome-to-my-portfolio",
+    "href": "index.html#welcome-to-my-portfolio",
+    "title": "Sushobhon Karmakar",
+    "section": "",
+    "text": "Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
   },
   {
     "objectID": "posts/2025-07-01-Your-Own-Next-Token-Generator/index.html",
@@ -49,83 +140,6 @@
     "text": "Introducing randomness alone isn’t always sufficient for generating desired text. When the goal is to extract and present information based on a specific document, prioritizing tokens with the highest probability is often preferred for accuracy and coherence. However, when crafting creative content like blog posts, encouraging the model to explore more diverse and unexpected word choices can lead to richer and more engaging outputs.\nThis balance between predictability and creativity can be effectively controlled using a parameter called temperature. The temperature value adjusts the probability distribution of the predicted tokens. A low temperature makes the distribution sharper, increasing the likelihood of selecting high-probability tokens and thus resulting in more focused and deterministic output. Conversely, a high temperature flattens the probability distribution, giving lower-probability tokens a greater chance of being selected, thereby injecting more randomness and creativity into the generated text.\nLet’s define a custom softmax function that incorporates this temperature parameter:\nimport torch.nn.functional as F\n\n# Defining updated softmax for PyTorch tensors\ndef softmax_tensor(logits: torch.Tensor, temperature: float = 1.0) -&gt; torch.Tensor:\n    \"\"\"\n    Applies the softmax function to a PyTorch tensor along the last dimension,\n    optionally with a temperature scaling factor.\n\n    Args:\n        logits: The input PyTorch tensor of logits.\n        temperature: A scaling factor for the logits (default: 1.0).\n\n    Returns:\n        A PyTorch tensor of the same shape as the input, with probabilities\n        along the last dimension.\n    \"\"\"\n    return F.softmax(logits / temperature, dim=-1)\nUpdating Top-p Search function by including temperature parameter.\ndef top_p_search(prompt, max_length=50, p=1, temperature = 1, show_option = False):\n    \"\"\"\n    Predict next word using top p Search with temperature.\n\n    Args:\n        input_text (str): Input text Sequence.\n        max_length (int): Number of next token to predict.\n        p (float): Probability Threshold.\n        temperature (float): A number of control randomness.\n        show_option (bool): If true shows top k tokens at each step.\n    \"\"\"\n    model.eval()\n    \n    # Tokenize input and move to device\n    input_ids = tokenizer.encode(prompt, return_tensors=\"pt\").to(device)\n\n    # output_tokens\n    output_tokens = input_ids\n\n    for _ in range(max_length):\n      if show_option:\n        print(f\"\\nFor {_+1} Token:\")\n        print(\"-\"*100)\n\n      # Get model predictions\n      with torch.no_grad():\n          outputs = model(output_tokens)\n      \n      # Extract logits for the last token and apply softmax\n      logits = outputs.logits[:, -1, :]\n      probs = softmax_tensor(logits= logits, temperature= temperature + 1e-6)  # Added temperature while calculating probability\n      \n      # Get top beam candidates\n      probs, indices = torch.sort(probs, dim = 1, descending=True)\n      cumulative_prob = torch.cumsum(probs[0], dim = 0)\n      top_probs = probs[:,:torch.sum(cumulative_prob&lt;=p).item() + 1]\n      top_indices = indices[:,:torch.sum(cumulative_prob&lt;=p).item() + 1]\n\n      # Normalizing top K probabilities\n      top_probs_norm = top_probs/torch.sum(top_probs)\n\n      # Choosing an element randomly based on normalized probability of top k tokens\n      selected_token_id = torch.multinomial(top_probs_norm[0], num_samples=1, replacement= True)\n      selected_token = top_indices[0][selected_token_id.item()]\n      \n      # Reshape selected_token to have shape (1, 1)\n      selected_token = selected_token.unsqueeze(0).unsqueeze(0) \n\n      # Appending selected  token with input token\n      output_tokens = torch.cat((output_tokens, selected_token), dim=1)\n      \n      if show_option:\n        # Printing Top K tokens\n        print(f\"Selected Token: {tokenizer.decode(selected_token.item())}\\nTop K tokens are:\\n\")\n        for index, probability in zip(top_indices.squeeze(0), top_probs_norm.squeeze(0)):\n            print(f\"{tokenizer.decode(index.item())} ({round(probability.item() * 100, 2)}%)\")\n      \n    return tokenizer.decode(output_tokens[0], skip_special_tokens=True) \n\n# Example usage with very low temperature\ninput_text = \"i love\"\ngenerated_text = top_p_search(input_text, max_length=10, p=0.7, temperature=0.1)  \nprint(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\nTokens generated with very low temperature of the model:\n--------------------\nFinal generated Text is:\ni love the idea of a \"super-hero\" who\n--------------------\nConsequently, as you can observe, the initial few tokens closely mirror the results obtained with our earlier deterministic approach. Let’s now explore the effect of increasing the temperature.\ninput_text = \"i love\"\ngenerated_text = top_p_search(input_text, max_length=10, p=0.7, temperature=1)  \nprint(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n--------------------\nFinal generated Text is:\ni love you no matter what,\" Trump wrote in a January\n--------------------\nUpon increasing the temperature to 1, we observe that the model begins to select more varied and less predictable words. However, it’s important to note that employing excessively high temperature values can lead to generated text that lacks coherence and meaning. A generally recommended and effective range for the temperature parameter is between 0 and 1.\ninput_text = \"i love\"\ngenerated_text = top_p_search(input_text, max_length=10, p=0.7, temperature=0.7)  \nprint(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n--------------------\nFinal generated Text is:\ni love you so much.\n\nMORGAN:\n--------------------\nText generated with temperature 0.7 feel more natural. (Try playing with different temperature value)\nYou can also see the list of all possible words by changing show_option parameter to True at different temperature value. ( Try playing with that as well, and see if you observe any pattern among the number of words and temperature value.)\nA special thank you to Rohan-Paul-AI for the inspiration behind this post, and thanks also to Koushik Khan for encouraging me to write it!"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Sushobhon Karmakar",
-    "section": "",
-    "text": "Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
-    "section": "",
-    "text": "M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About Me",
-    "section": "",
-    "text": "M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.\nB. Sc. in Statistics (2017), Visva-Bharati, WB, India."
-  },
-  {
-    "objectID": "about.html#career-history",
-    "href": "about.html#career-history",
-    "title": "About Me",
-    "section": " Career History",
-    "text": "Career History\n\nSenior Data Scientist at Tiger Analytics (Jan’25 - Present).\nData Scientist at Tiger Analytics (Jun’23 - Dec’24).\nSenior Analyst at Tiger Analytics (Jun’21 - May’23).\nAnalyst at Tiger Analytics (Jan’21 - May’21)"
-  },
-  {
-    "objectID": "about.html#current-responsibilities",
-    "href": "about.html#current-responsibilities",
-    "title": "About Me",
-    "section": " Current Responsibilities",
-    "text": "Current Responsibilities\n\nProject Management: Led a cross-functional initiative to enhance business performance visibility. Collaborated closely with stakeholders and ground users, partnering with the Tableau team to develop an intuitive dashboard for actionable segment performance analysis.\nSupporting: Provided hands-on guidance to a Data Scientists and a Scenior Analyst in model development and client engagement, consistently driving the timely delivery of high-quality solutions.\nMentoring: Guided a data scientist’s development, ensuring a balanced approach to learning and work while cultivating the advanced skills crucial for senior data scientist advancement.\nInovation and RnD: Continuously research and integrate cutting-edge data science advancements to enhance existing models. I develop innovative, data-driven solutions and streamline implementation for the Model Refreshing Team, ensuring clients receive timely, optimized outcomes."
-  },
-  {
-    "objectID": "about.html#things-i-love-to-do",
-    "href": "about.html#things-i-love-to-do",
-    "title": "About Me",
-    "section": " Things I Love To Do",
-    "text": "Things I Love To Do\n\nReading and listening to Bengali literatures.\nExploring new Technologies.\nCooking Indian Recipies.\nPlaying Football and Badminton."
-  },
-  {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Here is the list of my personal and academic projects:\n\nWater Quality Prediction: Predicting wather water is portable or not based on pH, Hardness, Solides, Sulfate etc. Used KNN and Random Forest to classify. Github\nPotato Disease Classification: Identifying Potato Plant Disease based on images of potato leaves. Created a front end using HTML and FastApi. Github\n2048: Replicated well-known 2048 game using python.Github\nBreast Cancer Risk Prediction: Predicting Risk of having Breast Cancer based on Age, BMI, Glucose, Insulin etc. Used Logistic Regression to Predict the Risk. Drive"
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "",
-    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#introduction",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "",
-    "text": "Linear regression is one of the most basic and widely used techniques in statistics and machine learning. It helps us understand the relationship between input variables (like temperature, hours studied, etc.) and an output variable (like ice cream sales or exam scores). But did you know that this simple model can also be represented using a neural network?\nAt first glance, neural networks might seem complex—with layers, activations, and weights—but at their core, they’re built on simple mathematical operations. In fact, if we strip away the complexity and keep just the basics, a neural network can behave exactly like a linear regression model.\nIn this blog, we’ll explore how linear regression (both single and multiple input versions) can be expressed as a very simple neural network. This not only helps us understand neural networks better, but also shows how classical models and modern deep learning are more connected than we often realize."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#a-basic-linear-regression-representated-as-neural-network",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "A Basic Linear Regression Representated as Neural Network",
-    "text": "A Basic Linear Regression Representated as Neural Network\nTake a basic Linear Regression Model with p Independent variable and one Dependent Variable. We can represent it as \ny_i = b_0 + b_1 \\times x_{1,i} + b_2 \\times x_{2,i} + ... + b_p \\times x_{p,i} + \\epsilon_i\n\nfor i = 1, 2, ... , n\nIn matrix notation we can write \ny = X^T b + \\epsilon\n\nwhere, dimention of y is 1 \\times n, dimention of b is 1 \\times p and dimention of X is n \\times p\nNow, Let us consider a simple Neural Network with p input and one hidden layer with one node. Like below image\n\n\n\nfig-1: Simple Neural Network with One Node\n\n\nIf we consider weights are b_1, b_2, ... ,b_p, Bias of the Node is b_0 and the activation function for this Node as\n\nf(a_1, a_2, \\dots, a_p) = \\sum_{i=1}^p a_i\n\nThen the output of the neural network will be\n\ny = b_0 + b_1x_1 + b_2x_2 + ... + b_px_p\n\nWhich is same as Multiple Linear Regression."
-  },
-  {
-    "objectID": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
-    "href": "posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html#neural-network-with-multiple-node-and-one-layer",
-    "title": "Linear Regression Representated in Neural Net",
-    "section": "Neural Network with Multiple Node and One Layer",
-    "text": "Neural Network with Multiple Node and One Layer\nLet’s consider a Neural Network with 3 Nodes and One Layer (Since this is Regression we need a single output Node to combine all the outputs from the first Layer).\n\n\n\nfig-1: Simple Neural Network with Multiple Node\n\n\nWe have p Independent variables and one Dependent variable (Same as above). We have an Activation Function for all Nodes the same as before. Weight for the first Node is defined as b_{1,i} for i=1,2,\\dots,p. Similarly for second Node b_{2,i}.\nWe have already seen output of first Node y_1 can be expressed as a Linear Regression y_1=x^T.b_1. Similarly y_2=x^T.b_2 and y_3=x^T.b_3. Which are 3 different Linear Regressions.\nIn Matrix form we can write: \n\\begin{bmatrix}y_1 \\\\ y_2 \\\\ y_3 \\end{bmatrix} = \\begin{bmatrix} b_{1,0} & b_{1,1} & b_{1,2} & \\dots & b_{1,p}\\\\\n                                                                b_{2,0} & b_{2,1} & b_{2,2} & \\dots & b_{2,p}\\\\\n                                                                b_{3,0} & b_{3,1} & b_{3,2} & \\dots & b_{3,p}\\\\\n                                                                \\vdots & \\vdots & \\vdots & & \\vdots\\\\\n                                                                b_{p,0} & b_{p,1} & b_{p,2} & \\dots & b_{p,p}\n                                                \\end{bmatrix}\n                                                \\begin{bmatrix} x_{1}\\\\ x_{2} \\\\ \\vdots \\\\ x_{p} \\end{bmatrix}\n\\\\\n                                                y^* = Wx^*\n\nWhere, W is the weight Matrix of the first Layer.\nIn the Output Node we will combine all the output of the First Layer. If the weights of Output Node is c_1,c_2 and c_3, then by the same Matrix Notation we can write Final Output\n\n\\hat{y} = c_0 + c_1y_1 + c_2y_2 + c_3y_3 = \\begin{bmatrix} c_0 & c_1 & c_2 & c_3 \\end{bmatrix}\n                                            \\begin{bmatrix} 1 \\\\ y_1 \\\\ y_2 \\\\ y_3 \\end{bmatrix}\\\\\n                                            \\hat{y} = c^Ty^{**}\\\\\n                                            \\hat{y} = c^TWx\\\\\n                                            \\hat{y} = W^*x\\\\\n Pushing the similar idea we can represent any Neural Network with Linear Activation Function as combination of Multiple Linear Regressions."
-  },
-  {
     "objectID": "skills.html",
     "href": "skills.html",
     "title": "Skills",
@@ -166,19 +180,5 @@
     "title": "Skills",
     "section": " Academics",
     "text": "Academics\n\nStatistical Simulation (Bayesian Estimation, MCMC)\n\n Tools\n\nR Programming\n\\LaTeX for report generation\n\n\nComputation of Descriptive Statistics for Practical\n\n Tools\n\nC Programming, Excel\nR Markdown for Report Generation."
-  },
-  {
-    "objectID": "index.html#welcome-to-my-portfolio",
-    "href": "index.html#welcome-to-my-portfolio",
-    "title": "Sushobhon Karmakar",
-    "section": "",
-    "text": "Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as Senior Data Scientist at Tiger Analytics.\nHi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at Tiger Analytics in Bangalore, India.\nI’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.\nThanks for stopping by! I hope you enjoy discovering more about my work.\n\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
-  },
-  {
-    "objectID": "index.html#get-in-touch",
-    "href": "index.html#get-in-touch",
-    "title": "Sushobhon Karmakar",
-    "section": "Get in Touch",
-    "text": "Get in Touch\nI’d love to hear from you! Feel free to reach out to me via email at sushobhonkarmakar@gmail.com"
   }
 ]
