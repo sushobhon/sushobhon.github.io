@@ -19,7 +19,6 @@
         "  echo: true   # This ensures the code blocks are still displayed\n",
         "---\n",
         "\n",
-        "\n",
         "# Intorduction\n",
         "Have you ever wondered how your phone magically suggests the next word as you type? Or how chatbots string together coherent sentences? The secret lies in something called next token generation.\n",
         "\n",
@@ -41,14 +40,12 @@
         "P\\big(W_t|W_{1:t-1}\\big) = \\argmax_{i} \\bigg[P\\big(W_i|W_{1:t-1}\\big)\\bigg]\n",
         "$$\n",
         "Let’s see how to implement this. First install `torch`, `transformers`, and `hf_xet`.\n",
-        "\n",
         "```{bash}\n",
         "!pip install torch transformers hf_xet\n",
         "```\n",
-        "\n",
         "Next, let’s import the required libraries, set up our device, and download the model."
       ],
-      "id": "0d969e75"
+      "id": "b8a681ea"
     },
     {
       "cell_type": "code",
@@ -71,7 +68,7 @@
         "tokenizer = AutoTokenizer.from_pretrained(model_name)\n",
         "model = AutoModelForCausalLM.from_pretrained(model_name).to(device) "
       ],
-      "id": "96554b10",
+      "id": "49736b52",
       "execution_count": null,
       "outputs": []
     },
@@ -81,7 +78,7 @@
       "source": [
         "Now let's define a custom function that predicts the next token using *greedy search*. In this function, we first predict the `logits` score for each token, then convert those to probabilities using the `softmax` function. "
       ],
-      "id": "b07197bc"
+      "id": "edf7359f"
     },
     {
       "cell_type": "code",
@@ -119,7 +116,7 @@
         "        # Returning iterations as df\n",
         "        return tokenizer.decode(input_ids[0])"
       ],
-      "id": "37cab878",
+      "id": "2366d9d9",
       "execution_count": null,
       "outputs": []
     },
@@ -129,7 +126,7 @@
       "source": [
         "Let us pass `i love` and predict next few word using our custom function and compare the result with `transformers` library."
       ],
-      "id": "28cf1c03"
+      "id": "6f31fbc5"
     },
     {
       "cell_type": "code",
@@ -144,7 +141,7 @@
         "                              )\n",
         "print(generated_text)"
       ],
-      "id": "17cfa805",
+      "id": "e5cc7a5e",
       "execution_count": null,
       "outputs": []
     },
@@ -153,14 +150,12 @@
       "metadata": {},
       "source": [
         "The output of our custom `greedy_search()` is\n",
-        "\n",
         "```{plain text}\n",
         "i love the idea of a \"new\" version of the game, but I'm not sure if it's\n",
         "```\n",
-        "\n",
         "Let’s predicted tokens using `transformers` library."
       ],
-      "id": "143e9cfd"
+      "id": "540333fc"
     },
     {
       "cell_type": "code",
@@ -173,7 +168,7 @@
         "output = model.generate(**input_tokens, max_new_tokens=20)\n",
         "print(tokenizer.decode(output[0], skip_special_tokens= True))"
       ],
-      "id": "3a16ec1c",
+      "id": "1060799b",
       "execution_count": null,
       "outputs": []
     },
@@ -182,18 +177,16 @@
       "metadata": {},
       "source": [
         "Output of `transformer` library is \n",
-        "\n",
         "```{plain text}\n",
         "i love the idea of a \"new\" version of the game, but I'm not sure if it's\n",
         "```\n",
-        "\n",
         "Generated words are exactly same hah!!\n",
         "\n",
         "Since this is an deterministic approach predicted words are exactly same.\n",
         "\n",
         "If you want to find out what are the other probable tokens and what is there probability you can try this code."
       ],
-      "id": "d0003a0a"
+      "id": "050dc920"
     },
     {
       "cell_type": "code",
@@ -240,7 +233,7 @@
         "        # Returning iterations as df\n",
         "        return pd.DataFrame(iterations)"
       ],
-      "id": "f5aeebaf",
+      "id": "97d2665b",
       "execution_count": null,
       "outputs": []
     },
@@ -281,7 +274,7 @@
         "\n",
         "Let’s try to write a function for beam search"
       ],
-      "id": "cb5191a4"
+      "id": "a146b8dd"
     },
     {
       "cell_type": "code",
@@ -336,7 +329,7 @@
         "    best_tokens = beams[0][0]\n",
         "    return tokenizer.decode(best_tokens[0], skip_special_tokens=True)"
       ],
-      "id": "31fa1268",
+      "id": "d872d2d3",
       "execution_count": null,
       "outputs": []
     },
@@ -352,11 +345,9 @@
         "print(generated_text)\n",
         "```\n",
         "\n",
-        "\n",
         "```{plain text}\n",
         "i love it. I love it. I love it.\n",
         "```\n",
-        "\n",
         "\n",
         "*One thing to note, Beam Search with one beam is same as greedy search.(Verify!)*\n",
         "\n",
@@ -372,11 +363,9 @@
         "print(tokenizer.decode(output[0], skip_special_tokens= True))\n",
         "```\n",
         "\n",
-        "\n",
         "```{plain text}\n",
         "i love it. I love it. I love it.\n",
         "```\n",
-        "\n",
         "Interestingly, the outputs in both scenarios end up being identical. However, a noticeable issue is the repetitiveness of the generated text. This tendency towards repetition is a common drawback of deterministic decoding strategies. To mitigate this, we can introduce an element of randomness into the token selection process.\n",
         "\n",
         "## Top-k Search\n",
@@ -450,7 +439,6 @@
         "print(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n",
         "```\n",
         "Top 5 most probable tokens are:\n",
-        "\n",
         "```{plain text}\n",
         "For 1 Token:\n",
         "----------------------------------------------------------------------------------------------------\n",
@@ -463,7 +451,6 @@
         " to (19.86%)\n",
         " this (13.4%)\n",
         "```\n",
-        "\n",
         "The next selected token is `the`. At this step, the five most probable predicted tokens are `the`, `it`, `you`, `to`, and `this`. From these five, one token will be randomly selected based on their respective probabilities.\n",
         "\n",
         "The subsequent words were generated using the `transformers` library.\n",
@@ -488,11 +475,9 @@
         "print(\"Output:\\n\" + 100 * '-')\n",
         "print(tokenizer.decode(sample_output[0], skip_special_tokens=True))\n",
         "```\n",
-        "\n",
         "```{plain text}\n",
         "i love the \n",
         "```\n",
-        "\n",
         "In this instance, the predicted token is also `the`, although this is purely coincidental. Rerunning the code might yield a different token, but it's important to note that the subsequent selected token will invariably be one of the five most probable tokens from the preceding output (*as you can verify!*).\n",
         "\n",
         "```python\n",
@@ -501,14 +486,12 @@
         "print(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n",
         "```\n",
         "\n",
-        "\n",
         "```{plain text}\n",
         "--------------------\n",
         "Final generated Text is:\n",
         "i love the way he's doing this, but I'm\n",
         "--------------------\n",
         "```\n",
-        "\n",
         "\n",
         "If we predict next 10 tokens we can see there is not any repetition to tokens like previous case.\n",
         "\n",
@@ -587,7 +570,6 @@
         "generated_text = top_p_search(input_text, max_length=1, p=0.5, show_option= True)  \n",
         "print(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n",
         "```\n",
-        "\n",
         "```{plain text}\n",
         "For 1 Token:\n",
         "----------------------------------------------------------------------------------------------------\n",
@@ -609,7 +591,6 @@
         "i love the\n",
         "--------------------\n",
         "```\n",
-        "\n",
         "with `p=0.5` when we predict next token there are `10` possible tokens. Out of then token `the` has been selected. You can rerun the code and verify weather your predicted token is out of these `10` tokens or not.\n",
         "\n",
         "## Temperature\n",
@@ -706,14 +687,12 @@
         "print(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n",
         "```\n",
         "Tokens generated with very low `temperature` of the model:\n",
-        "\n",
         "```{plain text}\n",
         "--------------------\n",
         "Final generated Text is:\n",
         "i love the idea of a \"super-hero\" who\n",
         "--------------------\n",
         "```\n",
-        "\n",
         "Consequently, as you can observe, the initial few tokens closely mirror the results obtained with our earlier deterministic approach. Let's now explore the effect of increasing the `temperature`.\n",
         "\n",
         "```python\n",
@@ -721,14 +700,12 @@
         "generated_text = top_p_search(input_text, max_length=10, p=0.7, temperature=1)  \n",
         "print(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n",
         "```\n",
-        "\n",
         "```{plain text}\n",
         "--------------------\n",
         "Final generated Text is:\n",
         "i love you no matter what,\" Trump wrote in a January\n",
         "--------------------\n",
         "```\n",
-        "\n",
         "\n",
         "Upon increasing the `temperature` to `1`, we observe that the model begins to select more varied and less predictable words. However, it's important to note that employing excessively high `temperature` values can lead to generated text that lacks coherence and meaning. A generally recommended and effective range for the temperature parameter is between `0` and `1`.\n",
         "\n",
@@ -738,7 +715,6 @@
         "print(\"-\"*20 + \"\\nFinal generated Text is:\\n\" + generated_text + \"\\n\" + \"-\"*20)\n",
         "```\n",
         "\n",
-        "\n",
         "```{plain text}\n",
         "--------------------\n",
         "Final generated Text is:\n",
@@ -747,22 +723,20 @@
         "MORGAN:\n",
         "--------------------\n",
         "```\n",
-        "\n",
         "Text generated with `temperature` 0.7 feel more natural. (*Try playing with different `temperature` value*)\n",
         "\n",
         "You can also see the list of all possible words by changing `show_option` parameter to `True` at different `temperature` value. ( Try playing with that as well, and see if you observe any pattern among the number of words and `temperature` value.)\n",
         "\n",
         "A special thank you to [Rohan-Paul-AI](https://www.youtube.com/@RohanPaul-AI) for the inspiration behind this post, and thanks also to [Koushik Khan](https://koushikkhan.github.io/) for encouraging me to write it!"
       ],
-      "id": "84ab2838"
+      "id": "f6c6c05e"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "agent_env",
+      "display_name": "Python 3",
       "language": "python",
-      "display_name": "agent_env",
-      "path": "/home/sushobhon/.local/share/jupyter/kernels/agent_env"
+      "name": "python3"
     }
   },
   "nbformat": 4,

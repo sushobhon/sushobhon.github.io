@@ -1,0 +1,328 @@
+---
+title: "Bet: Full Fine-Tuning Your Own LLM (A Handas-on Guide)"
+from: markdown+emoji
+description: "Full Finetunning a LLM Model"
+author:
+  - name: Sushobhon Karmakar 
+date: 08-10-2025
+categories: [LLM, GenAI]
+image: "llm-model.png"
+draft: False
+execute:
+  eval: false  # This is the key line
+  echo: true   # This ensures the code blocks are still displayed
+---
+
+Large Language Models (**LLM**s) have demonstrated remarkable capabilities in understanding and generating human-like text across a vast range of topics. However, to make these powerful models perform exceptionally well on a specific task or within a particular domain, a crucial step is often required: **fine-tuning**.
+
+Fine-tuning is the process of taking a pre-trained LLM – a model that has already learned a broad understanding of language from massive datasets – and training it further on a smaller, task-specific dataset. This allows the model to adapt its existing knowledge and become highly proficient at the new task.
+
+In this blog post, we will delve into one of the most comprehensive and basic fine-tuning approaches: **full fine-tuning**. This method involves updating *all* the parameters (or weights) of the pre-trained model based on the new, task-specific data. While computationally more intensive than some other methods, it can yield significant performance improvements for specialized tasks.
+
+As a practical example, we will walk through the process of full fine-tuning the `distilgpt2`  model using a dataset designed for translating standard English sentences into the unique syntax of Yoda from *Star Wars*. By the end of this hands-on guide, you will see how fine-tuning can fundamentally change a model's output to perform a fun, yet illustrative, language transformation task.
+
+Join us as we explore the steps involved in full fine-tuning and transform a general-purpose model into a Yoda-speak expert.
+
+Before we star we need to install `torch` , `transformers` , `datasets`  and `accelerator` packages
+
+## Importing Necessary Libraries and Dataset
+```python
+import torch
+from datasets import load_dataset, DatasetDict
+from transformers import (
+    AutoTokenizer,
+    AutoModelForCausalLM,
+    TrainingArguments,
+    Trainer,
+    DataCollatorForLanguageModeling
+)
+import math
+```
+We have used [yoda_sentences](https://huggingface.co/datasets/dvgodoy/yoda_sentences) dataset prepared by **[Daniel Voigt Godoy](https://huggingface.co/dvgodoy)**. This Dataset is available in huggingface.
+
+```python
+# Step 1: Load the dataset.
+dataset = load_dataset("dvgodoy/yoda_sentences")
+
+# Viewing the dataset
+dataset['train'][:2]
+```
+This is a snap short of the datset. We have 3 Columns - `sentence` (Actual English Sentence), `translation` (Yoda Translation of the actuall sentence) and `translation_extra` (Yoda Translation with few extra words).
+
+```python
+{'sentence': ['The birch canoe slid on the smooth planks.',
+  'Glue the sheet to the dark blue background.'],
+ 'translation': ['On the smooth planks, the birch canoe slid.',
+  'Glue the sheet to the dark blue background, you must.'],
+ 'translation_extra': ['On the smooth planks, the birch canoe slid. Yes, hrrrm.',
+  'Glue the sheet to the dark blue background, you must.']}
+```
+
+## Processing and Splitting
+We can’t directly use this dataset to fine-tune our large language model (LLM) because LLMs are designed to predict the next word (or token) in a sequence of text. That means we need to convert our structured tabular data into plain text in a way the model can understand.
+
+To do this, we’ll format each row of data into a readable sentence like:
+
+`“Sentence: [Actual English Sentence] Translation: [Translated Text]”`
+
+This gives the model context it can learn from.
+
+Let’s write a function to handle this transformation:
+
+```python
+def format_yoda(example):
+		"""Function to transform dataset from Tabular from to Text."""
+    return {"text": f"Sentence: {example['sentence']} Translation: {example['translation_extra']}"}
+
+# Applying function on each row of the dataset 
+dataset = dataset.map(format_yoda)
+
+# Dataset after transformation
+dataset['train'][0]
+```
+```python
+{'sentence': 'The birch canoe slid on the smooth planks.',
+ 'translation': 'On the smooth planks, the birch canoe slid.',
+ 'translation_extra': 'On the smooth planks, the birch canoe slid. Yes, hrrrm.',
+ 'text': 'Sentence: The birch canoe slid on the smooth planks. Translation: On the smooth planks, the birch canoe slid. Yes, hrrrm.'}
+```
+As you can see a new column `text` is created.
+
+Lets us split the data into train and evaluation set to check the performance
+```python
+# Splitting the dataset to train and evaluation set
+train_eval_split = dataset["train"].train_test_split(test_size=0.1)
+dataset = DatasetDict({
+    'train': train_eval_split['train'],
+    'eval': train_eval_split['test']
+})
+```
+
+## Loading Pre-Trained LLM Model
+Now that our dataset is ready, let's download the **DistilGPT2** model from HuggingFace. *DistilGPT2* is a lightweight and faster version of the original *GPT-2* model, with around 82 million parameters. It’s a great choice for fine-tuning when you're working with limited resources or need quicker performance.
+```python
+# Step 2: Load a small pre-trained LLM model and tokenizer
+model_name = "distilgpt2"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
+```
+```python
+def print_number_of_trainable_model_parameters(model):
+    """Function to find out trainable and non-trainable parameters"""
+    trainable_model_params = 0
+    all_model_params = 0
+    for _, param in model.named_parameters():
+        all_model_params += param.numel()
+        if param.requires_grad:
+            trainable_model_params += param.numel()
+    return f"trainable model parameters: {trainable_model_params}\nall model parameters: {all_model_params}\npercentage of trainable model parameters: {100 * trainable_model_params / all_model_params:.2f}%"
+
+print(print_number_of_trainable_model_parameters(model))
+```
+```text
+trainable model parameters: 81912576
+all model parameters: 81912576
+percentage of trainable model parameters: 100.00%
+```
+Since we're fully fine-tuning the model, we’ll be updating all 82 million parameters. But before we start the fine-tuning process, let's evaluate how the pretrained model performs out of the box.
+
+```python
+# Let's try to translate the sentence using original model.
+prompt = "Sentence: The Sky is clear, it's time to fly.\nTranslation:" 
+input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(model.device)
+
+# Generate text
+# Adjust generation parameters as needed to control output style
+output_sequences = model.generate(
+    input_ids,
+    max_length=input_ids.shape[1] + 30, # Generate up to 30 new tokens
+    num_return_sequences=1,
+    no_repeat_ngram_size=2,             # To avoid immediate repetition
+    do_sample=True,                     # Use sampling for more diverse output
+    top_k=50,                           # Consider top 50 tokens
+    top_p=0.95,                         # Nucleus sampling
+    temperature=0.8,                    # Controls randomness (slightly higher for more variation)
+    pad_token_id=tokenizer.eos_token_id # Ensure generation stops at EOS token
+)
+
+generated_text = tokenizer.decode(output_sequences[0], skip_special_tokens=True)
+print("--- Generated Text ---")
+print(generated_text)
+print("----------------------")
+```
+```text
+--- Generated Text ---
+Sentence: The Sky is clear, it's time to fly.
+Translation: If you've already been in the game and can't get to the cockpit and get in touch with me, I'm trying to contact you. If
+----------------------
+```
+To know in details how `model.generate()` works and what each parameter means check this [blog](https://sushobhon.github.io/posts/2025-07-01-Your-Own-Next-Token-Generator/).
+
+Specifying Padding tokens if no padding token is there. As padding is not build in for casual Language models like GPT we need to specify it. Models like BERT or T5 are designed to handel padding token natively.
+
+```python
+# Set padding token
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+```
+
+## Tokenizing
+The model can't process raw text directly, so we need to tokenize the data using its tokenizer.
+
+```python
+# Step 3: Preparing the dataset for training (Tokenization)
+def tokenize_function(examples):
+    # Tokenize the text, padding and truncation will be handled by the data collator
+    return tokenizer(examples["text"])
+
+# Applying tokenize_function and removing other collumns
+tokenized_datasets = dataset.map(
+    tokenize_function,
+    batched=True,
+    remove_columns=["sentence", "translation", "translation_extra", "text"]
+)
+
+# Dataset after tokenization
+print(tokenized_datasets['train'][0])
+```
+We need to convert the tokenized data for batches before feeding it into the model. We can do that using `DataCollatorForLanguageModeling()` function from `transformers` packages. Also we have kept `mlm`  or Masked Language Model as `False` as we are predicting next word we do not need Masking.
+
+```python
+# Data collator for causal language modeling
+# This will handle padding and creating the labels (which are the input ids shifted)
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+```
+
+## Training Model
+Creating Training Arguments and Trainer Object.
+
+```python
+# Step 4: Set up the training arguments
+output_dir = "./yoda_finetuned_model"
+training_args = TrainingArguments(
+    output_dir=output_dir,              # Location of Output Directory
+    overwrite_output_dir=True,          # If directory already exists then overwrite
+    num_train_epochs=5,                 # Number of time the model will be trained on entire data
+    per_device_train_batch_size=4,      # Number of example will be trained at a time
+    per_device_eval_batch_size=4,       # Number of example will be evaluated at a time
+    eval_strategy="epoch",              # Changed from evaluation_strategy
+    save_strategy="epoch",              # Changed from save_strategy
+    logging_dir=f"{output_dir}/logs",   # Loggs will be saved here
+    logging_steps=50,                   # Log saving frequently
+    learning_rate=2e-5,                 
+    weight_decay=0.01,
+    load_best_model_at_end=True,        # Load the best model based on evaluation loss
+    metric_for_best_model="eval_loss",
+)
+
+# Step 5: Initialize the Trainer
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_datasets["train"],
+    eval_dataset=tokenized_datasets["eval"],
+    data_collator=data_collator,
+)
+
+# Step 6: Start the training process
+print("Starting training...")
+trainer.train()
+print("Training finished.")
+```
+```text
+Starting training...
+`loss_type=None` was set in the config but it is unrecognised.Using the default loss: `ForCausalLMLoss`.
+ [810/810 02:00, Epoch 5/5]
+Epoch	Training Loss	Validation Loss
+1	2.136600	1.926351
+2	1.866500	1.851621
+3	1.698700	1.839700
+4	1.616700	1.838783
+5	1.600100	1.836944
+There were missing keys in the checkpoint model loaded: ['lm_head.weight'].
+Training finished.
+```
+Loss Decreased from `2.13` to `1.6`.
+
+## Evaluating The Model
+Evaluating the model on Evaluation dataset
+```python
+# Step 7: Evaluate the fine-tuned model
+print("Evaluating model...")
+eval_results = trainer.evaluate(eval_dataset=tokenized_datasets["eval"]) # Explicitly pass eval_dataset
+print(f"Evaluation results: {eval_results}")
+if 'eval_loss' in eval_results:
+    perplexity = math.exp(eval_results["eval_loss"])
+    print(f"Perplexity: {perplexity}")
+```
+```text
+Evaluating model...
+Evaluation results: {'eval_loss': 1.8369437456130981, 'eval_runtime': 0.6711, 'eval_samples_per_second': 107.291, 'eval_steps_per_second': 26.823, 'epoch': 5.0}
+Perplexity: 6.277323815417289
+```
+
+## Testing
+Let us test with actual english sentence…
+```python
+# Example of generating text with the fine-tuned model
+print("Generating example text...")
+model.eval() # Set model to evaluation mode. This is a standard practice in pytorch. Here certain layers of the model freezes
+
+# Testing for given sentence
+prompt = "Sentence: The Sky is clear, it's time to fly.\nTranslation:" # Include the start of the target sequence
+input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(model.device)
+
+# Generate text
+# Adjust generation parameters as needed to control output style
+output_sequences = model.generate(
+    input_ids,
+    max_length=input_ids.shape[1] + 30, # Generate up to 30 new tokens
+    num_return_sequences=1,
+    no_repeat_ngram_size=2,             # To avoid immediate repetition
+    do_sample=True,                     # Use sampling for more diverse output
+    top_k=50,                           # Consider top 50 tokens
+    top_p=0.95,                         # Nucleus sampling
+    temperature=0.8,                    # Controls randomness (slightly higher for more variation)
+    pad_token_id=tokenizer.eos_token_id # Ensure generation stops at EOS token
+)
+
+generated_text = tokenizer.decode(output_sequences[0], skip_special_tokens=True)
+print("--- Generated Text ---")
+print(generated_text)
+print("----------------------")
+```
+```text
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's attention_mask to obtain reliable results.
+Generating example text...
+--- Generated Text ---
+Sentence: The Sky is clear, it's time to fly.
+Translation: To fly, the Sky must. Yes, hrrmmm. Yrsssss. Time to soar, we must, and there is. H
+```
+Pretty Good!! The model is able to translate.
+
+## Pros
+
+1. **Maximum performance** – Tailors the entire model to your specific dataset, often yielding the best results.
+2. **Full control** – Allows deep customization across all layers of the model.
+3. **Better generalization on your domain** – Learns complex patterns specific to your task or domain.
+4. **No dependence on base model behavior** – Overwrites pretrained knowledge if needed.
+5. **Improved coherence and fluency** – Especially in specialized tasks like translation, summarization, or domain-specific generation.
+
+## Cons
+
+1. **High computational cost** – Requires significant GPU resources and memory.
+2. **Longer training time** – Full tuning can take hours or days, depending on model size and dataset.
+3. **Risk of overfitting** – Especially if the dataset is small or not diverse.
+4. **Loses some general-purpose capabilities** – The model may forget or override its broad pretrained knowledge.
+5. **Storage-heavy** – The fine-tuned model needs to store all updated parameters, increasing disk space usage.
+
+## Alternatives
+
+To avoid this cost intesive tunning there are other tunning methods. Take a detailed look - 
+
+1. **Prompt Tuning**
+2. **Prefix Tuning**
+3. **LoRA (Low-Rank Adaptation) or Q-LORA**
+4. **Adapters**
+5. **Instruction Tuning**
+6. **Retrieval-Augmented Generation (RAG)**
