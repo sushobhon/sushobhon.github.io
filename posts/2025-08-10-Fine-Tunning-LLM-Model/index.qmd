@@ -5,7 +5,7 @@ description: "Full Finetunning a LLM Model"
 author:
   - name: Sushobhon Karmakar 
 date: 08-10-2025
-categories: [LLM, GenAI]
+categories: [LLM, Gen AI]
 image: "llm-model.png"
 draft: False
 execute:
