@@ -1,0 +1,14 @@
+---
+title: "My Updated Resume"
+from: markdown+emoji
+resources:
+  - .nojekyll
+---
+
+Please click [here](resources/pdf/Sushobhon_Karmakar_Data_Science_Resume.pdf) to download a copy of latest my resume.
+
+<iframe
+    width="1000"
+    height="1200"
+    src="resources/pdf/Sushobhon_Karmakar_Data_Science_Resume.pdf">
+</iframe>
