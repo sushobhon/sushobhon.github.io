@@ -21,6 +21,8 @@ website:
         text: Blogs      
       - href: about.qmd
         text: About Me
+      - href: resume.qmd
+        text: Resume
 
     right:
       - text: "{{< fa envelope size=large >}}"

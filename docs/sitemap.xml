@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sushobhon.github.io/project.html</loc>
-    <lastmod>2025-08-03T18:07:39.045Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sushobhon.github.io/blogs.html</loc>
-    <lastmod>2025-08-03T18:07:39.027Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sushobhon.github.io/index.html</loc>
-    <lastmod>2025-08-03T18:07:39.042Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sushobhon.github.io/posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html</loc>
-    <lastmod>2025-08-03T18:07:39.044Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sushobhon.github.io/posts/2025-07-01-Your-Own-Next-Token-Generator/index.html</loc>
-    <lastmod>2025-08-03T18:07:39.043Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sushobhon.github.io/posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html</loc>
-    <lastmod>2025-08-03T18:07:39.044Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sushobhon.github.io/about.html</loc>
-    <lastmod>2025-08-03T18:07:39.027Z</lastmod>
+    <loc>https://sushobhon.github.io/resume.html</loc>
+    <lastmod>2025-09-04T04:33:29.160Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/skills.html</loc>
-    <lastmod>2025-08-03T18:07:39.048Z</lastmod>
+    <lastmod>2025-08-03T15:45:18.825Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html</loc>
+    <lastmod>2025-09-04T04:22:50.962Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html</loc>
+    <lastmod>2025-08-03T15:45:18.825Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/project.html</loc>
+    <lastmod>2025-07-22T04:56:46.855Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/about.html</loc>
+    <lastmod>2025-08-03T15:45:18.825Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/index.html</loc>
+    <lastmod>2025-08-03T15:45:18.825Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/posts/2025-07-01-Your-Own-Next-Token-Generator/index.html</loc>
+    <lastmod>2025-07-25T03:25:58.565Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/posts/2025-08-10-Fine-Tunning-LLM-Model/index.html</loc>
-    <lastmod>2025-08-10T14:33:08.331Z</lastmod>
+    <lastmod>2025-09-04T04:22:50.962Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/blogs.html</loc>
+    <lastmod>2025-07-22T04:56:46.825Z</lastmod>
   </url>
 </urlset>
