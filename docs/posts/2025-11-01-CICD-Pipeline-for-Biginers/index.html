@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Sushobhon Karmakar">
+<meta name="dcterms.date" content="2025-12-11">
+<meta name="description" content="Step by Step CI/CD Guide">
 
-<title>Blogs – Sushobhon Karmakar</title>
+<title>CI/CD Pipeline in Gitlab: Part 1 – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,31 +23,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7e11434eac148b84e24ebc123ea223a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-caa6200b5fd6ae1557848632e0b2b910.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-7e11434eac148b84e24ebc123ea223a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-caa6200b5fd6ae1557848632e0b2b910.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,87 +107,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<style>
-
-      .quarto-title-block .quarto-title-banner {
-        background: flase;
-      }
-</style>
-
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -162,7 +119,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Sushobhon Karmakar</span>
     </a>
   </div>
@@ -173,27 +130,27 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./project.html"> 
+    <a class="nav-link" href="../../project.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills.html"> 
+    <a class="nav-link" href="../../skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./blogs.html" aria-current="page"> 
+    <a class="nav-link" href="../../blogs.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
+    <a class="nav-link" href="../../resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
 </ul>
@@ -225,246 +182,134 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Blogs</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">CI/CD Pipeline in Gitlab: Part 1</h1>
+                  <div>
+        <div class="description">
+          Step by Step CI/CD Guide
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">MLopps</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Sushobhon Karmakar </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 11, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="RGVlcCUyMExlYXJuaW5n">Deep Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R2VuJTIwQUk=">Gen AI <span class="quarto-category-count">(2)</span></div><div class="category" data-category="TExN">LLM <span class="quarto-category-count">(2)</span></div><div class="category" data-category="TUw=">ML <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TUxvcHBz">MLopps <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TmV1cmFsJTIwTmV0d29yaw==">Neural Network <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2ltdWxhdGlvbg==">Simulation <span class="quarto-category-count">(1)</span></div></div></div>
-<!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
-
-
-
-
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-cicd" id="toc-what-is-cicd" class="nav-link active" data-scroll-target="#what-is-cicd">What is CI/CD?</a></li>
+  <li><a href="#why-it-is-important-for-data-scientists" id="toc-why-it-is-important-for-data-scientists" class="nav-link" data-scroll-target="#why-it-is-important-for-data-scientists">Why it is Important for Data Scientists?</a></li>
+  <li><a href="#building-simple-cicd-pipeline" id="toc-building-simple-cicd-pipeline" class="nav-link" data-scroll-target="#building-simple-cicd-pipeline">Building Simple CI/CD Pipeline:</a></li>
+  </ul>
+</nav>
     </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TUwlMkNNTG9wcHM=" data-listing-date-sort="1765391400000" data-listing-file-modified-sort="1763006776237" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="986">
-<div class="thumbnail">
-<p><a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external"></a></p><a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-11-01-CICD-Pipeline-for-Biginers/ci-cd-image.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external">CI/CD Pipeline in Gitlab: Part 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TUw='); return false;">
-ML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TUxvcHBz'); return false;">
-MLopps
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external">Step by Step CI/CD Guide</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html" class="no-external">
-<div class="listing-date">
-Dec 11, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TExNJTJDR2VuJTIwQUk=" data-listing-date-sort="1754764200000" data-listing-file-modified-sort="1756959770962" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2144">
-<div class="thumbnail">
-<p><a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external"></a></p><a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-08-10-Fine-Tunning-LLM-Model/llm-model.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external">Bet: Full Fine-Tuning Your Own LLM (A Handas-on Guide)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExN'); return false;">
-LLM
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuJTIwQUk='); return false;">
-Gen AI
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external">Full Finetunning a LLM Model</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-08-10-Fine-Tunning-LLM-Model/index.html" class="no-external">
-<div class="listing-date">
-Aug 10, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="RGVlcCUyMExlYXJuaW5nJTJDTmV1cmFsJTIwTmV0d29yaw==" data-listing-date-sort="1753381800000" data-listing-file-modified-sort="1754235918825" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1155">
-<div class="thumbnail">
-<p><a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external"></a></p><a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/neural-network.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">Linear Regression Representated in Neural Net</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('RGVlcCUyMExlYXJuaW5n'); return false;">
-Deep Learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TmV1cmFsJTIwTmV0d29yaw=='); return false;">
-Neural Network
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">How one or multiple linear regression can be represented in Neural Net</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-07-25-Neural-Net-Representation-of-Linear-Regression/index.html" class="no-external">
-<div class="listing-date">
-Jul 25, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="U2ltdWxhdGlvbg==" data-listing-date-sort="1753381800000" data-listing-file-modified-sort="1756959770962" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="345">
-<div class="thumbnail">
-<p><a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external"></a></p><a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-08-03-Estimate-Pi-Through-Simulation/pi-simbolo.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external">Estimate Value of <span class="math inline">π</span></a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('U2ltdWxhdGlvbg=='); return false;">
-Simulation
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external">How to estimate value of <span class="math inline">π</span> through simulation</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-08-03-Estimate-Pi-Through-Simulation/index.html" class="no-external">
-<div class="listing-date">
-Jul 25, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="R2VuJTIwQUklMkNMTE0=" data-listing-date-sort="1751308200000" data-listing-file-modified-sort="1753413958565" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24" data-listing-word-count-sort="4771">
-<div class="thumbnail">
-<p><a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external"></a></p><a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/2025-07-01-Your-Own-Next-Token-Generator/Best-Free-AI-Image-Generator-738622791.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">The Art of AI Text: How LLMs Choose Next Word using Greedy, Beam Search, and Sampling</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuJTIwQUk='); return false;">
-Gen AI
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TExN'); return false;">
-LLM
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">Methods LLM models used to select next token based on some given information</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-07-01-Your-Own-Next-Token-Generator/index.html" class="no-external">
-<div class="listing-date">
-Jul 1, 2025
-</div>
-<div class="listing-author">
-Sushobhon Karmakar
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="what-is-cicd" class="level1">
+<h1>What is CI/CD?</h1>
+<p><strong>CI/CD</strong> stands for <strong>Continuous Integration</strong> and <strong>Continuous Delivery</strong> (or <strong>Continuous Deployment</strong>).</p>
+<p>At its heart, it’s a practice to automate the ‘boring’ and ‘risky’ part of automating testing of a package or code or software.</p>
+<ul>
+<li><strong>Countinuous Integration (CI):</strong> This is the <strong>automated quality checks</strong>. It’s is a robot assistant that, <em>every single time</em> a developer push a new code, it runs the code in a clean test environment and check if the code or application is running fine or not.
+<ul>
+<li><strong>The Goal</strong> is to find bugs <em>fast</em>, right when they have created, before they mixed in with other people’s work.</li>
+</ul></li>
+<li><strong>Continuous Delivery (CD):</strong> This is the <strong>automated release process</strong>. If the code passes all the CI tests, the robot assistant <em>automatically</em> takes the finished product and package it up.
+<ul>
+<li>There’s also <strong>Continuous Deployment</strong>, which is when the robot also does the final step of shipping it to customers automatically. A little scarier, but very powerful!</li>
+</ul></li>
+</ul>
+</section>
+<section id="why-it-is-important-for-data-scientists" class="level1">
+<h1>Why it is Important for Data Scientists?</h1>
+<p>You might think, “I’m not a web developer, I just write scripts and Jupyter notebooks. Why do I need this?”</p>
+<p>In many ways, CI/CD is <em>even more important</em> for data science because our work has two “moving parts”: <strong>the code <em>and</em> the data</strong>. Both can break. CI/CD acts as your personal lab assistant and data bodyguard.</p>
+<p>Here are some real-life usecases of CI/CD pipeline.</p>
+<p><strong>1. It Solves the “It Works On My Machine!” Nightmare:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> You build a fantastic model using <code>pandas 2.1</code> on your new laptop. You email your <code>script.py</code> to a colleague. Their laptop has <code>pandas 1.5</code>, and the script crashes horribly. You both waste an entire afternoon on a video call debugging “environment issues.”</p></li>
+<li><p><strong>The CI/CD fix:</strong> This is exactly what we fixed. By using <code>image: python:3.10</code> or <code>image: ubuntu:22.04</code> in our <code>.gitlab-ci.yml</code>, we force our code to run in a <strong>brand new, perfectly clean, 100% reproducible environment every time</strong>. If it passes in the pipeline, it’s guaranteed to be solid. No more “works on my machine” excuses!</p></li>
+</ul>
+<p><strong>2. It Guarantees Your Model and Data are Valid:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> You have a model that predicts house prices. A new person on your team “helps” by cleaning up the training script. They accidentally drop the <code>square_footage</code> column from the input data. The script <em>runs</em> without an error, but the model it produces is now garbage. You don’t find out until your boss’s weekly report is full of insane predictions.</p></li>
+<li><p><strong>The CI/CD Fix:</strong> This can be previented by running some test cases every time some changes happens in the code. The moment that bad code is pushed, the test cases fails. The pipeline turns red. The bad model never gets saved, and you get an email instantly. You’ve protected your project’s integrity.</p></li>
+</ul>
+<p><strong>3. It Automates Your Tedious, Repetitive Work:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> Every Monday at 9 AM, you have to manually open your Jupyter notebook, click “Run All”, wait 20 minutes for it to re-train on the new weekly data, save the output <code>summary_report.csv</code>, and then email it to your manager. It’s boring, and one day you’re on vacation and it doesn’t get done.</p></li>
+<li><p><strong>The CI/CD Fix:</strong> GitLab (and other tools) allow for <strong>Scheduled Pipelines</strong>. You can set your <code>train_model_job</code> to run automatically <em>every Monday at 9 AM</em>. It will run, create the <code>validation_report.csv</code> as an artifact, and you can even add a final <code>deploy</code> job to automatically email it or upload it to a server. You’ve automated your job, and you can enjoy your vacation.</p></li>
+</ul>
+</section>
+<section id="building-simple-cicd-pipeline" class="level1">
+<h1>Building Simple CI/CD Pipeline:</h1>
+<p>Let’s see how we can build a simple CI/CD Pipeline in gitlab (You can also build it in github).</p>
+<ol type="1">
+<li><p>First you have to create a <em>gitlab</em> account. Go to <a href="https://gitlab.com/">https://gitlab.com/</a> and signup.</p></li>
+<li><p>Once account setup is complete create a <strong>New Project</strong>, name it <code>my-first-ci</code> or something fun.</p></li>
+<li><p>Create a <strong>New File</strong> and name it <code>.gitlab-ci.yml</code>. The name of the file should be exactly this else it will not work in gitlab. (For GitHub the name of the file should be inside <code>.github/workflows/</code>. The file can have any name but it has to a <code>.yml</code> file)</p></li>
+<li><p>Place below text in <code>.gitlab-ci.yml</code> and commit.</p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a># This is our first CI/CD 'recipe' in YML format.</span>
+<span id="cb1-2"><a href="#cb1-2"></a># This someting like a simple shopping list.</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a># Here we are defining a job for the robot to do.</span>
+<span id="cb1-5"><a href="#cb1-5"></a># We can call it anything we want. Let's say the job as 'say_hello'</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>say_hello:</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    # Scripts are the most important part.</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    # It is the list of commands that the robot must run.</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    script:</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        - echo "Hallo CI\CD World"      # echo is the command of printing text.</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        - echo "The Robot Assistent is working"</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        - echo "I am running on this system"</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        - uname -a # uname -a is the command that prints system info.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will see what the above script do later. For now commit the changes in <code>main</code> branch.</p>
+<ol start="5" type="1">
+<li><p>Go to <strong>Build</strong> &gt; <strong>Pipelines</strong>. You should see your new pipeline. It will have a status like “pending,” “running,” or “passed.” Click on it. <img src="pipeline.png" class="img-fluid" alt="Pipeline Screensort"></p></li>
+<li><p>You will see a graph with our job name. In this case the name is <code>say_hello</code>. Click on it.</p></li>
+<li><p>You are now watching <em>Job log</em>. You can see all the commends executed successfully and their output is showing here. <img src="Job-log.png" class="img-fluid" alt="Job Screensort"></p></li>
+</ol>
+<p>What actully happend here. Let’s Try to understand the content of the <code>.gitlab-ci.yml</code> file first. The <code>.gitlab-ci.yml</code> file contains a list of task (or job) to perform. In our case we have only one job <code>say_hello</code>. For each job we will execute some command, those commands are listed in the <code>script</code> section in sequential order. In our case the job prints some texts. You can verify this in the above screensort.</p>
+<p><strong><em>Yeh! We have build our first CI/CD pipeline.</em></strong></p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

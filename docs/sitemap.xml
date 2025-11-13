@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sushobhon.github.io/resume.html</loc>
-    <lastmod>2025-09-04T04:33:29.160Z</lastmod>
+    <lastmod>2025-11-12T14:52:28.388Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/skills.html</loc>
@@ -17,16 +17,20 @@
     <lastmod>2025-08-03T15:45:18.825Z</lastmod>
   </url>
   <url>
-    <loc>https://sushobhon.github.io/project.html</loc>
-    <lastmod>2025-07-22T04:56:46.855Z</lastmod>
+    <loc>https://sushobhon.github.io/index.html</loc>
+    <lastmod>2025-08-03T15:45:18.825Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/about.html</loc>
     <lastmod>2025-08-03T15:45:18.825Z</lastmod>
   </url>
   <url>
-    <loc>https://sushobhon.github.io/index.html</loc>
-    <lastmod>2025-08-03T15:45:18.825Z</lastmod>
+    <loc>https://sushobhon.github.io/project.html</loc>
+    <lastmod>2025-07-22T04:56:46.855Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sushobhon.github.io/posts/2025-11-01-CICD-Pipeline-for-Biginers/index.html</loc>
+    <lastmod>2025-11-13T04:06:16.237Z</lastmod>
   </url>
   <url>
     <loc>https://sushobhon.github.io/posts/2025-07-01-Your-Own-Next-Token-Generator/index.html</loc>
