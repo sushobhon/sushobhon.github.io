@@ -4,7 +4,7 @@ from: markdown+emoji
 description: "Step by Step CI/CD Guide"
 author:
   - name: Sushobhon Karmakar 
-date: 13-11-2025
+date: 11-12-2025
 categories: [ML, MLOps]
 image: "ci-cd-2.png"
 draft: False
@@ -14,7 +14,7 @@ execute:
 ---
 
 # Introduction
-In [***Part 1***](../2025-11-01-CICD-Pipeline-for-Beginners-1/index.qmd) we have build a simple **CI/CD pipeline** in gitlab. That pipeline had one job. Now, it's time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see whether the file generated correctly or not. In this case we have two jobs:
+In [***Part 1***](../2025-11-10-CICD-Pipeline-for-Beginners-1/index.qmd) we have build a simple **CI/CD pipeline** in gitlab. That pipeline had one job. Now, it's time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see whether the file generated correctly or not. In this case we have two jobs:
 
 1. **Build:** Building or Generating the file.
 2. **Test:** Analyzing the file.

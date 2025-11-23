@@ -45,7 +45,7 @@
         "```\n",
         "Next, let’s import the required libraries, set up our device, and download the model."
       ],
-      "id": "cc3b3db4"
+      "id": "b03f2230"
     },
     {
       "cell_type": "code",
@@ -68,7 +68,7 @@
         "tokenizer = AutoTokenizer.from_pretrained(model_name)\n",
         "model = AutoModelForCausalLM.from_pretrained(model_name).to(device) "
       ],
-      "id": "3c04bf92",
+      "id": "ee4e1b14",
       "execution_count": null,
       "outputs": []
     },
@@ -78,7 +78,7 @@
       "source": [
         "Now let's define a custom function that predicts the next token using *greedy search*. In this function, we first predict the `logits` score for each token, then convert those to probabilities using the `softmax` function. "
       ],
-      "id": "071e2999"
+      "id": "bef15614"
     },
     {
       "cell_type": "code",
@@ -116,7 +116,7 @@
         "        # Returning iterations as df\n",
         "        return tokenizer.decode(input_ids[0])"
       ],
-      "id": "9919380e",
+      "id": "cd3ac978",
       "execution_count": null,
       "outputs": []
     },
@@ -126,7 +126,7 @@
       "source": [
         "Let us pass `i love` and predict next few word using our custom function and compare the result with `transformers` library."
       ],
-      "id": "30f52022"
+      "id": "4e98dcbd"
     },
     {
       "cell_type": "code",
@@ -141,7 +141,7 @@
         "                              )\n",
         "print(generated_text)"
       ],
-      "id": "fda97fd7",
+      "id": "9b3f87af",
       "execution_count": null,
       "outputs": []
     },
@@ -155,7 +155,7 @@
         "```\n",
         "Let’s predicted tokens using `transformers` library."
       ],
-      "id": "41296efa"
+      "id": "fcee4933"
     },
     {
       "cell_type": "code",
@@ -168,7 +168,7 @@
         "output = model.generate(**input_tokens, max_new_tokens=20)\n",
         "print(tokenizer.decode(output[0], skip_special_tokens= True))"
       ],
-      "id": "89641c54",
+      "id": "e1a95bf1",
       "execution_count": null,
       "outputs": []
     },
@@ -186,7 +186,7 @@
         "\n",
         "If you want to find out what are the other probable tokens and what is there probability you can try this code."
       ],
-      "id": "7b3ce8d8"
+      "id": "0c282a22"
     },
     {
       "cell_type": "code",
@@ -233,7 +233,7 @@
         "        # Returning iterations as df\n",
         "        return pd.DataFrame(iterations)"
       ],
-      "id": "9a0c6535",
+      "id": "11600ad3",
       "execution_count": null,
       "outputs": []
     },
@@ -274,7 +274,7 @@
         "\n",
         "Let’s try to write a function for beam search"
       ],
-      "id": "a7094715"
+      "id": "47287b62"
     },
     {
       "cell_type": "code",
@@ -329,7 +329,7 @@
         "    best_tokens = beams[0][0]\n",
         "    return tokenizer.decode(best_tokens[0], skip_special_tokens=True)"
       ],
-      "id": "9b1c8ba9",
+      "id": "1576533c",
       "execution_count": null,
       "outputs": []
     },
@@ -729,7 +729,7 @@
         "\n",
         "A special thank you to [Rohan-Paul-AI](https://www.youtube.com/@RohanPaul-AI) for the inspiration behind this post, and thanks also to [Koushik Khan](https://koushikkhan.github.io/) for encouraging me to write it!"
       ],
-      "id": "ff1f0b8d"
+      "id": "9c7dac06"
     }
   ],
   "metadata": {

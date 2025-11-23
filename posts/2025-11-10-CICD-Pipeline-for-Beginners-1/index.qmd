@@ -4,7 +4,7 @@ from: markdown+emoji
 description: "Step by Step CI/CD Guide"
 author:
   - name: Sushobhon Karmakar 
-date: 12-11-2025
+date: 11-10-2025
 categories: [ML, MLopps]
 image: "ci-cd-image.png"
 draft: False
@@ -91,4 +91,4 @@ What ctually happened here. Let's Try to understand the content of the `.gitlab-
 ***Yeh! We have build our first CI/CD pipeline.***
 
 
-That’s all for the part 1. I hope you have enjoyed reading the post. For part 2 [*click here*](../2025-11-13-CICD-pipeline-for-Beginners-2/index.qmd)
+That’s all for the part 1. I hope you have enjoyed reading the post. For part 2 [*click here*](../2025-11-12-CICD-pipeline-for-Beginners-2/index.qmd)
