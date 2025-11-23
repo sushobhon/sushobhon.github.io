@@ -5,7 +5,7 @@ description: "Step by Step CI/CD Guide"
 author:
   - name: Sushobhon Karmakar 
 date: 13-11-2025
-categories: [ML, MLopps]
+categories: [ML, MLOps]
 image: "ci-cd-2.png"
 draft: False
 execute:
@@ -14,12 +14,12 @@ execute:
 ---
 
 # Introduction
-In ***Part 1*** we have build a simple **CI/CD pipeline** in gitlab. That pipeline have one job. Now, it's time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see wheather the file generated correctly or not. In this case we have two jobs:
+In [***Part 1***](../2025-11-01-CICD-Pipeline-for-Beginners-1/index.qmd) we have build a simple **CI/CD pipeline** in gitlab. That pipeline had one job. Now, it's time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see whether the file generated correctly or not. In this case we have two jobs:
 
 1. **Build:** Building or Generating the file.
 2. **Test:** Analyzing the file.
 
-Note that, these job has to be in sequence. Once first job is completed then only the 2nd job can start.
+Note that, these jobs have to be in sequence. Once first job is completed then only the 2nd job can start.
 
 Let's try to build the pipeline.
 
@@ -39,7 +39,7 @@ build_job:
   script:
     - echo "I am 'building' my app..."
     - echo "Creating a file named important_file.txt"
-    # Instead of printing the message we are writting the message in the 'important_file.txt' file
+    # Instead of printing the message we are writing the message in the 'important_file.txt' file
     - echo "My app's secret message" > important_file.txt 
     - echo "Build complete."
 
@@ -58,7 +58,7 @@ First, we define stages `build` and `test`. The stages will run sequentially, fi
 
 Then, we define two jobs `build_job` and `test_job`. We want to run `build_job` first, so we tagged `build` stage with `build_job`. The `echo` commands in first two line will print the text in the console, In third line we are writting the text in `important_file.txt`. This file was not there before, we are generating the file.
 
-In second job we tagged `test` stage, which will start executing once `build` stage is complete. In second job is simple. We are looking in the directory if the `important_file.txt` file is present or not.
+In second job we tagged `test` stage, which will start executing once `build` stage is complete. The second job is simple. We are looking in the directory if the `important_file.txt` file is present or not.
 
 Now, let's commit the changes and check the pipeline.
 
@@ -68,11 +68,11 @@ Now, let's commit the changes and check the pipeline.
 Let's take a look at `test_job` log.
 
 ![test_job log](test-job-ss.png)
-*Wait! What? There is not file called `importent_file.txt` in the directory.* 
+*Wait! What? There is not file called `important_file.txt` in the directory.* 
 
 **Why this is happening?**
 
-This is happening because for each job *gitlab runner* assigns a new machine. When first job is completed the machine removes all files. We can see `Cleaning up project directory and file based variables` message. That means one job 1 is completed 'importent_file.txt' file also got deleted. So, in job 2 we did not see that file.
+This is happening because for each job *gitlab runner* assigns a new machine. When first job is completed the machine removes all files. We can see `Cleaning up project directory and file based variables` message. That means one job 1 is completed 'important_file.txt' file also got deleted. So, in job 2 we did not see that file.
 
 **Then the next question is how can we stop the file from getting deleted?**
 
@@ -117,4 +117,4 @@ We can see the `build_job` run successfully and created the file `important_file
 ![Build Job Log](build-job-2-ss.png)
 What about `test_job`. Let's see the log file.
 ![Test Job Log](test-job-2-ss.png)
-Now we can see that `important_file.txt` is present in the diectory. We have successfully passed files from one job to the next job.
+Now we can see that `important_file.txt` is present in the directory. We have successfully passed files from one job to the next job.

@@ -18,7 +18,7 @@ execute:
 
 At its heart, it's a practice to automate the 'boring' and 'risky' part of automating testing of a package or code or software.
 
-- **Countinuous Integration (CI):** This is the **automated quality checks**. It's is a robot assistant that, *every single time* a developer push a new code, it runs the code in a clean test environment and check if the code or application is running fine or not. 
+- **Continuous Integration (CI):** This is the **automated quality checks**. It is a robot assistant that, *every single time* a developer push a new code, it runs the code in a clean test environment and check if the code or application is running fine or not. 
     - **The Goal** is to find bugs *fast*, right when they have created, before they mixed in with other people's work.
 
 - **Continuous Delivery (CD):** This is the **automated release process**. If the code passes all the CI tests, the robot assistant *automatically* takes the finished product and package it up.
@@ -41,7 +41,7 @@ Here are some real-life usecases of CI/CD pipeline.
 
 - **Example:** You have a model that predicts house prices. A new person on your team "helps" by cleaning up the training script. They accidentally drop the `square_footage` column from the input data. The script *runs* without an error, but the model it produces is now garbage. You don't find out until your boss's weekly report is full of insane predictions.
 
-- **The CI/CD Fix:** This can be previented by running some test cases every time some changes happens in the code.  The moment that bad code is pushed, the test cases fails. The pipeline turns red. The bad model never gets saved, and you get an email instantly. You've protected your project's integrity.
+- **The CI/CD Fix:** This can be prevented by running some test cases every time some changes happens in the code.  The moment that bad code is pushed, the test cases fails. The pipeline turns red. The bad model never gets saved, and you get an email instantly. You've protected your project's integrity.
 
 **3. It Automates Your Tedious, Repetitive Work:**
 
@@ -71,7 +71,7 @@ say_hello:
     # It is the list of commands that the robot must run.
     script:
         - echo "Hallo CI\CD World"      # echo is the command of printing text.
-        - echo "The Robot Assistent is working"
+        - echo "The Robot Assistant is working"
         - echo "I am running on this system"
         - uname -a # uname -a is the command that prints system info.
 
@@ -79,13 +79,13 @@ say_hello:
 We will see what the above script do later. For now commit the changes in `main` branch.
 
 5. Go to **Build** > **Pipelines**. You should see your new pipeline. It will have a status like "pending," "running," or "passed." Click on it. 
-![Pipeline Screensort](pipeline.png)
+![Pipeline Screenshot](pipeline.png)
 
 6. You will see a graph with our job name. In this case the name is `say_hello`. Click on it.
 
-7. You are now watching *Job log*. You can see all the commends executed successfully and their output is showing here.
-![Job Screensort](Job-log.png)
+7. You are now watching *Job log*. You can see all the commands executed successfully and their output is showing here.
+![Job Screenshot](Job-log.png)
 
-What actully happend here. Let's Try to understand the content of the `.gitlab-ci.yml` file first. The `.gitlab-ci.yml` file contains a list of task (or job) to perform. In our case we have only one job `say_hello`. For each job we will execute some command, those commands are listed in the `script` section in sequential order. In our case the job prints some texts. You can verify this in the above screensort.
+What ctually happened here. Let's Try to understand the content of the `.gitlab-ci.yml` file first. The `.gitlab-ci.yml` file contains a list of task (or job) to perform. In our case we have only one job `say_hello`. For each job we will execute some command, those commands are listed in the `script` section in sequential order. In our case the job prints some texts. You can verify this in the above screenshot.
 
 ***Yeh! We have build our first CI/CD pipeline.***
