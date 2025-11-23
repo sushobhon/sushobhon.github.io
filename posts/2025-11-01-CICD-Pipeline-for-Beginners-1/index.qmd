@@ -59,7 +59,7 @@ Let's see how we can build a simple CI/CD Pipeline in gitlab (You can also build
 3. Create a **New File** and name it `.gitlab-ci.yml`. The name of the file should be exactly this else it will not work in gitlab. (For GitHub the name of the file should be inside `.github/workflows/`. The file can have any name but it has to a `.yml` file)
 
 4. Place below text in `.gitlab-ci.yml` and commit.
-```{bash}
+```yaml
 # This is our first CI/CD 'recipe' in YML format.
 # This someting like a simple shopping list.
 
@@ -89,3 +89,6 @@ We will see what the above script do later. For now commit the changes in `main`
 What ctually happened here. Let's Try to understand the content of the `.gitlab-ci.yml` file first. The `.gitlab-ci.yml` file contains a list of task (or job) to perform. In our case we have only one job `say_hello`. For each job we will execute some command, those commands are listed in the `script` section in sequential order. In our case the job prints some texts. You can verify this in the above screenshot.
 
 ***Yeh! We have build our first CI/CD pipeline.***
+
+
+That’s all for the part 1. I hope you have enjoyed reading the post. For part 2 [*click here*](../2025-11-13-CICD-pipeline-for-Beginners-2/index.qmd)

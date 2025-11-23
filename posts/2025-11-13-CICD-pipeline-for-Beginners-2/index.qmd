@@ -10,7 +10,7 @@ image: "ci-cd-2.png"
 draft: False
 execute:
   eval: false  # This is the key line
-  echo: true   # This ensures the code blocks are still displayed
+  echo: false   # This ensures the code blocks are still displayed
 ---
 
 # Introduction
@@ -26,7 +26,7 @@ Let's try to build the pipeline.
 # Pipeline with Two Sequential Job 
 
 Update the `.gitlab-ci.yml` file with below code:
-```{yaml}
+```yaml
 # We first define the order of our stages.
 # 'build' will ALWAYS run before 'test'.
 stages:
@@ -82,7 +82,7 @@ To pass the required files to the next job we need specifically mention to save 
 
 **Let's fix out** `.gitlab-ci.yml`
 
-```{yaml}
+```yaml
 stages:
   - build
   - test
