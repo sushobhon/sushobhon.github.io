@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sushobhon Karmakar">
-<meta name="dcterms.date" content="2026-01-11">
+<meta name="dcterms.date" content="2025-12-11">
 <meta name="description" content="Step by Step CI/CD Guide">
 
-<title>CI/CD Pipeline in Gitlab: Part 2 – Sushobhon Karmakar</title>
+<title>CI/CD Pipeline in Gitlab: Part 1 – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">CI/CD Pipeline in Gitlab: Part 2</h1>
+      <h1 class="title">CI/CD Pipeline in Gitlab: Part 1</h1>
                   <div>
         <div class="description">
           Step by Step CI/CD Guide
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 11, 2026</p>
+        <p class="date">December 11, 2025</p>
       </div>
     </div>
     
@@ -392,9 +392,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#pipeline-with-two-sequential-job" id="toc-pipeline-with-two-sequential-job" class="nav-link" data-scroll-target="#pipeline-with-two-sequential-job">Pipeline with Two Sequential Job</a></li>
-  <li><a href="#passing-file-from-one-job-to-next-job" id="toc-passing-file-from-one-job-to-next-job" class="nav-link" data-scroll-target="#passing-file-from-one-job-to-next-job">Passing File from One Job to Next Job</a></li>
+  <li><a href="#what-is-cicd" id="toc-what-is-cicd" class="nav-link active" data-scroll-target="#what-is-cicd">What is CI/CD?</a></li>
+  <li><a href="#why-it-is-important-for-data-scientists" id="toc-why-it-is-important-for-data-scientists" class="nav-link" data-scroll-target="#why-it-is-important-for-data-scientists">Why it is Important for Data Scientists?</a></li>
+  <li><a href="#building-simple-cicd-pipeline" id="toc-building-simple-cicd-pipeline" class="nav-link" data-scroll-target="#building-simple-cicd-pipeline">Building Simple CI/CD Pipeline:</a></li>
   </ul>
 </nav>
     </div>
@@ -406,86 +406,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>In <strong><em>Part 1</em></strong> we have build a simple <strong>CI/CD pipeline</strong> in gitlab. That pipeline have one job. Now, it’s time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see wheather the file generated correctly or not. In this case we have two jobs:</p>
+<section id="what-is-cicd" class="level1">
+<h1>What is CI/CD?</h1>
+<p><strong>CI/CD</strong> stands for <strong>Continuous Integration</strong> and <strong>Continuous Delivery</strong> (or <strong>Continuous Deployment</strong>).</p>
+<p>At its heart, it’s a practice to automate the ‘boring’ and ‘risky’ part of automating testing of a package or code or software.</p>
+<ul>
+<li><strong>Continuous Integration (CI):</strong> This is the <strong>automated quality checks</strong>. It is a robot assistant that, <em>every single time</em> a developer push a new code, it runs the code in a clean test environment and check if the code or application is running fine or not.
+<ul>
+<li><strong>The Goal</strong> is to find bugs <em>fast</em>, right when they have created, before they mixed in with other people’s work.</li>
+</ul></li>
+<li><strong>Continuous Delivery (CD):</strong> This is the <strong>automated release process</strong>. If the code passes all the CI tests, the robot assistant <em>automatically</em> takes the finished product and package it up.
+<ul>
+<li>There’s also <strong>Continuous Deployment</strong>, which is when the robot also does the final step of shipping it to customers automatically. A little scarier, but very powerful!</li>
+</ul></li>
+</ul>
+</section>
+<section id="why-it-is-important-for-data-scientists" class="level1">
+<h1>Why it is Important for Data Scientists?</h1>
+<p>You might think, “I’m not a web developer, I just write scripts and Jupyter notebooks. Why do I need this?”</p>
+<p>In many ways, CI/CD is <em>even more important</em> for data science because our work has two “moving parts”: <strong>the code <em>and</em> the data</strong>. Both can break. CI/CD acts as your personal lab assistant and data bodyguard.</p>
+<p>Here are some real-life usecases of CI/CD pipeline.</p>
+<p><strong>1. It Solves the “It Works On My Machine!” Nightmare:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> You build a fantastic model using <code>pandas 2.1</code> on your new laptop. You email your <code>script.py</code> to a colleague. Their laptop has <code>pandas 1.5</code>, and the script crashes horribly. You both waste an entire afternoon on a video call debugging “environment issues.”</p></li>
+<li><p><strong>The CI/CD fix:</strong> This is exactly what we fixed. By using <code>image: python:3.10</code> or <code>image: ubuntu:22.04</code> in our <code>.gitlab-ci.yml</code>, we force our code to run in a <strong>brand new, perfectly clean, 100% reproducible environment every time</strong>. If it passes in the pipeline, it’s guaranteed to be solid. No more “works on my machine” excuses!</p></li>
+</ul>
+<p><strong>2. It Guarantees Your Model and Data are Valid:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> You have a model that predicts house prices. A new person on your team “helps” by cleaning up the training script. They accidentally drop the <code>square_footage</code> column from the input data. The script <em>runs</em> without an error, but the model it produces is now garbage. You don’t find out until your boss’s weekly report is full of insane predictions.</p></li>
+<li><p><strong>The CI/CD Fix:</strong> This can be prevented by running some test cases every time some changes happens in the code. The moment that bad code is pushed, the test cases fails. The pipeline turns red. The bad model never gets saved, and you get an email instantly. You’ve protected your project’s integrity.</p></li>
+</ul>
+<p><strong>3. It Automates Your Tedious, Repetitive Work:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> Every Monday at 9 AM, you have to manually open your Jupyter notebook, click “Run All”, wait 20 minutes for it to re-train on the new weekly data, save the output <code>summary_report.csv</code>, and then email it to your manager. It’s boring, and one day you’re on vacation and it doesn’t get done.</p></li>
+<li><p><strong>The CI/CD Fix:</strong> GitLab (and other tools) allow for <strong>Scheduled Pipelines</strong>. You can set your <code>train_model_job</code> to run automatically <em>every Monday at 9 AM</em>. It will run, create the <code>validation_report.csv</code> as an artifact, and you can even add a final <code>deploy</code> job to automatically email it or upload it to a server. You’ve automated your job, and you can enjoy your vacation.</p></li>
+</ul>
+</section>
+<section id="building-simple-cicd-pipeline" class="level1">
+<h1>Building Simple CI/CD Pipeline:</h1>
+<p>Let’s see how we can build a simple CI/CD Pipeline in gitlab (You can also build it in github).</p>
 <ol type="1">
-<li><strong>Build:</strong> Building or Generating the file.</li>
-<li><strong>Test:</strong> Analyzing the file.</li>
+<li><p>First you have to create a <em>gitlab</em> account. Go to <a href="https://gitlab.com/">https://gitlab.com/</a> and signup.</p></li>
+<li><p>Once account setup is complete create a <strong>New Project</strong>, name it <code>my-first-ci</code> or something fun.</p></li>
+<li><p>Create a <strong>New File</strong> and name it <code>.gitlab-ci.yml</code>. The name of the file should be exactly this else it will not work in gitlab. (For GitHub the name of the file should be inside <code>.github/workflows/</code>. The file can have any name but it has to a <code>.yml</code> file)</p></li>
+<li><p>Place below text in <code>.gitlab-ci.yml</code> and commit.</p></li>
 </ol>
-<p>Note that, these job has to be in sequence. Once first job is completed then only the 2nd job can start.</p>
-<p>Let’s try to build the pipeline.</p>
-</section>
-<section id="pipeline-with-two-sequential-job" class="level1">
-<h1>Pipeline with Two Sequential Job</h1>
-<p>Update the <code>.gitlab-ci.yml</code> file with below code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {yaml} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a># We first define the order of our stages.</span>
-<span id="cb1-2"><a href="#cb1-2"></a># 'build' will ALWAYS run before 'test'.</span>
-<span id="cb1-3"><a href="#cb1-3"></a>stages:</span>
-<span id="cb1-4"><a href="#cb1-4"></a>  - build</span>
-<span id="cb1-5"><a href="#cb1-5"></a>  - test</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># This is our first CI/CD 'recipe' in YML format.</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># This someting like a simple shopping list.</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Here we are defining a job for the robot to do.</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># We can call it anything we want. Let's say the job as 'say_hello'</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a># --- This is our first job ---</span>
-<span id="cb1-8"><a href="#cb1-8"></a>build_job:</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  stage: build  # We assign this job to the 'build' stage</span>
-<span id="cb1-10"><a href="#cb1-10"></a>  script:</span>
-<span id="cb1-11"><a href="#cb1-11"></a>    - echo "I am 'building' my app..."</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    - echo "Creating a file named important_file.txt"</span>
-<span id="cb1-13"><a href="#cb1-13"></a>    # Instead of printing the message we are writting the message in the 'important_file.txt' file</span>
-<span id="cb1-14"><a href="#cb1-14"></a>    - echo "My app's secret message" &gt; important_file.txt </span>
-<span id="cb1-15"><a href="#cb1-15"></a>    - echo "Build complete."</span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a># --- This is our second job ---</span>
-<span id="cb1-18"><a href="#cb1-18"></a>test_job:</span>
-<span id="cb1-19"><a href="#cb1-19"></a>  stage: test   # We assign this job to the 'test' stage</span>
-<span id="cb1-20"><a href="#cb1-20"></a>  script:</span>
-<span id="cb1-21"><a href="#cb1-21"></a>    - echo "I am 'testing' my app..."</span>
-<span id="cb1-22"><a href="#cb1-22"></a>    - echo "Let's see if the file 'important_file.txt' exists..."</span>
-<span id="cb1-23"><a href="#cb1-23"></a>    - ls -l   # This command lists all files</span>
-<span id="cb1-24"><a href="#cb1-24"></a>    - echo "Oh no ... Where did the file go"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s understand the <code>.yml</code> file - First, we define stages <code>build</code> and <code>test</code>. The stages will run sequentially, first <code>build</code> stage is executed then <code>test</code> stage.</p>
-<p>Then, we define two jobs <code>build_job</code> and <code>test_job</code>. We want to run <code>build_job</code> first, so we tagged <code>build</code> stage with <code>build_job</code>. The <code>echo</code> commands in first two line will print the text in the console, In third line we are writting the text in <code>important_file.txt</code>. This file was not there before, we are generating the file.</p>
-<p>In second job we tagged <code>test</code> stage, which will start executing once <code>build</code> stage is complete. In second job is simple. We are looking in the directory if the <code>important_file.txt</code> file is present or not.</p>
-<p>Now, let’s commit the changes and check the pipeline.</p>
-<p><img src="build-job-ss.png" class="img-fluid" alt="build_job log"> <code>build_job</code> run successfully.</p>
-<p>Let’s take a look at <code>test_job</code> log.</p>
-<p><img src="test-job-ss.png" class="img-fluid" alt="test_job log"> <em>Wait! What? There is not file called <code>importent_file.txt</code> in the directory.</em></p>
-<p><strong>Why this is happening?</strong></p>
-<p>This is happening because for each job <em>gitlab runner</em> assigns a new machine. When first job is completed the machine removes all files. We can see <code>Cleaning up project directory and file based variables</code> message. That means one job 1 is completed ‘importent_file.txt’ file also got deleted. So, in job 2 we did not see that file.</p>
-<p><strong>Then the next question is how can we stop the file from getting deleted?</strong></p>
-</section>
-<section id="passing-file-from-one-job-to-next-job" class="level1">
-<h1>Passing File from One Job to Next Job</h1>
-<p>To pass the required files to the next job we need specifically mention to save the files for the next job. In GitLab CI, these saved files are called <strong>artifacts</strong>.</p>
-<p><strong>Let’s fix out</strong> <code>.gitlab-ci.yml</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {yaml} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>stages:</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  - build</span>
-<span id="cb2-3"><a href="#cb2-3"></a>  - test</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a># --- This is our first job ---</span>
-<span id="cb2-6"><a href="#cb2-6"></a>build_job:</span>
-<span id="cb2-7"><a href="#cb2-7"></a>  stage: build</span>
-<span id="cb2-8"><a href="#cb2-8"></a>  script:</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    - echo "I am 'building' my app..."</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    - echo "Creating a file named important_file.txt"</span>
-<span id="cb2-11"><a href="#cb2-11"></a>    - echo "My app's secret message" &gt; important_file.txt</span>
-<span id="cb2-12"><a href="#cb2-12"></a>    - echo "Build complete."</span>
-<span id="cb2-13"><a href="#cb2-13"></a>  artifacts:          # &lt;-- THIS IS THE NEW, MAGIC PART!</span>
-<span id="cb2-14"><a href="#cb2-14"></a>    paths:            # We give it a list of files/folders to save</span>
-<span id="cb2-15"><a href="#cb2-15"></a>      - important_file.txt</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a># --- This is our second job ---</span>
-<span id="cb2-18"><a href="#cb2-18"></a>test_job:</span>
-<span id="cb2-19"><a href="#cb2-19"></a>  stage: test</span>
-<span id="cb2-20"><a href="#cb2-20"></a>  script:</span>
-<span id="cb2-21"><a href="#cb2-21"></a>    - echo "I am 'testing' my app..."</span>
-<span id="cb2-22"><a href="#cb2-22"></a>    - echo "Let's see if the file 'important_file.txt' exists..."</span>
-<span id="cb2-23"><a href="#cb2-23"></a>    - ls -l</span>
-<span id="cb2-24"><a href="#cb2-24"></a>    - echo "Let's check the *content* of the file..."</span>
-<span id="cb2-25"><a href="#cb2-25"></a>    - cat important_file.txt # 'cat' is a command to print a file's content</span>
-<span id="cb2-26"><a href="#cb2-26"></a>    - echo "Hooray! The file is here and it has the right message!"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This time as we can see we have added a new section called <code>artifacts</code> under <code>build_job</code>. Here we pass a list of files or folder to save. In the path section we specifically mentioned to save <code>important_file.txt</code>. Now commit the changes and see the job logs.</p>
-<p>We can see the <code>build_job</code> run successfully and created the file <code>important_file.txt</code>. <img src="build-job-2-ss.png" class="img-fluid" alt="Build Job Log"> What about <code>test_job</code>. Let’s see the log file. <img src="test-job-2-ss.png" class="img-fluid" alt="Test Job Log"> Now we can see that <code>important_file.txt</code> is present in the diectory. We have successfully passed files from one job to the next job.</p>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">say_hello</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">    # Scripts are the most important part.</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">    # It is the list of commands that the robot must run.</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="at">    </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="at">        </span><span class="kw">-</span><span class="at"> echo "Hallo CI\CD World"</span><span class="co">      # echo is the command of printing text.</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="at">        </span><span class="kw">-</span><span class="at"> echo "The Robot Assistant is working"</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="at">        </span><span class="kw">-</span><span class="at"> echo "I am running on this system"</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="at">        </span><span class="kw">-</span><span class="at"> uname -a</span><span class="co"> # uname -a is the command that prints system info.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We will see what the above script do later. For now commit the changes in <code>main</code> branch.</p>
+<ol start="5" type="1">
+<li><p>Go to <strong>Build</strong> &gt; <strong>Pipelines</strong>. You should see your new pipeline. It will have a status like “pending,” “running,” or “passed.” Click on it. <img src="pipeline.png" class="img-fluid" alt="Pipeline Screenshot"></p></li>
+<li><p>You will see a graph with our job name. In this case the name is <code>say_hello</code>. Click on it.</p></li>
+<li><p>You are now watching <em>Job log</em>. You can see all the commands executed successfully and their output is showing here. <img src="Job-log.png" class="img-fluid" alt="Job Screenshot"></p></li>
+</ol>
+<p>What ctually happened here. Let’s Try to understand the content of the <code>.gitlab-ci.yml</code> file first. The <code>.gitlab-ci.yml</code> file contains a list of task (or job) to perform. In our case we have only one job <code>say_hello</code>. For each job we will execute some command, those commands are listed in the <code>script</code> section in sequential order. In our case the job prints some texts. You can verify this in the above screenshot.</p>
+<p><strong><em>Yeh! We have build our first CI/CD pipeline.</em></strong></p>
+<p>That’s all for the part 1. I hope you have enjoyed reading the post. For part 2 <a href="../../posts/2025-11-13-CICD-pipeline-for-Beginners-2/index.html"><em>click here</em></a></p>
 
 
 </section>
