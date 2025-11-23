@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Data Scientist | Learner | Tech Enthusiast">
+<meta name="author" content="Sushobhon Karmakar">
+<meta name="dcterms.date" content="2026-01-11">
+<meta name="description" content="Step by Step CI/CD Guide">
 
-<title>Sushobhon Karmakar</title>
+<title>CI/CD Pipeline in Gitlab: Part 2 – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,32 +23,68 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ac1a48248070c8bfbae4244efd7728e4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-5fa770aa67c23ef3364642465cd873db.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ac1a48248070c8bfbae4244efd7728e4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b8ae2860d51a4bd5c90a3c8c48b62e40.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8968f1bbb3c1dc2e4834cf53524a7076.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-b8ae2860d51a4bd5c90a3c8c48b62e40.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ac1a48248070c8bfbae4244efd7728e4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-5fa770aa67c23ef3364642465cd873db.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ac1a48248070c8bfbae4244efd7728e4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b8ae2860d51a4bd5c90a3c8c48b62e40.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-8968f1bbb3c1dc2e4834cf53524a7076.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-b8ae2860d51a4bd5c90a3c8c48b62e40.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,10 +114,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -244,11 +282,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Sushobhon Karmakar</span>
     </a>
   </div>
@@ -259,27 +297,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./project.html"> 
+    <a class="nav-link" href="../../project.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills.html"> 
+    <a class="nav-link" href="../../skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blogs.html"> 
+    <a class="nav-link" href="../../blogs.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
+    <a class="nav-link" href="../../resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
 </ul>
@@ -309,44 +347,150 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">CI/CD Pipeline in Gitlab: Part 2</h1>
+                  <div>
+        <div class="description">
+          Step by Step CI/CD Guide
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">MLopps</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Sushobhon Karmakar </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 11, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#pipeline-with-two-sequential-job" id="toc-pipeline-with-two-sequential-job" class="nav-link" data-scroll-target="#pipeline-with-two-sequential-job">Pipeline with Two Sequential Job</a></li>
+  <li><a href="#passing-file-from-one-job-to-next-job" id="toc-passing-file-from-one-job-to-next-job" class="nav-link" data-scroll-target="#passing-file-from-one-job-to-next-job">Passing File from One Job to Next Job</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
-    <img src="resources/img/IMG-20250725-WA0004.jpg" class="about-image
-  round " style="height: 15em; width: 15em;">
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Sushobhon Karmakar</h1>
-</div>
-<div>
-  <div class="description">
-    Data Scientist | Learner | Tech Enthusiast
-  </div>
-</div>
-<div class="quarto-title-meta">
-  </div>
-</header>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
-<section id="welcome-to-my-portfolio" class="level2">
-<h2 data-anchor-id="welcome-to-my-portfolio">Welcome to My Portfolio!!</h2>
-<p>Hello! I’m Sushobhon Karmakar, a passionate data scientist with over four years of experience, currently working as <strong>Senior Data Scientist</strong> at <a href="https://www.tigeranalytics.com/">Tiger Analytics</a>.</p>
-<p>Hi there! Thanks for visiting my portfolio. I’m a data scientist with over four years of experience, currently serving as a Senior Data Scientist at <a href="https://www.tigeranalytics.com/">Tiger Analytics</a> in Bangalore, India.</p>
-<p>I’m thrilled to have you here! This space is where I share my journey, insights, and projects as I explore the fascinating world of data. Whether it’s uncovering patterns or solving complex problems, I’m driven by a love for turning data into meaningful stories.</p>
-<p>Thanks for stopping by! I hope you enjoy discovering more about my work.</p>
-<!-- ## Get in Touch -->
-<p>I’d love to hear from you! Feel free to reach out to me via email at <a href="mailto:%20sushobhonkarmakar@gmail.com">sushobhonkarmakar@gmail.com</a></p>
+
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>In <strong><em>Part 1</em></strong> we have build a simple <strong>CI/CD pipeline</strong> in gitlab. That pipeline have one job. Now, it’s time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see wheather the file generated correctly or not. In this case we have two jobs:</p>
+<ol type="1">
+<li><strong>Build:</strong> Building or Generating the file.</li>
+<li><strong>Test:</strong> Analyzing the file.</li>
+</ol>
+<p>Note that, these job has to be in sequence. Once first job is completed then only the 2nd job can start.</p>
+<p>Let’s try to build the pipeline.</p>
+</section>
+<section id="pipeline-with-two-sequential-job" class="level1">
+<h1>Pipeline with Two Sequential Job</h1>
+<p>Update the <code>.gitlab-ci.yml</code> file with below code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {yaml} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a># We first define the order of our stages.</span>
+<span id="cb1-2"><a href="#cb1-2"></a># 'build' will ALWAYS run before 'test'.</span>
+<span id="cb1-3"><a href="#cb1-3"></a>stages:</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  - build</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  - test</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a># --- This is our first job ---</span>
+<span id="cb1-8"><a href="#cb1-8"></a>build_job:</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  stage: build  # We assign this job to the 'build' stage</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  script:</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    - echo "I am 'building' my app..."</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    - echo "Creating a file named important_file.txt"</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    # Instead of printing the message we are writting the message in the 'important_file.txt' file</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    - echo "My app's secret message" &gt; important_file.txt </span>
+<span id="cb1-15"><a href="#cb1-15"></a>    - echo "Build complete."</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a># --- This is our second job ---</span>
+<span id="cb1-18"><a href="#cb1-18"></a>test_job:</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  stage: test   # We assign this job to the 'test' stage</span>
+<span id="cb1-20"><a href="#cb1-20"></a>  script:</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    - echo "I am 'testing' my app..."</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    - echo "Let's see if the file 'important_file.txt' exists..."</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    - ls -l   # This command lists all files</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    - echo "Oh no ... Where did the file go"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Let’s understand the <code>.yml</code> file - First, we define stages <code>build</code> and <code>test</code>. The stages will run sequentially, first <code>build</code> stage is executed then <code>test</code> stage.</p>
+<p>Then, we define two jobs <code>build_job</code> and <code>test_job</code>. We want to run <code>build_job</code> first, so we tagged <code>build</code> stage with <code>build_job</code>. The <code>echo</code> commands in first two line will print the text in the console, In third line we are writting the text in <code>important_file.txt</code>. This file was not there before, we are generating the file.</p>
+<p>In second job we tagged <code>test</code> stage, which will start executing once <code>build</code> stage is complete. In second job is simple. We are looking in the directory if the <code>important_file.txt</code> file is present or not.</p>
+<p>Now, let’s commit the changes and check the pipeline.</p>
+<p><img src="build-job-ss.png" class="img-fluid" alt="build_job log"> <code>build_job</code> run successfully.</p>
+<p>Let’s take a look at <code>test_job</code> log.</p>
+<p><img src="test-job-ss.png" class="img-fluid" alt="test_job log"> <em>Wait! What? There is not file called <code>importent_file.txt</code> in the directory.</em></p>
+<p><strong>Why this is happening?</strong></p>
+<p>This is happening because for each job <em>gitlab runner</em> assigns a new machine. When first job is completed the machine removes all files. We can see <code>Cleaning up project directory and file based variables</code> message. That means one job 1 is completed ‘importent_file.txt’ file also got deleted. So, in job 2 we did not see that file.</p>
+<p><strong>Then the next question is how can we stop the file from getting deleted?</strong></p>
+</section>
+<section id="passing-file-from-one-job-to-next-job" class="level1">
+<h1>Passing File from One Job to Next Job</h1>
+<p>To pass the required files to the next job we need specifically mention to save the files for the next job. In GitLab CI, these saved files are called <strong>artifacts</strong>.</p>
+<p><strong>Let’s fix out</strong> <code>.gitlab-ci.yml</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {yaml} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>stages:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  - build</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  - test</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a># --- This is our first job ---</span>
+<span id="cb2-6"><a href="#cb2-6"></a>build_job:</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  stage: build</span>
+<span id="cb2-8"><a href="#cb2-8"></a>  script:</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    - echo "I am 'building' my app..."</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    - echo "Creating a file named important_file.txt"</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    - echo "My app's secret message" &gt; important_file.txt</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    - echo "Build complete."</span>
+<span id="cb2-13"><a href="#cb2-13"></a>  artifacts:          # &lt;-- THIS IS THE NEW, MAGIC PART!</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    paths:            # We give it a list of files/folders to save</span>
+<span id="cb2-15"><a href="#cb2-15"></a>      - important_file.txt</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a># --- This is our second job ---</span>
+<span id="cb2-18"><a href="#cb2-18"></a>test_job:</span>
+<span id="cb2-19"><a href="#cb2-19"></a>  stage: test</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  script:</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    - echo "I am 'testing' my app..."</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    - echo "Let's see if the file 'important_file.txt' exists..."</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    - ls -l</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    - echo "Let's check the *content* of the file..."</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    - cat important_file.txt # 'cat' is a command to print a file's content</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    - echo "Hooray! The file is here and it has the right message!"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This time as we can see we have added a new section called <code>artifacts</code> under <code>build_job</code>. Here we pass a list of files or folder to save. In the path section we specifically mentioned to save <code>important_file.txt</code>. Now commit the changes and see the job logs.</p>
+<p>We can see the <code>build_job</code> run successfully and created the file <code>important_file.txt</code>. <img src="build-job-2-ss.png" class="img-fluid" alt="Build Job Log"> What about <code>test_job</code>. Let’s see the log file. <img src="test-job-2-ss.png" class="img-fluid" alt="Test Job Log"> Now we can see that <code>important_file.txt</code> is present in the diectory. We have successfully passed files from one job to the next job.</p>
 
 
 </section>
-</main></div>
-</div>
- <!-- /main -->
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -362,6 +506,13 @@ ul.task-list li input[type="checkbox"] {
       window.document.body.appendChild(a);
     }
     setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
