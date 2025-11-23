@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Sushobhon Karmakar">
+<meta name="dcterms.date" content="2025-12-11">
+<meta name="description" content="Step by Step CI/CD Guide">
 
-<title>About Me – Sushobhon Karmakar</title>
+<title>CI/CD Pipeline in Gitlab: Part 1 – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +23,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7e11434eac148b84e24ebc123ea223a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-caa6200b5fd6ae1557848632e0b2b910.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2fa0555fe88427c29efa1b60aaf9e62d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6d7e7b9b3dbd114c66b233ded7072392.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-7e11434eac148b84e24ebc123ea223a9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-caa6200b5fd6ae1557848632e0b2b910.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,17 +109,17 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Sushobhon Karmakar</span>
     </a>
   </div>
@@ -93,27 +130,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./project.html"> 
+    <a class="nav-link" href="../../project.html"> 
 <span class="menu-text">Project</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./skills.html"> 
+    <a class="nav-link" href="../../skills.html"> 
 <span class="menu-text">Skills</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blogs.html"> 
+    <a class="nav-link" href="../../blogs.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
+    <a class="nav-link" href="../../resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
 </ul>
@@ -143,7 +180,44 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">CI/CD Pipeline in Gitlab: Part 1</h1>
+                  <div>
+        <div class="description">
+          Step by Step CI/CD Guide
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">ML</div>
+                <div class="quarto-category">MLopps</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Sushobhon Karmakar </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 11, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -151,69 +225,86 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#education" id="toc-education" class="nav-link active" data-scroll-target="#education"><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Education</a></li>
-  <li><a href="#career-history" id="toc-career-history" class="nav-link" data-scroll-target="#career-history"><i class="fa-solid fa-user-tie" aria-label="user-tie"></i> Career History</a></li>
-  <li><a href="#current-responsibilities" id="toc-current-responsibilities" class="nav-link" data-scroll-target="#current-responsibilities"><i class="fa-solid fa-laptop" aria-label="laptop"></i> Current Responsibilities</a></li>
-  <li><a href="#things-i-love-to-do" id="toc-things-i-love-to-do" class="nav-link" data-scroll-target="#things-i-love-to-do"><i class="fa-solid fa-umbrella-beach" aria-label="umbrella-beach"></i> Things I Love To Do</a></li>
+  <li><a href="#what-is-cicd" id="toc-what-is-cicd" class="nav-link active" data-scroll-target="#what-is-cicd">What is CI/CD?</a></li>
+  <li><a href="#why-it-is-important-for-data-scientists" id="toc-why-it-is-important-for-data-scientists" class="nav-link" data-scroll-target="#why-it-is-important-for-data-scientists">Why it is Important for Data Scientists?</a></li>
+  <li><a href="#building-simple-cicd-pipeline" id="toc-building-simple-cicd-pipeline" class="nav-link" data-scroll-target="#building-simple-cicd-pipeline">Building Simple CI/CD Pipeline:</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">About Me</h1>
-<p class="subtitle lead">Educational, Professional and Personal Background</p>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<section id="education" class="level2">
-<h2 class="anchored" data-anchor-id="education"><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Education</h2>
+<section id="what-is-cicd" class="level1">
+<h1>What is CI/CD?</h1>
+<p><strong>CI/CD</strong> stands for <strong>Continuous Integration</strong> and <strong>Continuous Delivery</strong> (or <strong>Continuous Deployment</strong>).</p>
+<p>At its heart, it’s a practice to automate the ‘boring’ and ‘risky’ part of automating testing of a package or code or software.</p>
 <ul>
-<li>M. Sc. in Statistics (2020), Indian Institute of Technology (IITK), UP, India.</li>
-<li>B. Sc. in Statistics (2017), Visva-Bharati, WB, India.</li>
+<li><strong>Countinuous Integration (CI):</strong> This is the <strong>automated quality checks</strong>. It’s is a robot assistant that, <em>every single time</em> a developer push a new code, it runs the code in a clean test environment and check if the code or application is running fine or not.
+<ul>
+<li><strong>The Goal</strong> is to find bugs <em>fast</em>, right when they have created, before they mixed in with other people’s work.</li>
+</ul></li>
+<li><strong>Continuous Delivery (CD):</strong> This is the <strong>automated release process</strong>. If the code passes all the CI tests, the robot assistant <em>automatically</em> takes the finished product and package it up.
+<ul>
+<li>There’s also <strong>Continuous Deployment</strong>, which is when the robot also does the final step of shipping it to customers automatically. A little scarier, but very powerful!</li>
+</ul></li>
 </ul>
 </section>
-<section id="career-history" class="level2">
-<h2 class="anchored" data-anchor-id="career-history"><i class="fa-solid fa-user-tie" aria-label="user-tie"></i> Career History</h2>
+<section id="why-it-is-important-for-data-scientists" class="level1">
+<h1>Why it is Important for Data Scientists?</h1>
+<p>You might think, “I’m not a web developer, I just write scripts and Jupyter notebooks. Why do I need this?”</p>
+<p>In many ways, CI/CD is <em>even more important</em> for data science because our work has two “moving parts”: <strong>the code <em>and</em> the data</strong>. Both can break. CI/CD acts as your personal lab assistant and data bodyguard.</p>
+<p>Here are some real-life usecases of CI/CD pipeline.</p>
+<p><strong>1. It Solves the “It Works On My Machine!” Nightmare:</strong></p>
 <ul>
-<li>Senior Data Scientist at Tiger Analytics (Jan’25 - Present).</li>
-<li>Data Scientist at Tiger Analytics (Jun’23 - Dec’24).</li>
-<li>Senior Analyst at Tiger Analytics (Jun’21 - May’23).</li>
-<li>Analyst at Tiger Analytics (Jan’21 - May’21)</li>
+<li><p><strong>Example:</strong> You build a fantastic model using <code>pandas 2.1</code> on your new laptop. You email your <code>script.py</code> to a colleague. Their laptop has <code>pandas 1.5</code>, and the script crashes horribly. You both waste an entire afternoon on a video call debugging “environment issues.”</p></li>
+<li><p><strong>The CI/CD fix:</strong> This is exactly what we fixed. By using <code>image: python:3.10</code> or <code>image: ubuntu:22.04</code> in our <code>.gitlab-ci.yml</code>, we force our code to run in a <strong>brand new, perfectly clean, 100% reproducible environment every time</strong>. If it passes in the pipeline, it’s guaranteed to be solid. No more “works on my machine” excuses!</p></li>
+</ul>
+<p><strong>2. It Guarantees Your Model and Data are Valid:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> You have a model that predicts house prices. A new person on your team “helps” by cleaning up the training script. They accidentally drop the <code>square_footage</code> column from the input data. The script <em>runs</em> without an error, but the model it produces is now garbage. You don’t find out until your boss’s weekly report is full of insane predictions.</p></li>
+<li><p><strong>The CI/CD Fix:</strong> This can be previented by running some test cases every time some changes happens in the code. The moment that bad code is pushed, the test cases fails. The pipeline turns red. The bad model never gets saved, and you get an email instantly. You’ve protected your project’s integrity.</p></li>
+</ul>
+<p><strong>3. It Automates Your Tedious, Repetitive Work:</strong></p>
+<ul>
+<li><p><strong>Example:</strong> Every Monday at 9 AM, you have to manually open your Jupyter notebook, click “Run All”, wait 20 minutes for it to re-train on the new weekly data, save the output <code>summary_report.csv</code>, and then email it to your manager. It’s boring, and one day you’re on vacation and it doesn’t get done.</p></li>
+<li><p><strong>The CI/CD Fix:</strong> GitLab (and other tools) allow for <strong>Scheduled Pipelines</strong>. You can set your <code>train_model_job</code> to run automatically <em>every Monday at 9 AM</em>. It will run, create the <code>validation_report.csv</code> as an artifact, and you can even add a final <code>deploy</code> job to automatically email it or upload it to a server. You’ve automated your job, and you can enjoy your vacation.</p></li>
 </ul>
 </section>
-<section id="current-responsibilities" class="level2">
-<h2 class="anchored" data-anchor-id="current-responsibilities"><i class="fa-solid fa-laptop" aria-label="laptop"></i> Current Responsibilities</h2>
-<ul>
-<li><p><strong>Project Management</strong>: Led a cross-functional initiative to enhance business performance visibility. Collaborated closely with stakeholders and ground users, partnering with the Tableau team to develop an intuitive dashboard for actionable segment performance analysis.</p></li>
-<li><p><strong>Supporting:</strong> Provided hands-on guidance to a Data Scientists and a Scenior Analyst in model development and client engagement, consistently driving the timely delivery of high-quality solutions.</p></li>
-<li><p><strong>Mentoring:</strong> Guided a data scientist’s development, ensuring a balanced approach to learning and work while cultivating the advanced skills crucial for senior data scientist advancement.</p></li>
-<li><p><strong>Inovation and RnD:</strong> Continuously research and integrate cutting-edge data science advancements to enhance existing models. I develop innovative, data-driven solutions and streamline implementation for the Model Refreshing Team, ensuring clients receive timely, optimized outcomes.</p></li>
-</ul>
-</section>
-<section id="things-i-love-to-do" class="level2">
-<h2 class="anchored" data-anchor-id="things-i-love-to-do"><i class="fa-solid fa-umbrella-beach" aria-label="umbrella-beach"></i> Things I Love To Do</h2>
-<ul>
-<li>Reading and listening to Bengali literatures.</li>
-<li>Exploring new Technologies.</li>
-<li>Cooking Indian Recipies.</li>
-<li>Playing Football and Badminton.</li>
-</ul>
+<section id="building-simple-cicd-pipeline" class="level1">
+<h1>Building Simple CI/CD Pipeline:</h1>
+<p>Let’s see how we can build a simple CI/CD Pipeline in gitlab (You can also build it in github).</p>
+<ol type="1">
+<li><p>First you have to create a <em>gitlab</em> account. Go to <a href="https://gitlab.com/">https://gitlab.com/</a> and signup.</p></li>
+<li><p>Once account setup is complete create a <strong>New Project</strong>, name it <code>my-first-ci</code> or something fun.</p></li>
+<li><p>Create a <strong>New File</strong> and name it <code>.gitlab-ci.yml</code>. The name of the file should be exactly this else it will not work in gitlab. (For GitHub the name of the file should be inside <code>.github/workflows/</code>. The file can have any name but it has to a <code>.yml</code> file)</p></li>
+<li><p>Place below text in <code>.gitlab-ci.yml</code> and commit.</p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a># This is our first CI/CD 'recipe' in YML format.</span>
+<span id="cb1-2"><a href="#cb1-2"></a># This someting like a simple shopping list.</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a># Here we are defining a job for the robot to do.</span>
+<span id="cb1-5"><a href="#cb1-5"></a># We can call it anything we want. Let's say the job as 'say_hello'</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>say_hello:</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    # Scripts are the most important part.</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    # It is the list of commands that the robot must run.</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    script:</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        - echo "Hallo CI\CD World"      # echo is the command of printing text.</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        - echo "The Robot Assistent is working"</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        - echo "I am running on this system"</span>
+<span id="cb1-14"><a href="#cb1-14"></a>        - uname -a # uname -a is the command that prints system info.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will see what the above script do later. For now commit the changes in <code>main</code> branch.</p>
+<ol start="5" type="1">
+<li><p>Go to <strong>Build</strong> &gt; <strong>Pipelines</strong>. You should see your new pipeline. It will have a status like “pending,” “running,” or “passed.” Click on it. <img src="pipeline.png" class="img-fluid" alt="Pipeline Screensort"></p></li>
+<li><p>You will see a graph with our job name. In this case the name is <code>say_hello</code>. Click on it.</p></li>
+<li><p>You are now watching <em>Job log</em>. You can see all the commends executed successfully and their output is showing here. <img src="Job-log.png" class="img-fluid" alt="Job Screensort"></p></li>
+</ol>
+<p>What actully happend here. Let’s Try to understand the content of the <code>.gitlab-ci.yml</code> file first. The <code>.gitlab-ci.yml</code> file contains a list of task (or job) to perform. In our case we have only one job <code>say_hello</code>. For each job we will execute some command, those commands are listed in the <code>script</code> section in sequential order. In our case the job prints some texts. You can verify this in the above screensort.</p>
+<p><strong><em>Yeh! We have build our first CI/CD pipeline.</em></strong></p>
 
 
 </section>
