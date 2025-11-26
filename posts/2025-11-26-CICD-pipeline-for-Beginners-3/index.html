@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sushobhon Karmakar">
-<meta name="dcterms.date" content="2025-11-12">
+<meta name="dcterms.date" content="2025-11-26">
 <meta name="description" content="Step by Step CI/CD Guide">
 
-<title>CI/CD Pipeline in Gitlab: Part 2 – Sushobhon Karmakar</title>
+<title>CI/CD Pipeline in Gitlab: Part 3 – Sushobhon Karmakar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">CI/CD Pipeline in Gitlab: Part 2</h1>
+      <h1 class="title">CI/CD Pipeline in Gitlab: Part 3</h1>
                   <div>
         <div class="description">
           Step by Step CI/CD Guide
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 12, 2025</p>
+        <p class="date">November 26, 2025</p>
       </div>
     </div>
     
@@ -393,8 +393,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#pipeline-with-two-sequential-job" id="toc-pipeline-with-two-sequential-job" class="nav-link" data-scroll-target="#pipeline-with-two-sequential-job">Pipeline with Two Sequential Job</a></li>
-  <li><a href="#passing-file-from-one-job-to-next-job" id="toc-passing-file-from-one-job-to-next-job" class="nav-link" data-scroll-target="#passing-file-from-one-job-to-next-job">Passing File from One Job to Next Job</a></li>
+  <li><a href="#pipeline-to-run-python-code" id="toc-pipeline-to-run-python-code" class="nav-link" data-scroll-target="#pipeline-to-run-python-code">Pipeline to Run Python code:</a>
+  <ul class="collapse">
+  <li><a href="#create-python-files-and-requirment-files" id="toc-create-python-files-and-requirment-files" class="nav-link" data-scroll-target="#create-python-files-and-requirment-files">Create Python Files and requirment files:</a></li>
+  <li><a href="#building-pipeline-to-run-python-code" id="toc-building-pipeline-to-run-python-code" class="nav-link" data-scroll-target="#building-pipeline-to-run-python-code">Building Pipeline to Run Python Code:</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -408,89 +411,172 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>In <a href="../../posts/2025-11-10-CICD-Pipeline-for-Beginners-1/index.html"><strong><em>Part 1</em></strong></a> we have build a simple <strong>CI/CD pipeline</strong> in gitlab. That pipeline had one job. Now, it’s time to move ahead and try running multiple jobs. Imagine a process where we need to run a script that will build an artifacts or generate a file in the first job. Then we will check the artifact or see whether the file generated correctly or not. In this case we have two jobs:</p>
+<p>In <a href="../../posts/2025-11-12-CICD-pipeline-for-Beginners-2/index.html"><strong><em>Part 2</em></strong></a> we have seen how we can run multiple jobs in one pipeline. We have also seen how we can ensure that the jobs runs in a specific order and artifacts or files generated in one job can be passed to other.</p>
+<p>In <strong>Part 3</strong> we will be see how we can run python code. As of now we have run all the code or command in bash shell, but as a data scientist we need to know how we can run python script as well.</p>
+<p>Here we -</p>
+<ul>
+<li>Download an empty Ubuntu docker image first</li>
+<li>Install python</li>
+<li>Install the packages</li>
+<li>Run python code to build a simple model</li>
+<li>Run some test cases to validate</li>
+</ul>
+<p>Note that, these jobs also need to be in sequence. So, we will have similar approach as <em>Part 2</em>. Let’s build the pipeline.</p>
+</section>
+<section id="pipeline-to-run-python-code" class="level1">
+<h1>Pipeline to Run Python code:</h1>
+<p>We can devide this jobs into mainly 3 groups -</p>
 <ol type="1">
-<li><strong>Build:</strong> Building or Generating the file.</li>
-<li><strong>Test:</strong> Analyzing the file.</li>
+<li>Environment Setup (Downloading Ubuntu, Installing Python)</li>
+<li>Training Job (Installing required packages for training and train the model)</li>
+<li>Testing Job (Install required packages for testing and test the model)</li>
 </ol>
-<p>Note that, these jobs have to be in sequence. Once first job is completed then only the 2nd job can start.</p>
-<p>Let’s try to build the pipeline.</p>
-</section>
-<section id="pipeline-with-two-sequential-job" class="level1">
-<h1>Pipeline with Two Sequential Job</h1>
-<p>Update the <code>.gitlab-ci.yml</code> file with below code:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># We first define the order of our stages.</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># 'build' will ALWAYS run before 'test'.</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">stages</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> build</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> test</span></span>
+<section id="create-python-files-and-requirment-files" class="level2">
+<h2 class="anchored" data-anchor-id="create-python-files-and-requirment-files">Create Python Files and requirment files:</h2>
+<p>So, First we need train code, let’s call it <code>train_data.py</code>, a simple python code.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> joblib</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="bu">print</span>(<span class="st">"--- Training script starting ---"</span>)</span>
 <span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># --- This is our first job ---</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">build_job</span><span class="kw">:</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> build</span><span class="co">  # We assign this job to the 'build' stage</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "I am 'building' my app..."</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Creating a file named important_file.txt"</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="co">    # Instead of printing the message we are writing the message in the 'important_file.txt' file</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "My app's secret message" &gt; important_file.txt </span></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Build complete."</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># 1. Create simple training data</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>X_train <span class="op">=</span> pd.DataFrame({<span class="st">'age'</span>: [<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>]})</span>
+<span id="cb1-9"><a href="#cb1-9"></a>y_train <span class="op">=</span> pd.Series([<span class="dv">200</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">350</span>, <span class="dv">400</span>]) <span class="co"># e.g., shopping $</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># 2. Train a 'complex' model (it's not complex, don't tell)</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb1-13"><a href="#cb1-13"></a>model.fit(X_train, y_train)</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="bu">print</span>(<span class="st">"Model trained!"</span>)</span>
 <span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># --- This is our second job ---</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="fu">test_job</span><span class="kw">:</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> test</span><span class="co">   # We assign this job to the 'test' stage</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "I am 'testing' my app..."</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Let's see if the file 'important_file.txt' exists..."</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="at">    </span><span class="kw">-</span><span class="at"> ls -l</span><span class="co">   # This command lists all files</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Oh no ... Where did the file go"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s understand the <code>.yml</code> file - First, we define stages <code>build</code> and <code>test</code>. The stages will run sequentially, first <code>build</code> stage is executed then <code>test</code> stage.</p>
-<p>Then, we define two jobs <code>build_job</code> and <code>test_job</code>. We want to run <code>build_job</code> first, so we tagged <code>build</code> stage with <code>build_job</code>. The <code>echo</code> commands in first two line will print the text in the console, In third line we are writting the text in <code>important_file.txt</code>. This file was not there before, we are generating the file.</p>
-<p>In second job we tagged <code>test</code> stage, which will start executing once <code>build</code> stage is complete. The second job is simple. We are looking in the directory if the <code>important_file.txt</code> file is present or not.</p>
-<p>Now, let’s commit the changes and check the pipeline.</p>
-<p><img src="build-job-ss.png" class="img-fluid" alt="build_job log"> <code>build_job</code> run successfully.</p>
-<p>Let’s take a look at <code>test_job</code> log.</p>
-<p><img src="test-job-ss.png" class="img-fluid" alt="test_job log"> <em>Wait! What? There is not file called <code>important_file.txt</code> in the directory.</em></p>
-<p><strong>Why this is happening?</strong></p>
-<p>This is happening because for each job <em>gitlab runner</em> assigns a new machine. When first job is completed the machine removes all files. We can see <code>Cleaning up project directory and file based variables</code> message. That means one job 1 is completed ‘important_file.txt’ file also got deleted. So, in job 2 we did not see that file.</p>
-<p><strong>Then the next question is how can we stop the file from getting deleted?</strong></p>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co"># 3. Save the model</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>joblib.dump(model, <span class="st">'shopping_model.joblib'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="bu">print</span>(<span class="st">"Model saved to shopping_model.joblib"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="co"># 4. Create a test report for validation</span></span>
+<span id="cb1-22"><a href="#cb1-22"></a>X_test <span class="op">=</span> pd.DataFrame({<span class="st">'age'</span>: [<span class="dv">22</span>, <span class="dv">33</span>]})</span>
+<span id="cb1-23"><a href="#cb1-23"></a>predictions <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>report <span class="op">=</span> pd.DataFrame({<span class="st">'age'</span>: [<span class="dv">22</span>, <span class="dv">33</span>], <span class="st">'predicted_spend'</span>: predictions})</span>
+<span id="cb1-26"><a href="#cb1-26"></a>report.to_csv(<span class="st">'validation_report.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="bu">print</span>(<span class="st">"Validation report created."</span>)</span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="bu">print</span>(<span class="st">"--- Training script finished ---"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This code is simple. We are creating a dummy data and training a simple Linear Regression Model on top of it. Then save the model objects. We predict for few cases using the model and saving the output into a csv file.</p>
+<p>Now let’s create a Test Script called <code>test_validation.py</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> os</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">def</span> test_model_file_exists():</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="co">"""Test 1: Check if the model file was passed."""</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="bu">print</span>(<span class="st">"Running test: Checking for model.joblib..."</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="cf">assert</span> os.path.exists(<span class="st">'shopping_model.joblib'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="bu">print</span>(<span class="st">"...PASS: Model file exists."</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="kw">def</span> test_report_file_exists():</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="co">"""Test 2: Check if the report CSV was passed."""</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>    <span class="bu">print</span>(<span class="st">"Running test: Checking for validation_report.csv..."</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="cf">assert</span> os.path.exists(<span class="st">'validation_report.csv'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="bu">print</span>(<span class="st">"...PASS: Report file exists."</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="kw">def</span> test_report_predictions_are_numbers():</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    <span class="co">"""Test 3: Check the data in the report."""</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="bu">print</span>(<span class="st">"Running test: Validating report data..."</span>)</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    df <span class="op">=</span> pd.read_csv(<span class="st">'validation_report.csv'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20"></a></span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="co"># A simple check to make sure predictions are not crazy</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>    <span class="cf">assert</span> <span class="st">'predicted_spend'</span> <span class="kw">in</span> df.columns</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    <span class="cf">assert</span> df[<span class="st">'predicted_spend'</span>].dtype <span class="op">==</span> <span class="st">'float64'</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>    <span class="cf">assert</span> df[<span class="st">'predicted_spend'</span>].isnull().<span class="bu">sum</span>() <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="bu">print</span>(<span class="st">"...PASS: Report data looks valid."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here we are doing some sanity check like whether the files are present or not.</p>
+<p>Now since we have both the python code we have to create requirment.txt file with all the packages. For Training and testing purpose we might need different packages so we will create 2 requirment file -</p>
+<ul>
+<li><code>requirment-train.txt</code> with packages for training job and</li>
+<li><code>requirment-test.txt</code> with packages for testing job</li>
+</ul>
+<p>Let’s create these 2 files as well. Create <code>requirment-training.txt</code> and add:</p>
+<pre><code>pandas
+scikit-learn
+joblib</code></pre>
+<p>Then create <code>requirment-test.txt</code> and add:</p>
+<pre><code>pandas
+pytest</code></pre>
+<p><em>(Here I have added few packages for illastration purpose. Not all packages are necessary.)</em></p>
 </section>
-<section id="passing-file-from-one-job-to-next-job" class="level1">
-<h1>Passing File from One Job to Next Job</h1>
-<p>To pass the required files to the next job we need specifically mention to save the files for the next job. In GitLab CI, these saved files are called <strong>artifacts</strong>.</p>
-<p><strong>Let’s fix out</strong> <code>.gitlab-ci.yml</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">stages</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="kw">-</span><span class="at"> build</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> test</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># --- This is our first job ---</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="fu">build_job</span><span class="kw">:</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> build</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "I am 'building' my app..."</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Creating a file named important_file.txt"</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "My app's secret message" &gt; important_file.txt</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Build complete."</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span><span class="co">          # &lt;-- THIS IS THE NEW, MAGIC PART!</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span><span class="co">            # We give it a list of files/folders to save</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="at">      </span><span class="kw">-</span><span class="at"> important_file.txt</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># --- This is our second job ---</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">test_job</span><span class="kw">:</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> test</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "I am 'testing' my app..."</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Let's see if the file 'important_file.txt' exists..."</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="at">    </span><span class="kw">-</span><span class="at"> ls -l</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Let's check the *content* of the file..."</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="at">    </span><span class="kw">-</span><span class="at"> cat important_file.txt</span><span class="co"> # 'cat' is a command to print a file's content</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Hooray! The file is here and it has the right message!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This time as we can see we have added a new section called <code>artifacts</code> under <code>build_job</code>. Here we pass a list of files or folder to save. In the path section we specifically mentioned to save <code>important_file.txt</code>. Now commit the changes and see the job logs.</p>
-<p>We can see the <code>build_job</code> run successfully and created the file <code>important_file.txt</code>. <img src="build-job-2-ss.png" class="img-fluid" alt="Build Job Log"></p>
-<p>What about <code>test_job</code>. Let’s see the log file. <img src="test-job-2-ss.png" class="img-fluid" alt="Test Job Log"></p>
-<p>Now we can see that <code>important_file.txt</code> is present in the directory. We have successfully passed files from one job to the next job.</p>
-<p>In <a href="../../posts/2025-11-26-CICD-pipeline-for-Beginners-3/index.html"><strong><em>next part</em></strong></a> we will see how we can run python code using CICD pipeline.</p>
+<section id="building-pipeline-to-run-python-code" class="level2">
+<h2 class="anchored" data-anchor-id="building-pipeline-to-run-python-code">Building Pipeline to Run Python Code:</h2>
+<p>Let’s create <code>.gitlab-ci.yml</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Downloading the ubuntu image 22.04 image</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> ubuntu:22.04</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># 'before_script' commands under this process will run before scripts command.</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">before_script</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo "Upgrading ubuntu image and then installing python ..."</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="at">  </span><span class="kw">-</span><span class="at"> apt-get update -y</span><span class="co">   # This command will update ubuntu image</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">  </span><span class="kw">-</span><span class="at"> apt-get install -y python3.10 python3-pip</span><span class="co"> # Install python and pip</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo "python installed successfully ..."</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo "Checking python version ... "</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">  </span><span class="kw">-</span><span class="at"> python3 --version</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="at">  </span><span class="kw">-</span><span class="at"> pip3 --version</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co"># Defining stages</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="fu">stages</span><span class="kw">:</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="at">  </span><span class="kw">-</span><span class="at"> train</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="at">  </span><span class="kw">-</span><span class="at"> test</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co"># --- Job 1: Training the Data in a virtual environment --- #</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="fu">training_job</span><span class="kw">:</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> train</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Creating and activating environment ..."</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pip3 install -r requirment-train.txt</span><span class="co">  # Installing all the libraries for training</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Runnning Training scripts ..."</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="at">    </span><span class="kw">-</span><span class="at"> python3 train_data.py</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="at">      </span><span class="kw">-</span><span class="at"> validation_report.csv</span><span class="co">   # Validation report saving</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="at">      </span><span class="kw">-</span><span class="at"> shopping_model.joblib</span><span class="co">   # Saving Model Object</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a></span>
+<span id="cb5-33"><a href="#cb5-33"></a></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co"># --- Job 2: Validating Result --- #</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="fu">testing_job</span><span class="kw">:</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> test</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Creating and activating environment ..."</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pip3 install -r requirment-test.txt</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Running all tests ..."</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pytest -v test_validation.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>First we download an ubuntu image from docker using <code>image: ubuntu:22.04</code>. This is a simple ubuntu desktop.</p>
+<p>Now we have 3 main section. (1) before_script, (2) training_job and (3) test_job.</p>
+<p><em>Wait! What is <code>before_script</code> section? This hasn’t appeared before.</em></p>
+<p>Yes this is a new section of command. Under this section all the commands will be executed before commands in first job section. This is perfect for setting up environments.</p>
+<p>In our case inside <code>before_script</code> section we are installing python and checking version of python and pip using below command.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> apt-get update -y</span><span class="co">   # This command will update ubuntu image</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="at">  </span><span class="kw">-</span><span class="at"> apt-get install -y python3.10 python3-pip</span><span class="co"> # Install python and pip</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo "python installed successfully ..."</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> echo "Checking python version ... "</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="at">  </span><span class="kw">-</span><span class="at"> python3 --version</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="at">  </span><span class="kw">-</span><span class="at"> pip3 --version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The output of this stage will look like below <img src="before-script-output.png" class="img-fluid" alt="Before Script Log"></p>
+<p>Then we are defining our stage names as <code>train</code> and <code>test</code>. In <code>train</code> section first we install all the required packages, then run <code>train_data.py</code> using below command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pip3 install -r requirment-train.txt</span><span class="co">  # Installing all the libraries for training</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Runnning Training scripts ..."</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="at">    </span><span class="kw">-</span><span class="at"> python3 train_data.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Once <code>train_data.py</code> execute we will upload the artifacts and close the job. After that <code>test</code> stage will start.</p>
+<p>The output of the <code>train</code> stage will look like below: <img src="training-stage-output.png" class="img-fluid" alt="train Job Log"></p>
+<p>In <code>test</code> stage first we will install all the required packages from <code>requirment-test.txt</code> file, then execute <code>test_validation.py</code> file.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pip3 install -r requirment-test.txt</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="at">    </span><span class="kw">-</span><span class="at"> echo "Running all tests ..."</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pytest -v test_validation.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The log of <code>test</code> stage will be like this <img src="test-job-output-1.png" class="img-fluid" alt="Test Job Log"> <img src="test-job-output-2.png" class="img-fluid" alt="Test Job Log"></p>
+<p><em>Congratulation!!!</em></p>
+<p>If you have come this far then you know how to run python or any other code in CICD pipeline.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
