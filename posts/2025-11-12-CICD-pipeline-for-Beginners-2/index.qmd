@@ -115,6 +115,10 @@ This time as we can see we have added a new section called `artifacts` under `bu
 
 We can see the `build_job` run successfully and created the file `important_file.txt`.
 ![Build Job Log](build-job-2-ss.png)
+
 What about `test_job`. Let's see the log file.
 ![Test Job Log](test-job-2-ss.png)
+
 Now we can see that `important_file.txt` is present in the directory. We have successfully passed files from one job to the next job.
+
+In [***next part***](../2025-11-26-CICD-pipeline-for-Beginners-3/index.qmd) we will see how we can run python code using CICD pipeline.

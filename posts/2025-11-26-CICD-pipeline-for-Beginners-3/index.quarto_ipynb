@@ -1,0 +1,108 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"CI/CD Pipeline in Gitlab: Part 3\"\n",
+        "from: markdown+emoji\n",
+        "description: \"Step by Step CI/CD Guide\"\n",
+        "author:\n",
+        "  - name: Sushobhon Karmakar \n",
+        "date: 11-26-2025\n",
+        "categories: [ML, MLOps]\n",
+        "image: \"CICD-pipeline.png\"\n",
+        "draft: False\n",
+        "execute:\n",
+        "  eval: false  # This is the key line\n",
+        "  echo: false   # This ensures the code blocks are still displayed\n",
+        "---\n",
+        "\n",
+        "\n",
+        "# Introduction\n",
+        "\n",
+        "In [***Part 2***](../2025-11-12-CICD-pipeline-for-Beginners-2/index.qmd) we have seen how we can run multiple jobs in one pipeline. We have also seen how we can ensure that the jobs runs in a specific order and artifacts or files generated in one job can be passed to other.\n",
+        "\n",
+        "In **Part 3** we will be see how we can run python code. As of now we have run all the code or command in bash shell, but as a data scientist we need to know how we can run python script as well.\n",
+        "\n",
+        "Here we -\n",
+        "\n",
+        "- Download an empty Ubuntu docker image first\n",
+        "- Install python\n",
+        "- Install the packages\n",
+        "- Run python code to build a simple model\n",
+        "- Run some test cases to validate\n",
+        "\n",
+        "Note that, these jobs also need to be in sequence. So, we will have similar approach as *Part 2*. Let's build the pipeline.\n",
+        "\n",
+        "# Pipeline to Run Python code:\n",
+        "\n",
+        "We can devide this jobs into mainly 3 groups - \n",
+        "\n",
+        "1. Environment Setup (Downloading Ubuntu, Installing Python)\n",
+        "2. Training Job (Installing required packages for training and train the model)\n",
+        "3. Testing Job (Install required packages for testing and test the model)\n",
+        "\n",
+        "So, First we need train code, let's call it `train_data.py`, a simple python code."
+      ],
+      "id": "c7499714"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "import joblib\n",
+        "\n",
+        "print(\"--- Training script starting ---\")\n",
+        "\n",
+        "# 1. Create simple training data\n",
+        "X_train = pd.DataFrame({'age': [20, 25, 30, 35, 40]})\n",
+        "y_train = pd.Series([200, 250, 300, 350, 400]) # e.g., shopping $\n",
+        "\n",
+        "# 2. Train a 'complex' model (it's not complex, don't tell)\n",
+        "model = LinearRegression()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "print(\"Model trained!\")\n",
+        "\n",
+        "# 3. Save the model\n",
+        "joblib.dump(model, 'shopping_model.joblib')\n",
+        "print(\"Model saved to shopping_model.joblib\")\n",
+        "\n",
+        "# 4. Create a test report for validation\n",
+        "X_test = pd.DataFrame({'age': [22, 33]})\n",
+        "predictions = model.predict(X_test)\n",
+        "\n",
+        "report = pd.DataFrame({'age': [22, 33], 'predicted_spend': predictions})\n",
+        "report.to_csv('validation_report.csv', index=False)\n",
+        "\n",
+        "print(\"Validation report created.\")\n",
+        "print(\"--- Training script finished ---\")"
+      ],
+      "id": "dc330a5e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "This code is simple. We are creating a dummy data and training a simple Linera Regression Model on top of it. Then same the model objects. Then predicting using model and saving the output into a csv file."
+      ],
+      "id": "590b621a"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "agent_env",
+      "language": "python",
+      "display_name": "agent_env",
+      "path": "/home/sushobhon/.local/share/jupyter/kernels/agent_env"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
