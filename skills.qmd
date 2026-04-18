@@ -6,6 +6,14 @@ resources:
 ---
 
 ## {{< fa briefcase >}} Senior Data Scientist, Tiger Analytics (Jan'25 - Present)
+- Ticket Management System
+    - {{<fa briefcase >}} Methods
+        - Created clean, non-ambiguous and complete Problem/Solution description for an Issue, using LLM.
+        - Used LLM to classify a ticket into one of the pre-defined classes.
+    - {{<fa screwdriver-weench >}} Tools
+        - Developed a multi-agentic freamwork using `LangChain` and `LangGraph`
+        - Created a `React` based frontend and a `python` based backend for a standalon webapp, with one frontend developer.
+        - Deployed the webapp as a static webapp in `Azure` and save all the ticket in `Cosmos DB`.
 - Revenue Optimizer
     - {{< fa briefcase >}} Methods
         - Optimized revenue generation by applying the Method of Moving Asymptotes (MMA) to operate within defined constraints.
