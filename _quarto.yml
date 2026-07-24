@@ -26,9 +26,9 @@ website:
 
     right:
       - text: "{{< fa envelope size=large >}}"
-        href: mailto:sushobhonkarmakar@gmail.com
+        href: mailto:sushobhon.karmakar.ds@gmail.com
       - text: "{{< fa brands linkedin-in size=large >}}"
-        href: https://www.linkedin.com/in/sushobhon-karmakar-579403160/
+        href: https://www.linkedin.com/in/sushobhonkarmakar/
       - text: "{{< fa brands x-twitter size=large >}}"
         href: https://x.com/sushobhon96
       - text: "{{< fa brands github size=large >}}"
